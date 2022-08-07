@@ -1,0 +1,7 @@
+*.exe
+*.dsym
+*.html
+*.js
+*.wasm
+*.data
+main

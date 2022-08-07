@@ -1,0 +1,17 @@
+{
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/*.o": true,
+		"**/*.exe": true,
+		"**/*.js": true,
+		"**/*.data": true,
+		"**/*.wasm": true,
+	},
+	"files.associations": {
+		"emscripten.h": "c"
+	}
+}
