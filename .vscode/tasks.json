@@ -16,7 +16,7 @@
                 "args": [
                     "RAYLIB_PATH=C:/raylib/raylib",
                     "PROJECT_NAME=${fileBasenameNoExtension}",
-                    "OBJS=src/main.cpp",
+                    "OBJS=src/*.cpp src/Entities/*.cpp",
                     "BUILD_MODE=RELEASE"
                 ]
             },
@@ -42,7 +42,7 @@
                 "isDefault": true
             },
             "problemMatcher": [
-                "$gcc"
+                "$g++"
             ]
         },
         {
