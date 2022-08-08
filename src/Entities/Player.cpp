@@ -8,6 +8,7 @@ void Player::Start()
     Size = {32, 32};
     Origin = {16, 16};
     Position = {200, 200};
+    Speed = 40.0f;
 }
 
 void Player::Update(float dt)
@@ -28,8 +29,7 @@ void Player::Update(float dt)
 
     direction = Vector2Normalize(direction);
 
-    float speed = 40.0f;
-    Vector2 velocity = Vector2Scale(direction, speed * dt);
+    Vector2 velocity = Vector2Scale(direction, Speed * dt);
     Position = Vector2Add(Position, velocity);
 
     LightAngle = atan2f(Position.x - GetMouseX(), Position.y - GetMouseY()) * RAD2DEG;
@@ -38,6 +38,7 @@ void Player::Update(float dt)
 
 void Player::Draw()
 {
-    DrawCircleSector(Position, LightDistance, LightAngle + 45.0f, LightAngle - 45.0f, LightSegment, YELLOW);
+    float angleLength = LightAngleLength / 2.0f;
+    DrawCircleSector(Position, LightDistance, LightAngle + angleLength, LightAngle - angleLength, LightSegment, YELLOW);
     GameObject::Draw();
 }

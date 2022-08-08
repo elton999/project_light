@@ -11,10 +11,15 @@ public:
 
     virtual void Start() override;
     virtual void Update(float dt) override;
+    virtual void Draw() override;
     bool IsOnLight();
 
 private:
     Player *Player{};
+
+    float SpeedToStop{10.0f};
+    float TimeToStop{0};
+    const float MAX_TIME_TO_STOP = 20.0f;
 };
 
 #endif

@@ -7,6 +7,7 @@ class GameObject
 {
 public:
     Vector2 Position{}, Origin{}, Size{};
+    float Speed;
     Color ColorSquare{0, 121, 241, 255};
 
     virtual void Start();
