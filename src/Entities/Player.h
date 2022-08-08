@@ -6,6 +6,7 @@
 class Player : public GameObject
 {
 public:
+    bool LightOn{true};
     float LightAngle{0};
     float LightAngleLength{50.0f};
     float LightDistance{150.0f};

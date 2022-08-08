@@ -27,6 +27,9 @@ void Player::Update(float dt)
     if (IsKeyDown(KEY_S))
         direction.y = 1;
 
+    if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
+        LightOn = !LightOn;
+
     direction = Vector2Normalize(direction);
 
     Vector2 velocity = Vector2Scale(direction, Speed * dt);
@@ -39,6 +42,7 @@ void Player::Update(float dt)
 void Player::Draw()
 {
     float angleLength = LightAngleLength / 2.0f;
-    DrawCircleSector(Position, LightDistance, LightAngle + angleLength, LightAngle - angleLength, LightSegment, YELLOW);
+    if (LightOn)
+        DrawCircleSector(Position, LightDistance, LightAngle + angleLength, LightAngle - angleLength, LightSegment, YELLOW);
     GameObject::Draw();
 }

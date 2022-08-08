@@ -17,9 +17,17 @@ public:
 private:
     Player *Player{};
 
-    float SpeedToStop{10.0f};
-    float TimeToStop{0};
+    enum EnemyStatus
+    {
+        FREEZING,
+        FOLLOWING
+    };
+    EnemyStatus Status = FREEZING;
+
     const float MAX_TIME_TO_STOP = 20.0f;
+    bool IsStopping = true;
+    float TimeToStop{0};
+    float SpeedToStop{10.0f};
 };
 
 #endif

@@ -12,12 +12,13 @@ void Enemy::Start()
 
 void Enemy::Update(float dt)
 {
-    bool stop = true;
+    Status = TimeToStop == 0 ? FREEZING : Status;
+    Status = TimeToStop == MAX_TIME_TO_STOP ? FOLLOWING : Status;
+
     if (IsOnLight())
     {
         ColorSquare = RED;
         TimeToStop = Clamp(TimeToStop - dt * SpeedToStop, 0, MAX_TIME_TO_STOP);
-        stop = false;
     }
     else
     {
@@ -25,7 +26,7 @@ void Enemy::Update(float dt)
         TimeToStop = Clamp(TimeToStop + dt * SpeedToStop * 0.3f, 0, MAX_TIME_TO_STOP);
     }
 
-    if ((TimeToStop == MAX_TIME_TO_STOP && stop) || (TimeToStop > 0 && !stop))
+    if (Status == FOLLOWING)
     {
         Vector2 direction = Vector2Normalize(Vector2Subtract(Player->Position, Position));
         Position = Vector2Add(Position, Vector2Scale(direction, Speed * dt));
@@ -48,7 +49,7 @@ bool Enemy::IsOnLight()
 {
     float distance = Vector2Distance(Player->Position, Position);
 
-    if (distance <= Player->LightDistance)
+    if (distance <= Player->LightDistance && Player->LightOn)
     {
         Vector2 direction = {sin(Player->LightAngle * DEG2RAD), cos(Player->LightAngle * DEG2RAD)};
         Vector2 pNormalized = Vector2Normalize(Vector2Subtract(Position, Player->Position));
