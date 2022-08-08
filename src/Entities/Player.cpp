@@ -31,10 +31,13 @@ void Player::Update(float dt)
     float speed = 40.0f;
     Vector2 velocity = Vector2Scale(direction, speed * dt);
     Position = Vector2Add(Position, velocity);
+
+    LightAngle = atan2f(Position.x - GetMouseX(), Position.y - GetMouseY()) * RAD2DEG;
+    LightAngle += 180.0f;
 }
 
 void Player::Draw()
 {
-    DrawCircleSector(Position, LightDistance, LightAngle, LightAngle + 90.0f, LightSegment, YELLOW);
+    DrawCircleSector(Position, LightDistance, LightAngle + 45.0f, LightAngle - 45.0f, LightSegment, YELLOW);
     GameObject::Draw();
 }

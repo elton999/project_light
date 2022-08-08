@@ -11,5 +11,5 @@ void GameObject::Update(float dt) {}
 
 void GameObject::Draw()
 {
-    DrawRectangleV(Vector2Subtract(Position, Origin), Size, BLUE);
+    DrawRectangleV(Vector2Subtract(Position, Origin), Size, ColorSquare);
 }
