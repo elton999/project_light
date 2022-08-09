@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "Entities/GameObject.h"
 #include "Entities/Player.h"
+#include "Entities/Weapon.h"
 #include "Entities/Enemy.h"
 
 //#define PLATFORM_WEB
@@ -13,7 +14,8 @@ int screenWidth = 400;
 int screenHeight = 400;
 
 Player *player = new Player();
-GameObject *entities[2];
+Weapon *weapon = new Weapon();
+GameObject *entities[3];
 
 void StartEntities(void);
 void UpdateDrawFrame(void);
@@ -22,8 +24,12 @@ int main(void)
 {
     InitWindow(screenWidth, screenHeight, "Project Light Alpha");
 
+    weapon->SetPlayer(*player);
+
     entities[0] = player;
     entities[1] = new Enemy(*player);
+    entities[2] = weapon;
+
     StartEntities();
 
 #if defined(PLATFORM_WEB)

@@ -51,10 +51,9 @@ bool Enemy::IsOnLight()
 
     if (distance <= Player->LightDistance && Player->LightOn)
     {
-        Vector2 direction = {sin(Player->LightAngle * DEG2RAD), cos(Player->LightAngle * DEG2RAD)};
         Vector2 pNormalized = Vector2Normalize(Vector2Subtract(Position, Player->Position));
 
-        return Vector2DotProduct(direction, pNormalized) >= cos(Player->LightAngleLength / 2.0f * DEG2RAD);
+        return Vector2DotProduct(Player->GetLightDirection(), pNormalized) >= cos(Player->LightAngleLength / 2.0f * DEG2RAD);
     }
     return false;
 }

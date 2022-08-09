@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "GameObject.h"
+#include "raymath.h"
 
 class Player : public GameObject
 {
@@ -14,6 +15,8 @@ public:
     virtual void Start() override;
     virtual void Update(float dt) override;
     virtual void Draw() override;
+
+    Vector2 GetLightDirection() { return {sin(LightAngle * DEG2RAD), cos(LightAngle * DEG2RAD)}; }
 
 private:
     int LightSegment{5};
