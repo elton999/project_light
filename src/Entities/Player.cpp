@@ -7,8 +7,8 @@ void Player::Start()
 {
     Size = {32, 32};
     Origin = {16, 16};
-    Position = {200, 200};
-    Speed = 40.0f;
+    Position = {0, 0};
+    Speed = 75.0f;
 }
 
 void Player::Update(float dt)
@@ -30,19 +30,38 @@ void Player::Update(float dt)
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
         LightOn = !LightOn;
 
+    if (LightOn)
+        LightPower = Clamp(LightPower - 0.1f * dt, 0, INFINITY);
+
+    if (SpeedPush > 0)
+    {
+        Move(PushDirection, SpeedPush * dt);
+        SpeedPush = Clamp(SpeedPush - 600 * dt, 0, INFINITY);
+        return;
+    }
+
     direction = Vector2Normalize(direction);
 
-    Vector2 velocity = Vector2Scale(direction, Speed * dt);
-    Position = Vector2Add(Position, velocity);
+    Move(direction, Speed * dt);
 
-    LightAngle = atan2f(Position.x - GetMouseX(), Position.y - GetMouseY()) * RAD2DEG;
+    LightAngle = atan2f(200 - GetMouseX(), 200 - GetMouseY()) * RAD2DEG;
     LightAngle += 180.0f;
 }
 
 void Player::Draw()
 {
     float angleLength = LightAngleLength / 2.0f;
-    if (LightOn)
+    if (IsLightOn())
         DrawCircleSector(Position, LightDistance, LightAngle + angleLength, LightAngle - angleLength, LightSegment, YELLOW);
     GameObject::Draw();
+
+    Vector2 targetPos = Vector2Add(Position, Vector2Scale(GetLightDirection(), LineTargetLength));
+    DrawLineV(Position, targetPos, GRAY);
+    DrawCircleV(targetPos, 5.0f, GRAY);
+}
+
+void Player::SetPush(Vector2 direction)
+{
+    PushDirection = direction;
+    SpeedPush = 300.0f;
 }

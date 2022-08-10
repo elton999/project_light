@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Weapon.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 void Weapon::Start()
 {
@@ -15,7 +16,18 @@ void Weapon::Start()
 void Weapon::Update(float dt)
 {
     for (auto bullet : Bullets)
-        bullet->Update(dt);
+    {
+        if (bullet->IsActive)
+        {
+            bullet->Update(dt);
+            if (_enemy->CheckOverlay(bullet->Position, bullet->Size))
+            {
+                if (_enemy->Status == Enemy::FREEZING)
+                    _enemy->Hit();
+                bullet->IsActive = false;
+            }
+        }
+    }
 
     Position = Player->Position;
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))

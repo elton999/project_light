@@ -7,7 +7,7 @@ void Bullet::Start()
 {
     Size = {10, 10};
     Origin = {5, 5};
-    Speed = 80.0f;
+    Speed = 180.0f;
     Position = {0, 0};
     ColorSquare = RED;
 }

@@ -13,6 +13,9 @@ public:
     virtual void Start();
     virtual void Update(float dt);
     virtual void Draw();
+
+    virtual void Move(Vector2 direction, float speed);
+    virtual void Hit() {}
 };
 
 #endif
