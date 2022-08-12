@@ -2,9 +2,10 @@
 #define PLAYER_H
 
 #include "GameObject.h"
+#include "Character.h"
 #include "raymath.h"
 
-class Player : public GameObject
+class Player : public Character
 {
 public:
     bool LightOn{true};

@@ -14,8 +14,8 @@
 #include <emscripten/emscripten.h>
 #endif
 
-int screenWidth = 400;
-int screenHeight = 400;
+int screenWidth = 426;
+int screenHeight = 240;
 
 Camera2D camera;
 
@@ -23,6 +23,8 @@ Player *player = new Player();
 Enemy *enemy = new Enemy(*player);
 Weapon *weapon = new Weapon();
 Ui *ui = new Ui();
+
+RenderTexture backBuffer;
 
 GameObject *entities[3];
 
@@ -32,6 +34,10 @@ void UpdateDrawFrame(void);
 int main(void)
 {
     InitWindow(screenWidth, screenHeight, "Project Light Alpha");
+
+    SetWindowState(FLAG_WINDOW_RESIZABLE);
+
+    backBuffer = LoadRenderTexture(screenWidth, screenHeight);
 
     weapon->SetPlayer(*player);
     weapon->SetEnemy(*enemy);
@@ -69,14 +75,13 @@ void StartEntities(void)
 void UpdateDrawFrame(void)
 {
     camera.target = player->Position;
-    camera.offset = {200, 200};
+    camera.offset = {screenWidth / 2.0f, screenHeight / 2.0f};
     camera.rotation = 0;
     camera.zoom = 1.0f;
 
-    BeginDrawing();
-
+    // draw in sprite
+    BeginTextureMode(backBuffer);
     ClearBackground(WHITE);
-
     BeginMode2D(camera);
 
     rlPushMatrix();
@@ -95,6 +100,13 @@ void UpdateDrawFrame(void)
 
     ui->Update(deltaTime);
     ui->Draw();
+    EndTextureMode();
 
+    BeginDrawing();
+    ClearBackground(BLACK);
+    Vector2 sizesScreen = {(float)GetScreenWidth() / (float)screenWidth, (float)GetScreenHeight() / (float)screenHeight};
+    sizesScreen = Vector2Scale({(float)screenWidth, (float)screenHeight}, sizesScreen.x > sizesScreen.y ? sizesScreen.y : sizesScreen.x);
+    Vector2 origin = {sizesScreen.x / 2.0f - GetScreenWidth() / 2.0f, sizesScreen.y / 2.0f - GetScreenHeight() / 2.0f};
+    DrawTexturePro(backBuffer.texture, {0, 0, (float)screenWidth, -(float)screenHeight}, {0, 0, sizesScreen.x, sizesScreen.y}, origin, 0.0f, WHITE);
     EndDrawing();
 }
