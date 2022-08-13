@@ -17,6 +17,8 @@
 int screenWidth = 426;
 int screenHeight = 240;
 
+int windowScale = 2;
+
 Camera2D camera;
 
 Player *player = new Player();
@@ -33,7 +35,7 @@ void UpdateDrawFrame(void);
 
 int main(void)
 {
-    InitWindow(screenWidth, screenHeight, "Project Light Alpha");
+    InitWindow(screenWidth * windowScale, screenHeight * windowScale, "Project Light Alpha");
 
     SetWindowState(FLAG_WINDOW_RESIZABLE);
 

@@ -14,7 +14,7 @@ public:
     float LightDistance{150.0f};
     float LightPower{1.0f};
 
-    float LineTargetLength{170.0f};
+    float LineTargetLength{50.0f};
 
     virtual void Start() override;
     virtual void Update(float dt) override;
@@ -31,6 +31,10 @@ private:
     int LightSegment{5};
     Vector2 PushDirection{0, 0};
     float SpeedPush{0};
+
+    Texture2D idle{};
+    Texture2D run{};
+    Texture2D damage{};
 };
 
 #endif

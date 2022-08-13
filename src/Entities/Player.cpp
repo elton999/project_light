@@ -9,24 +9,28 @@ void Player::Start()
     Origin = {16, 16};
     Position = {0, 0};
     Speed = 75.0f;
-    Sprite = LoadTexture("resources/player.png");
+
+    idle = LoadTexture("resources/player.png");
+    run = LoadTexture("resources/player_run.png");
+    damage = LoadTexture("resources/player_damage.png");
+    Sprite = idle;
 }
 
 void Player::Update(float dt)
 {
     Character::Update(dt);
 
-    Vector2 direction = {0, 0};
+    Direction = {0, 0};
 
     if (IsKeyDown(KEY_A))
-        direction.x = -1;
+        Direction.x = -1;
     if (IsKeyDown(KEY_D))
-        direction.x = 1;
+        Direction.x = 1;
 
     if (IsKeyDown(KEY_W))
-        direction.y = -1;
+        Direction.y = -1;
     if (IsKeyDown(KEY_S))
-        direction.y = 1;
+        Direction.y = 1;
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
         LightOn = !LightOn;
@@ -36,16 +40,24 @@ void Player::Update(float dt)
 
     if (SpeedPush > 0)
     {
+        Sprite = damage;
+        Right = PushDirection.x < 0;
         Move(PushDirection, SpeedPush * dt);
         SpeedPush = Clamp(SpeedPush - 600 * dt, 0, INFINITY);
         return;
     }
 
-    direction = Vector2Normalize(direction);
+    if (Vector2Length(Direction) == 0)
+        Sprite = idle;
+    else
+        Sprite = run;
 
-    Move(direction, Speed * dt);
+    if (Direction.x != 0)
+        Right = Direction.x > 0;
 
-    LightAngle = atan2f(200 - GetMouseX(), 200 - GetMouseY()) * RAD2DEG;
+    Move(Vector2Normalize(Direction), Speed * dt);
+
+    LightAngle = atan2f(GetScreenWidth() / 2.0f - GetMouseX(), GetScreenHeight() / 2.0f - GetMouseY()) * RAD2DEG;
     LightAngle += 180.0f;
 }
 

@@ -7,7 +7,12 @@ void Enemy::Start()
     Position = {100, 100};
     Origin = {16, 16};
     Size = {32, 32};
-    Speed = 60.0f;
+    Speed = 100.0f;
+
+    idle = LoadTexture("resources/troll.png");
+    walk = LoadTexture("resources/troll_walk.png");
+    freezing = LoadTexture("resources/troll_freezing.png");
+    Sprite = idle;
 }
 
 void Enemy::Update(float dt)
@@ -17,6 +22,9 @@ void Enemy::Update(float dt)
 
     Status = TimeToStop == 0 ? FREEZING : Status;
     Status = TimeToStop == MAX_TIME_TO_STOP ? FOLLOWING : Status;
+
+    Direction = {0, 0};
+    Character::Update(IsInLight() ? dt / 2.f : dt);
 
     int barProgress = 1;
     if (IsInLight())
@@ -30,6 +38,15 @@ void Enemy::Update(float dt)
         Direction = Vector2Normalize(Vector2Subtract(Player->Position, Position));
         Position = Vector2Add(Position, Vector2Scale(Direction, Speed * dt));
     }
+
+    if (Direction.x != 0)
+        Right = Direction.x > 0;
+
+    if (Vector2Length(Direction) == 0)
+        Sprite = Status == FREEZING ? freezing : idle;
+    else
+        Sprite = walk;
+
     CheckPlayerCollision();
 }
 
@@ -49,7 +66,7 @@ void Enemy::Draw()
     DrawRectangleV(barPos, barSize, BLACK);
     DrawRectangleV(barPos, Vector2Subtract(barSize, {barPercent, 0}), RED);
 
-    GameObject::Draw();
+    Character::Draw();
 }
 
 void Enemy::CheckPlayerCollision()

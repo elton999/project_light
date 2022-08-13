@@ -2,9 +2,10 @@
 #define ENEMY_H
 
 #include "GameObject.h"
+#include "Character.h"
 #include "Player.h"
 
-class Enemy : public GameObject
+class Enemy : public Character
 {
 public:
     Enemy(Player &player) { Player = &player; }
@@ -33,7 +34,9 @@ private:
     float TimeToStop{0};
     float SpeedToStop{10.0f};
 
-    Vector2 Direction{0, 0};
+    Texture2D idle{};
+    Texture2D walk{};
+    Texture2D freezing{};
 };
 
 #endif
