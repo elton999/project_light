@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "Ui.h"
 #include "raylib.h"
+#include "../Colors.h"
 
 void Ui::Draw()
 {

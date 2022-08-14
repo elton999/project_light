@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "raymath.h"
+#include "../Colors.h"
 #include "Player.h"
 #include "Character.h"
 
@@ -18,6 +19,7 @@ void Player::Start()
 
 void Player::Update(float dt)
 {
+    LightDT += dt * 10;
     Character::Update(dt);
 
     Direction = {0, 0};
@@ -65,7 +67,13 @@ void Player::Draw()
 {
     float angleLength = LightAngleLength / 2.0f;
     if (IsLightOn())
-        DrawCircleSector(Position, LightDistance, LightAngle + angleLength, LightAngle - angleLength, LightSegment, YELLOW);
+    {
+        Color lightColor = YELLOW;
+        if (LightPower <= 0.3f)
+            if ((int)LightDT % 4 < 2.f)
+                lightColor = BLANK;
+        DrawCircleSector(Position, LightDistance, LightAngle + angleLength, LightAngle - angleLength, LightSegment, lightColor);
+    }
 
     Vector2 targetPos = Vector2Add(Position, Vector2Scale(GetLightDirection(), LineTargetLength));
     DrawLineV(Position, targetPos, GRAY);

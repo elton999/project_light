@@ -29,6 +29,7 @@ public:
 
 private:
     int LightSegment{5};
+    float LightDT{0};
     Vector2 PushDirection{0, 0};
     float SpeedPush{0};
 

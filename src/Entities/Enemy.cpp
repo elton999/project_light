@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "raymath.h"
+#include "../Colors.h"
 #include "Enemy.h"
 
 void Enemy::Start()
@@ -24,7 +25,7 @@ void Enemy::Update(float dt)
     Status = TimeToStop == MAX_TIME_TO_STOP ? FOLLOWING : Status;
 
     Direction = {0, 0};
-    Character::Update(IsInLight() ? dt / 2.f : dt);
+    Character::Update(IsInLight() ? dt * 0.3f : dt);
 
     int barProgress = 1;
     if (IsInLight())
