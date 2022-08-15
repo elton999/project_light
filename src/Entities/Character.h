@@ -11,6 +11,7 @@ public:
     bool Right{true};
     int SpriteWidth{};
     float Scale{1}, Rotation{1};
+    Color SpriteColor{WHITE};
 
     void Animation(float dt);
 

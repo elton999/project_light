@@ -18,7 +18,10 @@ void Enemy::Start()
 
 void Enemy::Update(float dt)
 {
-    if (HP <= 0)
+    HitCoolDown -= dt;
+    DeathExplosion -= dt;
+
+    if (HP <= 0 || HitCoolDown > 0)
         return;
 
     Status = TimeToStop == 0 ? FREEZING : Status;
@@ -29,13 +32,17 @@ void Enemy::Update(float dt)
 
     int barProgress = 1;
     if (IsInLight())
+    {
         barProgress = -1;
+        SpriteColor = YELLOW;
+    }
+    else
+        SpriteColor = WHITE;
+
     TimeToStop = Clamp(TimeToStop + (dt * SpeedToStop * barProgress), 0, MAX_TIME_TO_STOP);
 
-    ColorSquare = RED;
     if (Status == FOLLOWING)
     {
-        ColorSquare = GREEN;
         Direction = Vector2Normalize(Vector2Subtract(Player->Position, Position));
         Position = Vector2Add(Position, Vector2Scale(Direction, Speed * dt));
     }
@@ -53,6 +60,9 @@ void Enemy::Update(float dt)
 
 void Enemy::Draw()
 {
+    if (DeathExplosion >= 0)
+        DrawCircle(Position.x, Position.y, Size.y, BLACK);
+
     if (HP <= 0)
         return;
 
@@ -62,10 +72,10 @@ void Enemy::Draw()
     float barHPPercent = (1.0f - HP) * barSize.x;
 
     DrawRectangleV(Vector2Subtract(barPos, {0, 5}), barSize, BLACK);
-    DrawRectangleV(Vector2Subtract(barPos, {0, 5}), Vector2Subtract(barSize, {barHPPercent, 0}), GREEN);
+    DrawRectangleV(Vector2Subtract(barPos, {-1, 4}), Vector2Subtract(barSize, {barHPPercent + 2, 2}), GREEN);
 
     DrawRectangleV(barPos, barSize, BLACK);
-    DrawRectangleV(barPos, Vector2Subtract(barSize, {barPercent, 0}), RED);
+    DrawRectangleV(Vector2AddValue(barPos, 1), Vector2Subtract(barSize, {barPercent + 2, 2}), RED);
 
     Character::Draw();
 }
@@ -86,8 +96,12 @@ bool Enemy::CheckOverlay(Vector2 pos, Vector2 size)
 
 void Enemy::Hit()
 {
-    if (Status == FREEZING)
-        HP -= 1.0f / 3.0f;
+    HP -= 1.0f / 3.0f;
+    HitCoolDown = HIT_COOLDOWN_TIME;
+    SpriteColor = BLACK;
+
+    if (HP <= 0)
+        DeathExplosion = DEATH_EXPLOSION_TIME;
 }
 
 bool Enemy::IsInLight()

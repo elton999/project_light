@@ -34,6 +34,12 @@ private:
     float TimeToStop{0};
     float SpeedToStop{10.0f};
 
+    float HitCoolDown{0};
+    float const HIT_COOLDOWN_TIME = 0.1f;
+
+    float DeathExplosion{0};
+    float const DEATH_EXPLOSION_TIME = 0.2f;
+
     Texture2D idle{};
     Texture2D walk{};
     Texture2D freezing{};
