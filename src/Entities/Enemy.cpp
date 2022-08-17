@@ -28,7 +28,7 @@ void Enemy::Update(float dt)
     Status = TimeToStop == MAX_TIME_TO_STOP ? FOLLOWING : Status;
 
     Direction = {0, 0};
-    Character::Update(IsInLight() ? dt * 0.3f : dt);
+    SpriteAnimation::Update(IsInLight() ? dt * 0.3f : dt);
 
     int barProgress = 1;
     if (IsInLight())
@@ -77,7 +77,7 @@ void Enemy::Draw()
     DrawRectangleV(barPos, barSize, BLACK);
     DrawRectangleV(Vector2AddValue(barPos, 1), Vector2Subtract(barSize, {barPercent + 2, 2}), RED);
 
-    Character::Draw();
+    SpriteAnimation::Draw();
 }
 
 void Enemy::CheckPlayerCollision()

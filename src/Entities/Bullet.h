@@ -7,6 +7,7 @@
 class Bullet : public GameObject
 {
 public:
+    Texture2D Sprite;
     bool IsActive{false};
 
     void SetDirection(Vector2 direction) { Direction = direction; }

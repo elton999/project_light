@@ -2,10 +2,10 @@
 #define ENEMY_H
 
 #include "GameObject.h"
-#include "Character.h"
+#include "SpriteAnimation.h"
 #include "Player.h"
 
-class Enemy : public Character
+class Enemy : public SpriteAnimation
 {
 public:
     Enemy(Player &player) { Player = &player; }

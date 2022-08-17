@@ -1,10 +1,10 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef SPRITE_ANIMATION_H
+#define SPRITE_ANIMATION_H
 
 #include "GameObject.h"
 #include "raylib.h"
 
-class Character : public GameObject
+class SpriteAnimation : public GameObject
 {
 public:
     Texture2D Sprite;
@@ -25,6 +25,7 @@ protected:
     int frame{};
     int maxFrames{6};
     float updateTime{1.f / 12.f};
+    int width{32};
 };
 
 #endif

@@ -6,15 +6,28 @@
 
 void Weapon::Start()
 {
+    Texture2D bulletSprite = LoadTexture("resources/efx/ballet.png");
     for (int i = 0; i < MAX_BULLETS; i++)
     {
         Bullets[i] = new Bullet();
         Bullets[i]->Start();
+        Bullets[i]->Sprite = bulletSprite;
     }
+
+    Sprite = LoadTexture("resources/efx/shoot_efx.png");
+    Origin = {0, 8};
+    width = 16;
 }
 
 void Weapon::Update(float dt)
 {
+    Position = Player->Position;
+    if (frame == 2)
+        PlayAnimation = false;
+
+    if (PlayAnimation)
+        SpriteAnimation::Animation(dt);
+
     for (auto bullet : Bullets)
     {
         if (bullet->IsActive)
@@ -40,6 +53,11 @@ void Weapon::Draw()
 {
     for (auto bullet : Bullets)
         bullet->Draw();
+
+    if (!PlayAnimation)
+        return;
+
+    SpriteAnimation::Draw();
 }
 
 void Weapon::Shoot()
@@ -49,7 +67,12 @@ void Weapon::Shoot()
 
     Bullets[CurrentBullet]->SetDirection(Player->GetLightDirection());
     Bullets[CurrentBullet]->IsActive = true;
-    Bullets[CurrentBullet]->Position = Position;
+    Bullets[CurrentBullet]->Position = Vector2Add(Position, Vector2Scale(Player->GetLightDirection(), 15));
 
     CurrentBullet++;
+
+    Rotation = -Player->LightAngle + 90;
+    PlayAnimation = true;
+    frame = 0;
+    runningTime = 0;
 }

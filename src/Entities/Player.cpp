@@ -2,7 +2,7 @@
 #include "raymath.h"
 #include "../Colors.h"
 #include "Player.h"
-#include "Character.h"
+#include "SpriteAnimation.h"
 
 void Player::Start()
 {
@@ -20,7 +20,7 @@ void Player::Start()
 void Player::Update(float dt)
 {
     LightDT += dt * 10;
-    Character::Update(dt);
+    SpriteAnimation::Update(dt);
 
     Direction = {0, 0};
 
@@ -77,9 +77,9 @@ void Player::Draw()
 
     Vector2 targetPos = Vector2Add(Position, Vector2Scale(GetLightDirection(), LineTargetLength));
     DrawLineV(Position, targetPos, GRAY);
-    DrawCircleV(targetPos, 5.0f, GRAY);
+    DrawCircleV(targetPos, 3.0f, GRAY);
 
-    Character::Draw();
+    SpriteAnimation::Draw();
 }
 
 void Player::SetPush(Vector2 direction)

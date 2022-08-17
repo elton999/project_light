@@ -25,5 +25,6 @@ void Bullet::Draw()
     if (!IsActive)
         return;
 
-    GameObject::Draw();
+    DrawTextureEx(Sprite, Vector2Subtract(Position, Origin), 0, 1, WHITE);
+    // GameObject::Draw();
 }

@@ -1,14 +1,14 @@
 #include "raylib.h"
 #include "raymath.h"
-#include "Character.h"
+#include "SpriteAnimation.h"
 #include "GameObject.h"
 
-void Character::Update(float dt)
+void SpriteAnimation::Update(float dt)
 {
-    Character::Animation(dt);
+    SpriteAnimation::Animation(dt);
 }
 
-void Character::Animation(float dt)
+void SpriteAnimation::Animation(float dt)
 {
     runningTime += dt;
     if (runningTime < updateTime)
@@ -20,10 +20,10 @@ void Character::Animation(float dt)
         frame = 0;
 }
 
-void Character::Draw()
+void SpriteAnimation::Draw()
 {
     // DrawTextureEx(Sprite, Vector2Subtract(Position, Origin), Scale, Rotation, WHITE);
-    Rectangle source{frame * 32, 0, (Right ? 1 : -1) * 32, 32};
-    Rectangle dest{Position.x, Position.y, 32, 32};
+    Rectangle source{frame * width, 0, (Right ? 1 : -1) * width, Sprite.height};
+    Rectangle dest{Position.x, Position.y, width, Sprite.height};
     DrawTexturePro(Sprite, source, dest, Origin, Rotation, SpriteColor);
 }

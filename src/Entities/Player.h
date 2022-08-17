@@ -2,10 +2,10 @@
 #define PLAYER_H
 
 #include "GameObject.h"
-#include "Character.h"
+#include "SpriteAnimation.h"
 #include "raymath.h"
 
-class Player : public Character
+class Player : public SpriteAnimation
 {
 public:
     bool LightOn{true};
