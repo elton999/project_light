@@ -23,7 +23,7 @@ void SpriteAnimation::Animation(float dt)
 void SpriteAnimation::Draw()
 {
     // DrawTextureEx(Sprite, Vector2Subtract(Position, Origin), Scale, Rotation, WHITE);
-    Rectangle source{frame * width, 0, (Right ? 1 : -1) * width, Sprite.height};
-    Rectangle dest{Position.x, Position.y, width, Sprite.height};
+    Rectangle source{frame * Size.x, 0, (Right ? 1 : -1) * Size.x, Size.y};
+    Rectangle dest{Position.x, Position.y, width, height};
     DrawTexturePro(Sprite, source, dest, Origin, Rotation, SpriteColor);
 }

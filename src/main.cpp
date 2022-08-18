@@ -6,6 +6,7 @@
 #include "Entities/Player.h"
 #include "Entities/Weapon.h"
 #include "Entities/Enemy.h"
+#include "Entities/LightCharger.h"
 #include "Entities/Ui.h"
 
 //#define PLATFORM_WEB
@@ -28,7 +29,7 @@ Ui *ui = new Ui();
 
 RenderTexture backBuffer;
 
-GameObject *entities[3];
+GameObject *entities[4];
 
 void StartEntities(void);
 void UpdateDrawFrame(void);
@@ -43,14 +44,18 @@ int main(void)
 
     weapon->SetPlayer(*player);
     weapon->SetEnemy(*enemy);
+    LightCharger *light = new LightCharger();
+    light->player = player;
 
+    ui->Start();
     ui->SetPlayer(*player);
 
     camera = {0};
 
-    entities[0] = player;
-    entities[1] = enemy;
-    entities[2] = weapon;
+    entities[0] = light;
+    entities[1] = player;
+    entities[2] = enemy;
+    entities[3] = weapon;
 
     StartEntities();
 

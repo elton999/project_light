@@ -5,12 +5,14 @@
 
 void Ui::Draw()
 {
-    Vector2 barSizeHP = {80, 10};
+    Vector2 barSizeHP = {88, 7};
 
-    DrawRectangleV({0, 0}, barSizeHP, BLACK);
-    DrawRectangleV({1, 1}, Vector2SubtractValue({barSizeHP.x * Player->HP, barSizeHP.y}, 2), BLUE);
+    DrawRectangleV({34, 9}, barSizeHP, DARK_BLUE);
+    DrawRectangleV({34, 9}, {barSizeHP.x * Player->HP, barSizeHP.y}, BLUE);
 
-    Vector2 barSizeLight = {70, 7};
-    DrawRectangleV({0, barSizeHP.y}, barSizeLight, BLACK);
-    DrawRectangleV({1, barSizeHP.y + 1}, Vector2SubtractValue({barSizeLight.x * Player->LightPower, barSizeLight.y}, 2), YELLOW);
+    Vector2 barSizeLight = {69, 8};
+    DrawRectangleV({34, 18}, barSizeLight, DARK_BLUE);
+    DrawRectangleV({34, 18}, {barSizeLight.x * Player->LightPower, barSizeLight.y}, YELLOW);
+
+    DrawTexture(Sprite, 2, 2, WHITE);
 }
