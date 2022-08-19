@@ -14,15 +14,22 @@ void Enemy::Start()
     walk = LoadTexture("resources/troll_walk.png");
     freezing = LoadTexture("resources/troll_freezing.png");
     Sprite = idle;
+
+    Efx->Start();
 }
 
 void Enemy::Update(float dt)
 {
+    if (!Efx->IsAnimationFinished())
+        Efx->Update(dt);
+
     HitCoolDown -= dt;
     DeathExplosion -= dt;
 
     if (HP <= 0 || HitCoolDown > 0)
         return;
+
+    SetSize(32, 32);
 
     Status = TimeToStop == 0 ? FREEZING : Status;
     Status = TimeToStop == MAX_TIME_TO_STOP ? FOLLOWING : Status;
@@ -78,6 +85,7 @@ void Enemy::Draw()
     DrawRectangleV(Vector2AddValue(barPos, 1), Vector2Subtract(barSize, {barPercent + 2, 2}), RED);
 
     SpriteAnimation::Draw();
+    Efx->Draw();
 }
 
 void Enemy::CheckPlayerCollision()
@@ -99,6 +107,11 @@ void Enemy::Hit()
     HP -= 1.0f / 3.0f;
     HitCoolDown = HIT_COOLDOWN_TIME;
     SpriteColor = BLACK;
+
+    SetSize(32 + 6, 32 - 6);
+
+    Efx->StartAnimation();
+    Efx->Position = Position;
 
     if (HP <= 0)
         DeathExplosion = DEATH_EXPLOSION_TIME;

@@ -18,6 +18,12 @@ public:
     virtual void Update(float dt) override;
     virtual void Draw() override;
 
+    void SetSize(int x, int y)
+    {
+        width = x;
+        height = y;
+    }
+
 protected:
     Vector2 Direction{0, 0};
 

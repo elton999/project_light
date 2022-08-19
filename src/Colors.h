@@ -13,5 +13,7 @@
     (Color) { 173, 47, 69, 255 }
 #define GREEN \
     (Color) { 99, 171, 63, 255 }
+#define PURPLE \
+    (Color) { 105, 36, 100, 255 }
 
 #endif

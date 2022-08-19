@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "SpriteAnimation.h"
 #include "Player.h"
+#include "CollisionEfx.h"
 
 class Enemy : public SpriteAnimation
 {
@@ -28,6 +29,8 @@ public:
 
 private:
     Player *Player{};
+
+    CollisionEfx *Efx = new CollisionEfx();
 
     const float MAX_TIME_TO_STOP = 20.0f;
     bool IsStopping = true;
