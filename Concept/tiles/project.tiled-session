@@ -3,18 +3,18 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "tileset.tsx",
+    "activeFile": "level.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "level.tmx": {
-            "scale": 2,
+            "scale": 5.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 162.75,
-                "y": 149.5
+                "x": 81.90909090909092,
+                "y": 100.36363636363637
             }
         },
         "tileset.tsx": {
@@ -30,13 +30,13 @@
     "map.tileHeight": 8,
     "map.tileWidth": 8,
     "openFiles": [
-        "level.tmx",
-        "tileset.tsx"
+        "tileset.tsx",
+        "level.tmx"
     ],
     "project": "project.tiled-project",
     "recentFiles": [
-        "level.tmx",
-        "tileset.tsx"
+        "tileset.tsx",
+        "level.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

@@ -31,8 +31,8 @@ tiles ReadTileMap()
 Vector2 GetInGrid(int num, int width, int height)
 {
     return Vector2{
-        (float)num / (float)width,
-        (float)fmod(num, height),
+        std::trunc((float)num / (float)width),
+        std::trunc((float)fmod(num, height)),
     };
 }
 

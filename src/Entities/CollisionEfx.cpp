@@ -7,6 +7,7 @@ void CollisionEfx::Start()
     maxFrames = 3;
     frame = 2;
     Size = {16, 16};
+    Origin = {8, 8};
     width = 16;
     height = 16;
 }
