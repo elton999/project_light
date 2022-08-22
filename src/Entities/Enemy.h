@@ -18,6 +18,9 @@ public:
     };
     EnemyStatus Status = FREEZING;
 
+    Vector2 CameraPosition{};
+    Vector2 CameraSize{};
+
     virtual void Start() override;
     virtual void Update(float dt) override;
     virtual void Draw() override;
@@ -25,12 +28,17 @@ public:
 
     void CheckPlayerCollision();
     bool IsInLight();
+
+    void SetOnVisible();
     bool CheckOverlay(Vector2 pos, Vector2 size);
+    bool IsVisible() { return CheckOverlay(CameraPosition, CameraSize); }
 
 private:
     Player *Player{};
 
     CollisionEfx *Efx = new CollisionEfx();
+
+    bool Visible{false};
 
     const float MAX_TIME_TO_STOP = 20.0f;
     bool IsStopping = true;

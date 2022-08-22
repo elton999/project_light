@@ -20,6 +20,8 @@ void Enemy::Start()
 
 void Enemy::Update(float dt)
 {
+    SetOnVisible();
+
     if (!Efx->IsAnimationFinished())
         Efx->Update(dt);
 
@@ -127,4 +129,10 @@ bool Enemy::IsInLight()
         return Vector2DotProduct(Player->GetLightDirection(), pNormalized) >= cos(Player->LightAngleLength / 2.0f * DEG2RAD);
     }
     return false;
+}
+
+void Enemy::SetOnVisible()
+{
+    if (IsVisible())
+        Visible = true;
 }

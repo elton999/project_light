@@ -15,5 +15,7 @@
     (Color) { 99, 171, 63, 255 }
 #define PURPLE \
     (Color) { 105, 36, 100, 255 }
+#define SHADOW \
+    (Color) { 76, 104, 133, 255 / 2 }
 
 #endif

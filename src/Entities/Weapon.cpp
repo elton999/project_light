@@ -37,11 +37,9 @@ void Weapon::Update(float dt)
             bullet->Update(dt);
             if (_enemy->CheckOverlay(bullet->Position, bullet->Size))
             {
+                bullet->IsActive = false;
                 if (_enemy->Status == Enemy::FREEZING && _enemy->HP > 0)
-                {
                     _enemy->Hit();
-                    bullet->IsActive = false;
-                }
             }
         }
     }

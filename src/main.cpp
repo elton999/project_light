@@ -24,7 +24,7 @@ int screenHeight = 240;
 
 int windowScale = 2;
 
-Camera2D camera;
+Camera2D camera = {};
 
 Player *player = new Player();
 Enemy *enemy = new Enemy(*player);
@@ -54,8 +54,11 @@ int main(void)
 
     weapon->SetPlayer(*player);
     weapon->SetEnemy(*enemy);
+
     LightCharger *light = new LightCharger();
     light->player = player;
+
+    enemy->CameraSize = {(float)screenWidth, (float)screenHeight};
 
     ui->Start();
     ui->SetPlayer(*player);
@@ -95,6 +98,8 @@ void UpdateDrawFrame(void)
     camera.offset = {screenWidth / 2.0f, screenHeight / 2.0f};
     camera.rotation = 0;
     camera.zoom = 1.0f;
+
+    enemy->CameraPosition = Vector2Subtract(camera.target, camera.offset);
 
     // draw in sprite
     BeginTextureMode(backBuffer);

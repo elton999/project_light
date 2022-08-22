@@ -65,6 +65,8 @@ void Player::Update(float dt)
 
 void Player::Draw()
 {
+    DrawCircleV(Vector2Add(Position, {0, 16}), 7, SHADOW);
+
     float angleLength = LightAngleLength / 2.0f;
     if (IsLightOn())
     {
