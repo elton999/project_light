@@ -28,11 +28,11 @@ tiles ReadTileMap()
     return dataTiles;
 }
 
-Vector2 GetInGrid(int num, int width, int height)
+Vector2 GetInGrid(int num, int width)
 {
     return Vector2{
-        std::trunc((float)num / (float)width),
-        std::trunc((float)fmod(num, height)),
+        std::truncf((float)num / (float)width),
+        std::truncf((float)fmod(num, (float)width)),
     };
 }
 
@@ -42,12 +42,12 @@ void DrawTileMap(tiles tileData, Texture2D sprite)
     {
         if (tileData.data[i] != -1)
         {
-            Vector2 sourcePos = GetInGrid(tileData.data[i], 7, 7);
+            Vector2 sourcePos = GetInGrid(tileData.data[i], 9);
             sourcePos = Vector2Scale(sourcePos, 8);
             Rectangle source{sourcePos.y, sourcePos.x, 8, 8};
             Vector2 offset{50, 50};
 
-            Vector2 position = GetInGrid(i, tileData.width, tileData.height);
+            Vector2 position = GetInGrid(i, tileData.width);
 
             position = Vector2Scale(position, 8);
             position = Vector2Add(position, offset);

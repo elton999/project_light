@@ -28,6 +28,7 @@ Camera2D camera = {};
 
 Player *player = new Player();
 Enemy *enemy = new Enemy(*player);
+Enemy *enemies[2];
 Weapon *weapon = new Weapon();
 Ui *ui = new Ui();
 

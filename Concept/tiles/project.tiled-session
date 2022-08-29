@@ -3,26 +3,34 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "teste level.tmx",
+    "activeFile": "level.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "level.tmx": {
-            "scale": 1.5,
+            "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 120,
-                "y": 119.66666666666666
+                "x": 95.875,
+                "y": 133
+            }
+        },
+        "map.tmx": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2.125,
+                "y": 13
             }
         },
         "teste level.tmx": {
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 285.6666666666667,
-                "y": 241.3333333333333
+                "x": 89.66666666666669,
+                "y": 592.6666666666666
             }
         },
         "tileset.tsx": {
@@ -32,21 +40,22 @@
     },
     "last.exportedFilePath": "D:/games_projects/project light/resources/maps",
     "last.imagePath": "D:/games_projects/project light/resources/tilemap",
-    "map.height": 600,
+    "map.fixedSize": false,
+    "map.height": 100,
     "map.lastUsedExportFilter": "CSV files (*.csv)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 8,
     "map.tileWidth": 8,
-    "map.width": 600,
+    "map.width": 100,
     "openFiles": [
         "tileset.tsx",
-        "level.tmx",
-        "teste level.tmx"
+        "level.tmx"
     ],
     "project": "project.tiled-project",
     "recentFiles": [
         "tileset.tsx",
         "level.tmx",
+        "map.tmx",
         "teste level.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",

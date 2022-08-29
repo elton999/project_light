@@ -18,6 +18,6 @@ void GameObject::Move(Vector2 direction, float speed)
 {
     Vector2 velocity = Vector2Scale(direction, speed);
     Position = Vector2Add(Position, velocity);
-    Position = {std::round(Position.x),
-                std::round(Position.y)};
+    Position = {std::roundf(Position.x),
+                std::roundf(Position.y)};
 }

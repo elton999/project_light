@@ -9,7 +9,7 @@ void Player::Start()
     Size = {32, 32};
     Origin = {16, 16};
     Position = {0, 0};
-    Speed = 75.0f;
+    Speed = 80;
 
     idle = LoadTexture("resources/player.png");
     run = LoadTexture("resources/player_run.png");
