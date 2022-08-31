@@ -3,9 +3,10 @@
 
 #include "GameObject.h"
 #include "SpriteAnimation.h"
+#include "CollisionCharacter.h"
 #include "raymath.h"
 
-class Player : public SpriteAnimation
+class Player : public SpriteAnimation, CollisionCharacter
 {
 public:
     bool LightOn{true};

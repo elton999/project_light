@@ -1,9 +1,14 @@
+#ifndef TILE_MAP_H
+#define TILE_MAP_H
+
 #include <iostream>
 #include <vector>
 #include "Lib/rapidcsv.h"
 #include "raylib.h"
 #include "raymath.h"
 #include <sstream>
+
+#define TILE_SIZE 8
 
 struct tiles
 {
@@ -28,12 +33,32 @@ tiles ReadTileMap()
     return dataTiles;
 }
 
-Vector2 GetInGrid(int num, int width)
+Vector2 GetGridPositionByIndex(int num, int width)
 {
     return Vector2{
         std::truncf((float)num / (float)width),
         std::truncf((float)fmod(num, (float)width)),
     };
+}
+
+Vector2 GetGridPositionByScreenPosition(Vector2 position, tiles tileData)
+{
+    int x = std::truncf(position.x / TILE_SIZE);
+    int y = std::truncf(position.y / TILE_SIZE);
+    return Vector2{(float)x, (float)y};
+}
+
+int GetTileByPosition(Vector2 position, tiles tileData)
+{
+    Vector2 pos = GetGridPositionByScreenPosition(position, tileData);
+
+    if (!(pos.x < 0 || pos.y < 0 || pos.x >= tileData.width || pos.y >= tileData.height))
+    {
+        int tile = tileData.width * pos.y + pos.x;
+        return tileData.data[tile];
+    }
+
+    return -1;
 }
 
 void DrawTileMap(tiles tileData, Texture2D sprite)
@@ -42,17 +67,16 @@ void DrawTileMap(tiles tileData, Texture2D sprite)
     {
         if (tileData.data[i] != -1)
         {
-            Vector2 sourcePos = GetInGrid(tileData.data[i], 9);
-            sourcePos = Vector2Scale(sourcePos, 8);
-            Rectangle source{sourcePos.y, sourcePos.x, 8, 8};
-            Vector2 offset{50, 50};
+            Vector2 sourcePos = GetGridPositionByIndex(tileData.data[i], tileData.width);
+            sourcePos = Vector2Scale(sourcePos, TILE_SIZE);
+            Rectangle source{sourcePos.y, sourcePos.x, TILE_SIZE, TILE_SIZE};
 
-            Vector2 position = GetInGrid(i, tileData.width);
-
-            position = Vector2Scale(position, 8);
-            position = Vector2Add(position, offset);
+            Vector2 position = GetGridPositionByIndex(i, tileData.width);
+            position = Vector2Scale(position, TILE_SIZE);
 
             DrawTextureRec(sprite, source, position, WHITE);
         }
     }
 }
+
+#endif
