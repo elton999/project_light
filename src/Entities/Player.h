@@ -6,7 +6,7 @@
 #include "CollisionCharacter.h"
 #include "raymath.h"
 
-class Player : public SpriteAnimation, CollisionCharacter
+class Player : public SpriteAnimation, public CollisionCharacter
 {
 public:
     bool LightOn{true};
@@ -20,6 +20,8 @@ public:
     virtual void Start() override;
     virtual void Update(float dt) override;
     virtual void Draw() override;
+
+    void Input();
 
     virtual void Hit() override { HP -= 0.2f; }
 

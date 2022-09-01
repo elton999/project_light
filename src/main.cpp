@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "rlgl.h"
 #include "raymath.h"
+#include "TileMap.h"
 
 #include "Entities/GameObject.h"
 #include "Entities/Player.h"
@@ -8,8 +9,6 @@
 #include "Entities/Enemy.h"
 #include "Entities/LightCharger.h"
 #include "Entities/Ui.h"
-
-#include "TileMap.h"
 
 #include "Colors.h"
 
@@ -28,7 +27,6 @@ Camera2D camera = {};
 
 Player *player = new Player();
 Enemy *enemy = new Enemy(*player);
-Enemy *enemies[2];
 Weapon *weapon = new Weapon();
 Ui *ui = new Ui();
 

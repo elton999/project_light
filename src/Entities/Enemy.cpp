@@ -92,7 +92,9 @@ void Enemy::Draw()
 
 void Enemy::CheckPlayerCollision()
 {
-    if (CheckOverlay(Player->Position, Player->Size))
+    CollisionPos = Position;
+    // if (CheckOverlay(Player->Position, Player->Size))
+    if (CheckCollisionCharacter(Player->GetCollisionPosition(), Player->CollisionRadius))
     {
         Player->Hit();
         Player->SetPush(Direction);

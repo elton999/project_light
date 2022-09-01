@@ -2,7 +2,6 @@
 #include "raymath.h"
 #include "../Colors.h"
 #include "Player.h"
-#include "SpriteAnimation.h"
 
 void Player::Start()
 {
@@ -17,11 +16,8 @@ void Player::Start()
     Sprite = idle;
 }
 
-void Player::Update(float dt)
+void Player::Input()
 {
-    LightDT += dt * 10;
-    SpriteAnimation::Update(dt);
-
     Direction = {0, 0};
 
     if (IsKeyDown(KEY_A))
@@ -36,6 +32,14 @@ void Player::Update(float dt)
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
         LightOn = !LightOn;
+}
+
+void Player::Update(float dt)
+{
+    LightDT += dt * 10;
+    SpriteAnimation::Update(dt);
+
+    Input();
 
     if (LightOn)
         LightPower = Clamp(LightPower - 0.1f * dt, 0, INFINITY);
@@ -58,6 +62,7 @@ void Player::Update(float dt)
         Right = Direction.x > 0;
 
     Move(Vector2Normalize(Direction), Speed * dt);
+    CollisionPos = Position;
 
     LightAngle = atan2f(GetScreenWidth() / 2.0f - GetMouseX(), GetScreenHeight() / 2.0f - GetMouseY()) * RAD2DEG;
     LightAngle += 180.0f;

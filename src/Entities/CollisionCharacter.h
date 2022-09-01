@@ -9,15 +9,18 @@ class CollisionCharacter
 {
 
 public:
-    int SolidTiles[1];
-    Vector2 Position, Offset;
-    float Radius{16};
+    int SolidTiles[18]{7, 8, 9, 16, 17, 18, 25, 26, 27, 34, 35, 36, 43, 44, 45, 52, 53, 54};
+    Vector2 CollisionPos, CollisionOffset{8, 8};
+    float CollisionRadius{8};
 
-    bool CheckCollisionGrid(tiles tiles);
+    bool CheckCollisionGrid(tiles tiles, float areaToCheck);
     bool CheckCollisionCharacter(Vector2 position, float radius)
     {
-        return CheckCollisionCircles(Vector2Add(Position, Offset), Radius, position, radius);
+        return CheckCollisionCircles(GetCollisionPosition(), CollisionRadius, position, radius);
     }
+    bool CheckTileIsSolid(int tile);
+
+    Vector2 GetCollisionPosition() { return Vector2Add(CollisionOffset, CollisionPos); }
 };
 
 #endif

@@ -4,9 +4,10 @@
 #include "GameObject.h"
 #include "SpriteAnimation.h"
 #include "Player.h"
+#include "CollisionCharacter.h"
 #include "CollisionEfx.h"
 
-class Enemy : public SpriteAnimation
+class Enemy : public SpriteAnimation, CollisionCharacter
 {
 public:
     Enemy(Player &player) { Player = &player; }
