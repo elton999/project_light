@@ -1,25 +1,21 @@
+#include <stdio.h>
+#include <string.h>
 #include "raylib.h"
 #include "CollisionCharacter.h"
 
 bool CollisionCharacter::CheckCollisionGrid(tiles tiles, float areaToCheck)
 {
-    Vector2 pos = GetGridPositionByScreenPosition(GetCollisionPosition(), tiles);
-    Vector2 posMin = Vector2Scale(pos, -areaToCheck);
-    Vector2 posMax = Vector2Scale(pos, areaToCheck);
-
-    for (int x = posMin.x; x < posMax.x; x++)
+    Vector2 pos = GetGridPositionByScreenPosition({CollisionPos.x - 16, CollisionPos.y - 16});
+    for (int y = pos.y - areaToCheck; y < pos.y + areaToCheck; y++)
     {
-        for (int y = posMin.y; y < posMax.y; y++)
+        for (int x = pos.x - areaToCheck; x < pos.x + areaToCheck; x++)
         {
             Vector2 posScaled = Vector2Scale({x, y}, TILE_SIZE);
             Rectangle tileRec = {posScaled.x, posScaled.y, TILE_SIZE, TILE_SIZE};
+            int tileIndex = GetTileByPosition(posScaled, tiles);
 
-            if (CheckCollisionCircleRec(GetCollisionPosition(), CollisionRadius, tileRec))
-            {
-                int tileIndex = GetTileByPosition(posScaled, tiles);
-                if (CheckTileIsSolid(tileIndex))
-                    return true;
-            }
+            if (CheckCollisionCircleRec(GetCollisionPosition(), CollisionRadius, tileRec) && CheckTileIsSolid(tileIndex))
+                return true;
         }
     }
 

@@ -30,7 +30,7 @@ Enemy *enemy = new Enemy(*player);
 Weapon *weapon = new Weapon();
 Ui *ui = new Ui();
 
-tiles tilesData;
+tiles tilesData = ReadTileMap();
 Texture2D tileSprite;
 
 RenderTexture backBuffer;
@@ -48,8 +48,9 @@ int main(void)
 
     backBuffer = LoadRenderTexture(screenWidth, screenHeight);
 
-    tilesData = ReadTileMap();
     tileSprite = LoadTexture("resources/tilemap/tileset.png");
+
+    player->TilesData = &tilesData;
 
     weapon->SetPlayer(*player);
     weapon->SetEnemy(*enemy);
@@ -121,9 +122,11 @@ void UpdateDrawFrame(void)
 
     BeginDrawing();
     ClearBackground(BLACK);
+
     Vector2 sizesScreen = Vector2Divide({(float)GetScreenWidth(), (float)GetScreenHeight()}, {(float)screenWidth, (float)screenHeight});
     sizesScreen = Vector2Scale({(float)screenWidth, (float)screenHeight}, sizesScreen.x > sizesScreen.y ? sizesScreen.y : sizesScreen.x);
     Vector2 origin = {sizesScreen.x / 2.0f - GetScreenWidth() / 2.0f, sizesScreen.y / 2.0f - GetScreenHeight() / 2.0f};
+
     DrawTexturePro(backBuffer.texture, {0, 0, (float)screenWidth, -(float)screenHeight}, {0, 0, sizesScreen.x, sizesScreen.y}, origin, 0.0f, WHITE);
     EndDrawing();
 }

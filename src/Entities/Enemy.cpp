@@ -5,7 +5,7 @@
 
 void Enemy::Start()
 {
-    Position = {100, 100};
+    Position = {-100, -100};
     Origin = {16, 16};
     Size = {32, 32};
     Speed = 100.0f;

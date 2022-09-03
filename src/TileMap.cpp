@@ -30,7 +30,7 @@ Vector2 GetGridPositionByIndex(int num, int width)
     };
 }
 
-Vector2 GetGridPositionByScreenPosition(Vector2 position, tiles tileData)
+Vector2 GetGridPositionByScreenPosition(Vector2 position)
 {
     int x = std::truncf(position.x / TILE_SIZE);
     int y = std::truncf(position.y / TILE_SIZE);
@@ -39,11 +39,11 @@ Vector2 GetGridPositionByScreenPosition(Vector2 position, tiles tileData)
 
 int GetTileByPosition(Vector2 position, tiles tileData)
 {
-    Vector2 pos = GetGridPositionByScreenPosition(position, tileData);
+    Vector2 pos = GetGridPositionByScreenPosition(position);
 
-    if (!(pos.x < 0 || pos.y < 0 || pos.x >= tileData.width || pos.y >= tileData.height))
+    if (pos.x >= 0 && pos.y >= 0 && pos.x < tileData.width && pos.y < tileData.height)
     {
-        int tile = tileData.width * pos.y + pos.x;
+        int tile = (tileData.width) * pos.x + pos.y;
         return tileData.data[tile];
     }
 
@@ -56,7 +56,7 @@ void DrawTileMap(tiles tileData, Texture2D sprite)
     {
         if (tileData.data[i] != -1)
         {
-            Vector2 sourcePos = GetGridPositionByIndex(tileData.data[i], 9);
+            Vector2 sourcePos = GetGridPositionByIndex(tileData.data[i], sprite.width / TILE_SIZE);
             sourcePos = Vector2Scale(sourcePos, TILE_SIZE);
             Rectangle source{sourcePos.y, sourcePos.x, TILE_SIZE, TILE_SIZE};
 

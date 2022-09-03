@@ -21,7 +21,7 @@ tiles ReadTileMap();
 
 Vector2 GetGridPositionByIndex(int num, int width);
 
-Vector2 GetGridPositionByScreenPosition(Vector2 position, tiles tileData);
+Vector2 GetGridPositionByScreenPosition(Vector2 position);
 
 int GetTileByPosition(Vector2 position, tiles tileData);
 

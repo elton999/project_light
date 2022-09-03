@@ -7,7 +7,7 @@ void Player::Start()
 {
     Size = {32, 32};
     Origin = {16, 16};
-    Position = {0, 0};
+    Position = {0, 80};
     Speed = 80;
 
     idle = LoadTexture("resources/player.png");
@@ -53,16 +53,16 @@ void Player::Update(float dt)
         return;
     }
 
-    if (Vector2Length(Direction) == 0)
-        Sprite = idle;
-    else
-        Sprite = run;
+    Sprite = Vector2Length(Direction) == 0 ? idle : run;
 
     if (Direction.x != 0)
         Right = Direction.x > 0;
 
+    Vector2 oldPosition = Position;
     Move(Vector2Normalize(Direction), Speed * dt);
     CollisionPos = Position;
+    if (CheckCollisionGrid((*TilesData), 15))
+        CollisionPos = Position = oldPosition;
 
     LightAngle = atan2f(GetScreenWidth() / 2.0f - GetMouseX(), GetScreenHeight() / 2.0f - GetMouseY()) * RAD2DEG;
     LightAngle += 180.0f;
@@ -70,7 +70,7 @@ void Player::Update(float dt)
 
 void Player::Draw()
 {
-    DrawCircleV(Vector2Add(Position, {0, 16}), 7, SHADOW);
+    DrawCircleV(GetCollisionPosition(), CollisionRadius, SHADOW);
 
     float angleLength = LightAngleLength / 2.0f;
     if (IsLightOn())

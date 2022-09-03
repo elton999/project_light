@@ -6,6 +6,7 @@
 void LightCharger::Start()
 {
     ColorSquare = YELLOW;
+    Position = {-100, 0};
 }
 
 void LightCharger::Update(float dt)
