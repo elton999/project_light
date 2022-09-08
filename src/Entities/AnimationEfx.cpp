@@ -1,7 +1,7 @@
 #include "raylib.h"
-#include "CollisionEfx.h"
+#include "AnimationEfx.h"
 
-void CollisionEfx::Start()
+void AnimationEfx::Start()
 {
     Sprite = LoadTexture("resources/efx/collision_efx.png");
     maxFrames = 3;
@@ -12,13 +12,13 @@ void CollisionEfx::Start()
     height = 16;
 }
 
-void CollisionEfx::StartAnimation()
+void AnimationEfx::StartAnimation()
 {
     frame = 0;
     runningTime = 0;
 }
 
-bool CollisionEfx::IsAnimationFinished()
+bool AnimationEfx::IsAnimationFinished()
 {
     return frame >= maxFrames - 1;
 }

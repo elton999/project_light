@@ -3,34 +3,44 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level.tmx",
+    "activeFile": "map.tmx",
+    "console.history": [
+        "help",
+        "print(\"hello world\")",
+        ";"
+    ],
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "level.tmx": {
-            "scale": 4,
-            "selectedLayer": 0,
-            "viewCenter": {
-                "x": 84.875,
-                "y": 108.75
-            }
-        },
-        "map.tmx": {
             "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 70.25,
-                "y": -85.5
+                "x": 120.25,
+                "y": 120
+            }
+        },
+        "map.tmx": {
+            "expandedObjectLayers": [
+                4,
+                2,
+                3
+            ],
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 419.5,
+                "y": 527
             }
         },
         "teste level.tmx": {
-            "scale": 0.33,
+            "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1671.2121212121212,
-                "y": 651.5151515151516
+                "x": 2399.875,
+                "y": 2399.75
             }
         },
         "tileset.tsx": {
@@ -50,15 +60,15 @@
     "openFiles": [
         "tileset.tsx",
         "level.tmx",
-        "map.tmx",
-        "teste level.tmx"
+        "teste level.tmx",
+        "map.tmx"
     ],
     "project": "project.tiled-project",
     "recentFiles": [
-        "map.tmx",
+        "level.tmx",
         "teste level.tmx",
         "tileset.tsx",
-        "level.tmx"
+        "map.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

@@ -7,7 +7,7 @@ void Player::Start()
 {
     Size = {32, 32};
     Origin = {16, 16};
-    Position = {0, 80};
+    Position = {180, 180};
     Speed = 80;
 
     idle = LoadTexture("resources/player.png");

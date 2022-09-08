@@ -25,6 +25,6 @@ Vector2 GetGridPositionByScreenPosition(Vector2 position);
 
 int GetTileByPosition(Vector2 position, tiles tileData);
 
-void DrawTileMap(tiles tileData, Texture2D sprite);
+void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite);
 
 #endif

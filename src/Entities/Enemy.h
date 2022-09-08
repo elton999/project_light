@@ -5,7 +5,7 @@
 #include "SpriteAnimation.h"
 #include "Player.h"
 #include "CollisionCharacter.h"
-#include "CollisionEfx.h"
+#include "AnimationEfx.h"
 
 class Enemy : public SpriteAnimation, CollisionCharacter
 {
@@ -37,7 +37,7 @@ public:
 private:
     Player *Player{};
 
-    CollisionEfx *Efx = new CollisionEfx();
+    AnimationEfx *Efx = new AnimationEfx();
 
     bool Visible{false};
 

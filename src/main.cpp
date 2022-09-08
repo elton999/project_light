@@ -99,14 +99,14 @@ void UpdateDrawFrame(void)
     camera.rotation = 0;
     camera.zoom = 1.0f;
 
-    enemy->CameraPosition = Vector2Subtract(camera.target, camera.offset);
+    enemy->CameraPosition = Vector2Subtract(player->Position, camera.offset);
 
     // draw in sprite
     BeginTextureMode(backBuffer);
     ClearBackground(PURPLE);
     BeginMode2D(camera);
 
-    DrawTileMap(tilesData, tileSprite);
+    DrawTileMap(tilesData, {player->Position.x, player->Position.y, (float)screenWidth, (float)screenHeight}, tileSprite);
 
     float deltaTime = GetFrameTime();
     for (auto entity : entities)

@@ -10,13 +10,13 @@ class CollisionCharacter
 
 public:
     tiles *TilesData;
-    int SolidTiles[18]{
+    int SolidTiles[19]{
         6, 7, 8,
         15, 16, 17,
         24, 25, 26,
         33, 34, 35,
         42, 43, 44,
-        51, 52, 53};
+        51, 52, 53, 45};
     Vector2 CollisionPos, CollisionOffset{0, 16};
     float CollisionRadius{8};
 

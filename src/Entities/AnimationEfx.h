@@ -3,7 +3,7 @@
 
 #include "SpriteAnimation.h"
 
-class CollisionEfx : public SpriteAnimation
+class AnimationEfx : public SpriteAnimation
 {
 public:
     void virtual Start() override;
