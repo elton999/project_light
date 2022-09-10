@@ -9,12 +9,16 @@ class Solid
 {
 public:
     Solid(Rectangle solidRec) { _solidRec = solidRec; }
+
     bool CheckCollision(CollisionCharacter character)
     {
-        return CheckCollisionCircleRec(character.CollisionPos, character.CollisionRadius, _solidRec);
+        return GetActive() && CheckCollisionCircleRec(character.CollisionPos, character.CollisionRadius, _solidRec);
     }
+    bool GetActive() { return _isActive; }
+    void SetActive(bool active) { _isActive = active; }
 
 private:
+    bool _isActive = true;
     Rectangle _solidRec;
 };
 
