@@ -17,6 +17,7 @@
                     "RAYLIB_PATH=C:/raylib/raylib",
                     "PROJECT_NAME=${fileBasenameNoExtension}",
                     "OBJS=src/*.cpp src/Entities/*.cpp",
+                    "OBJS=src/*.cpp src/Scene/*.cpp",
                     "BUILD_MODE=RELEASE"
                 ]
             },

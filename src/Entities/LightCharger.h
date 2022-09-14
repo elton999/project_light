@@ -7,7 +7,6 @@
 class LightCharger : public GameObject
 {
 public:
-    Player *player;
     virtual void Start() override;
     virtual void Update(float dt) override;
     virtual void Draw() override;

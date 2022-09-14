@@ -5,7 +5,7 @@
 #include "../Observer/ISubject.h"
 #include "../Entities/CollisionCharacter.h"
 
-class HitBox : public Solid, ISubject
+class HitBox : public Solid, public ISubject
 {
 public:
     HitBox(Rectangle solidRec) : Solid(solidRec) {}

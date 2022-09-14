@@ -1,5 +1,5 @@
 #include "LightCharger.h"
-#include "GameObject.h"
+#include "../Scene/Scene.h"
 #include "raymath.h"
 #include "../Colors.h"
 
@@ -22,11 +22,15 @@ void LightCharger::Draw()
 
 bool LightCharger::CheckPlayerOverlap()
 {
-    Rectangle playerRec{player->Position.x, player->Position.y, player->Size.x, player->Size.y};
+    Rectangle playerRec{
+        _scene->GetPlayer()->Position.x,
+        _scene->GetPlayer()->Position.y,
+        _scene->GetPlayer()->Size.x,
+        _scene->GetPlayer()->Size.y};
     return CheckCollisionCircleRec(Position, Radius, playerRec);
 }
 
 void LightCharger::ChargerPlayerLight(float dt)
 {
-    player->LightPower = Clamp(player->LightPower + ChargeSpeed * dt, 0, 1.0f);
+    _scene->GetPlayer()->LightPower = Clamp(_scene->GetPlayer()->LightPower + ChargeSpeed * dt, 0, 1.0f);
 }

@@ -1,16 +1,19 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "GameObject.h"
 #include "SpriteAnimation.h"
 #include "Player.h"
 #include "CollisionCharacter.h"
 #include "AnimationEfx.h"
 
-class Enemy : public SpriteAnimation, CollisionCharacter
+class Enemy : public SpriteAnimation, public CollisionCharacter
 {
 public:
-    Enemy(Player &player) { Player = &player; }
+    Enemy(tiles *tileData, Vector2 cameraSize)
+    {
+        TilesData = tileData;
+        CameraSize = cameraSize;
+    }
 
     enum EnemyStatus
     {
@@ -35,8 +38,6 @@ public:
     bool IsVisible() { return CheckOverlay(CameraPosition, CameraSize); }
 
 private:
-    Player *Player{};
-
     AnimationEfx *Efx = new AnimationEfx();
 
     bool Visible{false};

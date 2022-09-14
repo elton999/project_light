@@ -1,10 +1,16 @@
-#include "raylib.h"
-
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
+#include "raylib.h"
+
+// #include "../Scene/Scene.h"
+class Scene;
+
 class GameObject
 {
+protected:
+    Scene *_scene;
+
 public:
     Vector2 Position{}, Origin{}, Size{};
     float Speed{0}, HP{1.0f};
@@ -16,6 +22,8 @@ public:
 
     virtual void Move(Vector2 direction, float speed);
     virtual void Hit() {}
+
+    void SetScene(Scene *scene) { _scene = scene; }
 };
 
 #endif

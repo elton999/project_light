@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "../Scene/Scene.h"
 #include "Player.h"
 #include "Weapon.h"
 #include "Bullet.h"
@@ -23,7 +24,7 @@ void Weapon::Start()
 
 void Weapon::Update(float dt)
 {
-    Position = Player->Position;
+    Position = _scene->GetPlayer()->Position;
     if (frame == 2)
         PlayAnimation = false;
 
@@ -35,16 +36,22 @@ void Weapon::Update(float dt)
         if (bullet->IsActive)
         {
             bullet->Update(dt);
-            if (_enemy->CheckOverlay(bullet->Position, bullet->Size))
+            std::list<Enemy *>::iterator iteratorEnemy = _scene->GetEnemies().begin();
+
+            while (iteratorEnemy != _scene->GetEnemies().end())
             {
-                bullet->IsActive = false;
-                if (_enemy->Status == Enemy::FREEZING && _enemy->HP > 0)
-                    _enemy->Hit();
+                if ((*iteratorEnemy)->CheckOverlay(bullet->Position, bullet->Size))
+                {
+                    bullet->IsActive = false;
+                    if ((*iteratorEnemy)->Status == Enemy::FREEZING && (*iteratorEnemy)->HP > 0)
+                        (*iteratorEnemy)->Hit();
+                }
+                ++iteratorEnemy;
             }
         }
     }
 
-    Position = Player->Position;
+    Position = _scene->GetPlayer()->Position;
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         Shoot();
 }
@@ -65,13 +72,13 @@ void Weapon::Shoot()
     if (CurrentBullet == MAX_BULLETS)
         CurrentBullet = 0;
 
-    Bullets[CurrentBullet]->SetDirection(Player->GetLightDirection());
+    Bullets[CurrentBullet]->SetDirection(_scene->GetPlayer()->GetLightDirection());
     Bullets[CurrentBullet]->IsActive = true;
-    Bullets[CurrentBullet]->Position = Vector2Add(Position, Vector2Scale(Player->GetLightDirection(), 15));
+    Bullets[CurrentBullet]->Position = Vector2Add(Position, Vector2Scale(_scene->GetPlayer()->GetLightDirection(), 15));
 
     CurrentBullet++;
 
-    Rotation = -Player->LightAngle + 90;
+    Rotation = -_scene->GetPlayer()->LightAngle + 90;
     PlayAnimation = true;
     frame = 0;
     runningTime = 0;

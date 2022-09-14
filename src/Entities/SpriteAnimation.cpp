@@ -1,12 +1,6 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "SpriteAnimation.h"
-#include "GameObject.h"
-
-void SpriteAnimation::Update(float dt)
-{
-    SpriteAnimation::Animation(dt);
-}
 
 void SpriteAnimation::Animation(float dt)
 {

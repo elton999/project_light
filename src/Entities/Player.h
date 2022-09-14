@@ -9,6 +9,8 @@
 class Player : public SpriteAnimation, public CollisionCharacter
 {
 public:
+    Player(tiles *tileData) { TilesData = tileData; }
+
     bool LightOn{true};
     float LightAngle{0};
     float LightAngleLength{50.0f};

@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include "../Colors.h"
 #include "Enemy.h"
+#include "../Scene/Scene.h"
 
 void Enemy::Start()
 {
@@ -52,7 +53,7 @@ void Enemy::Update(float dt)
 
     if (Status == FOLLOWING)
     {
-        Direction = Vector2Normalize(Vector2Subtract(Player->Position, Position));
+        Direction = Vector2Normalize(Vector2Subtract(_scene->GetPlayer()->Position, Position));
         Position = Vector2Add(Position, Vector2Scale(Direction, Speed * dt));
     }
 
@@ -93,10 +94,10 @@ void Enemy::Draw()
 void Enemy::CheckPlayerCollision()
 {
     CollisionPos = Position;
-    if (CheckCollisionCharacter(Player->GetCollisionPosition(), Player->CollisionRadius))
+    if (CheckCollisionCharacter(_scene->GetPlayer()->GetCollisionPosition(), _scene->GetPlayer()->CollisionRadius))
     {
-        Player->Hit();
-        Player->SetPush(Direction);
+        _scene->GetPlayer()->Hit();
+        _scene->GetPlayer()->SetPush(Direction);
     }
 }
 
@@ -122,12 +123,14 @@ void Enemy::Hit()
 
 bool Enemy::IsInLight()
 {
-    float distance = Vector2Distance(Player->Position, Position);
+    float distance = Vector2Distance(_scene->GetPlayer()->Position, Position);
 
-    if (distance <= Player->LightDistance && Player->IsLightOn())
+    if (distance <= _scene->GetPlayer()->LightDistance && _scene->GetPlayer()->IsLightOn())
     {
-        Vector2 pNormalized = Vector2Normalize(Vector2Subtract(Position, Player->Position));
-        return Vector2DotProduct(Player->GetLightDirection(), pNormalized) >= cos(Player->LightAngleLength / 2.0f * DEG2RAD);
+        Vector2 pNormalized = Vector2Normalize(Vector2Subtract(Position, _scene->GetPlayer()->Position));
+        return Vector2DotProduct(
+                   _scene->GetPlayer()->GetLightDirection(),
+                   pNormalized) >= cos(_scene->GetPlayer()->LightAngleLength / 2.0f * DEG2RAD);
     }
     return false;
 }

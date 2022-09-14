@@ -1,13 +1,16 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+class GameObject;
+
 #include <list>
-#include "Entities/Player.h"
-#include "Entities/Enemy.h"
-#include "Entities/GameObject.h"
+#include "../Entities/Player.h"
+#include "../Entities/Enemy.h"
 
 #include "HitBox.h"
 #include "Solid.h"
+
+#include "raylib.h"
 
 class Scene
 {
@@ -35,7 +38,8 @@ public:
     void AddHitBox(HitBox *hitBox);
     void AddSolid(Solid *solid);
 
-    Player GetPlayer() { return *_player; }
+    Player *GetPlayer() { return _player; }
+    std::list<Enemy *> GetEnemies() { return _enemies; }
 };
 
 #endif

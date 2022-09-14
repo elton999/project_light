@@ -1,6 +1,8 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "../Colors.h"
+#include "GameObject.h"
+#include "../Scene/Scene.h"
 #include "Player.h"
 
 void Player::Start()

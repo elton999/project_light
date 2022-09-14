@@ -3,12 +3,14 @@
 #include "raymath.h"
 #include "TileMap.h"
 
+#include "Scene/Scene.h"
 #include "Entities/GameObject.h"
 #include "Entities/Player.h"
 #include "Entities/Weapon.h"
 #include "Entities/Enemy.h"
 #include "Entities/LightCharger.h"
 #include "Entities/Ui.h"
+#include "Entities/SpriteAnimation.h"
 
 #include "Colors.h"
 
@@ -24,20 +26,13 @@ int screenHeight = 240;
 int windowScale = 2;
 
 Camera2D camera = {};
-
-Player *player = new Player();
-Enemy *enemy = new Enemy(*player);
-Weapon *weapon = new Weapon();
-Ui *ui = new Ui();
-
 tiles tilesData = ReadTileMap();
+Scene scene = {};
+
 Texture2D tileSprite;
 
 RenderTexture backBuffer;
 
-GameObject *entities[4];
-
-void StartEntities(void);
 void UpdateDrawFrame(void);
 
 int main(void)
@@ -50,27 +45,18 @@ int main(void)
 
     tileSprite = LoadTexture("resources/tilemap/tileset.png");
 
-    player->TilesData = &tilesData;
-
-    weapon->SetPlayer(*player);
-    weapon->SetEnemy(*enemy);
-
-    LightCharger *light = new LightCharger();
-    light->player = player;
-
-    enemy->CameraSize = {(float)screenWidth, (float)screenHeight};
-
-    ui->Start();
-    ui->SetPlayer(*player);
+    Vector2 cameraSize = {(float)screenWidth, (float)screenHeight};
 
     camera = {0};
 
-    entities[0] = light;
-    entities[1] = player;
-    entities[2] = enemy;
-    entities[3] = weapon;
-
-    StartEntities();
+    TraceLog(LOG_INFO, "_________________player");
+    Player player = {&tilesData};
+    TraceLog(LOG_INFO, "player_________________");
+    scene.AddPlayer(&player);
+    scene.AddBackground(new LightCharger());
+    scene.AddBackground(new Weapon());
+    scene.AddEnemy(new Enemy(&tilesData, cameraSize));
+    scene.AddUI(new Ui());
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
@@ -86,38 +72,28 @@ int main(void)
     return 0;
 }
 
-void StartEntities(void)
-{
-    for (auto entity : entities)
-        entity->Start();
-}
-
 void UpdateDrawFrame(void)
 {
-    camera.target = player->Position;
+    camera.target = scene.GetPlayer()->Position;
     camera.offset = {screenWidth / 2.0f, screenHeight / 2.0f};
     camera.rotation = 0;
     camera.zoom = 1.0f;
 
-    enemy->CameraPosition = Vector2Subtract(player->Position, camera.offset);
+    // enemy->CameraPosition = Vector2Subtract(player->Position, camera.offset);
 
     // draw in sprite
     BeginTextureMode(backBuffer);
     ClearBackground(PURPLE);
     BeginMode2D(camera);
 
-    DrawTileMap(tilesData, {player->Position.x, player->Position.y, (float)screenWidth, (float)screenHeight}, tileSprite);
+    DrawTileMap(tilesData, {scene.GetPlayer()->Position.x, scene.GetPlayer()->Position.y, (float)screenWidth, (float)screenHeight}, tileSprite);
 
     float deltaTime = GetFrameTime();
-    for (auto entity : entities)
-    {
-        entity->Update(deltaTime);
-        entity->Draw();
-    }
+
+    scene.Update(deltaTime);
+
     EndMode2D();
 
-    ui->Update(deltaTime);
-    ui->Draw();
     EndTextureMode();
 
     BeginDrawing();

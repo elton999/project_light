@@ -43,25 +43,30 @@ void Scene::Update(float dt)
 
 void Scene::AddPlayer(Player *player)
 {
+    TraceLog(LOG_INFO, "start____________-------");
     player->Start();
+    player->SetScene(this);
     _player = player;
 }
 
 void Scene::AddEnemy(Enemy *enemy)
 {
     enemy->Start();
+    enemy->SetScene(this);
     _enemies.push_back(enemy);
 }
 
 void Scene::AddBackground(GameObject *background)
 {
     background->Start();
+    background->SetScene(this);
     _backgrounds.push_back(background);
 }
 
 void Scene::AddUI(GameObject *ui)
 {
     ui->Start();
+    ui->SetScene(this);
     _ui.push_back(ui);
 }
 
