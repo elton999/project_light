@@ -35,6 +35,7 @@ void Scene::updateHitBoxes()
 void Scene::Update(float dt)
 {
     _player->Update(dt);
+    _player->Draw();
     updateEnemies(dt);
     updateLayer(_backgrounds, dt);
     updateLayer(_ui, dt);
@@ -43,7 +44,6 @@ void Scene::Update(float dt)
 
 void Scene::AddPlayer(Player *player)
 {
-    TraceLog(LOG_INFO, "start____________-------");
     player->Start();
     player->SetScene(this);
     _player = player;
