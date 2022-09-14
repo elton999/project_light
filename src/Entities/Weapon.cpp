@@ -11,6 +11,7 @@ void Weapon::Start()
     for (int i = 0; i < MAX_BULLETS; i++)
     {
         Bullets[i] = new Bullet();
+        Bullets[i]->SetScene(_scene);
         Bullets[i]->Start();
         Bullets[i]->Sprite = bulletSprite;
     }
@@ -36,9 +37,10 @@ void Weapon::Update(float dt)
         if (bullet->IsActive)
         {
             bullet->Update(dt);
-            std::list<Enemy *>::iterator iteratorEnemy = _scene->GetEnemies().begin();
+            std::list<Enemy *> enemies = _scene->GetEnemies();
+            std::list<Enemy *>::iterator iteratorEnemy = enemies.begin();
 
-            while (iteratorEnemy != _scene->GetEnemies().end())
+            while (iteratorEnemy != enemies.end())
             {
                 if ((*iteratorEnemy)->CheckOverlay(bullet->Position, bullet->Size))
                 {

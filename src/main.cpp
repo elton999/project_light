@@ -10,7 +10,6 @@
 #include "Entities/Enemy.h"
 #include "Entities/LightCharger.h"
 #include "Entities/Ui.h"
-#include "Entities/SpriteAnimation.h"
 
 #include "Colors.h"
 
@@ -49,10 +48,7 @@ int main(void)
 
     camera = {0};
 
-    TraceLog(LOG_INFO, "_________________player");
-    Player player = {&tilesData};
-    TraceLog(LOG_INFO, "player_________________");
-    scene.AddPlayer(&player);
+    scene.AddPlayer(new Player(&tilesData));
     scene.AddBackground(new LightCharger());
     scene.AddBackground(new Weapon());
     scene.AddEnemy(new Enemy(&tilesData, cameraSize));

@@ -44,30 +44,30 @@ void Scene::Update(float dt)
 
 void Scene::AddPlayer(Player *player)
 {
-    player->Start();
-    player->SetScene(this);
     _player = player;
+    player->SetScene(this);
+    player->Start();
 }
 
 void Scene::AddEnemy(Enemy *enemy)
 {
-    enemy->Start();
-    enemy->SetScene(this);
     _enemies.push_back(enemy);
+    enemy->SetScene(this);
+    enemy->Start();
 }
 
 void Scene::AddBackground(GameObject *background)
 {
-    background->Start();
-    background->SetScene(this);
     _backgrounds.push_back(background);
+    background->SetScene(this);
+    background->Start();
 }
 
 void Scene::AddUI(GameObject *ui)
 {
-    ui->Start();
-    ui->SetScene(this);
     _ui.push_back(ui);
+    ui->SetScene(this);
+    ui->Start();
 }
 
 void Scene::AddHitBox(HitBox *hitbox) { _hitBoxes.push_back(hitbox); }
