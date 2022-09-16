@@ -3,7 +3,9 @@
 
 #include "raylib.h"
 #include "raymath.h"
+#include <list>
 #include "../TileMap.h"
+#include "../Scene/Solid.h"
 
 class CollisionCharacter
 {
@@ -26,6 +28,8 @@ public:
         return CheckCollisionCircles(GetCollisionPosition(), CollisionRadius, position, radius);
     }
     bool CheckTileIsSolid(int tile);
+
+    bool CheckCollisionSolids(std::list<Solid *> solids);
 
     Vector2 GetCollisionPosition() { return Vector2Add(CollisionOffset, CollisionPos); }
 };

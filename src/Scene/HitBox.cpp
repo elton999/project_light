@@ -2,6 +2,6 @@
 
 void HitBox::UpdateCheckCollision(CollisionCharacter character)
 {
-    if (CheckCollision(character))
+    if (CheckCollision(character.CollisionPos, character.CollisionRadius))
         Notify();
 }

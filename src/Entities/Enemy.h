@@ -9,10 +9,9 @@
 class Enemy : public SpriteAnimation, public CollisionCharacter
 {
 public:
-    Enemy(tiles *tileData, Vector2 cameraSize)
+    Enemy(tiles *tileData)
     {
         TilesData = tileData;
-        CameraSize = cameraSize;
     }
 
     enum EnemyStatus
@@ -21,9 +20,6 @@ public:
         FOLLOWING
     };
     EnemyStatus Status = FREEZING;
-
-    Vector2 CameraPosition{};
-    Vector2 CameraSize{};
 
     virtual void Start() override;
     virtual void Update(float dt) override;
@@ -35,7 +31,7 @@ public:
 
     void SetOnVisible();
     bool CheckOverlay(Vector2 pos, Vector2 size);
-    bool IsVisible() { return CheckOverlay(CameraPosition, CameraSize); }
+    bool IsVisible();
 
 private:
     AnimationEfx *Efx = new AnimationEfx();

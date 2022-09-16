@@ -3,16 +3,15 @@
 
 #include "raylib.h"
 #include "raymath.h"
-#include "../Entities/CollisionCharacter.h"
 
 class Solid
 {
 public:
     Solid(Rectangle solidRec) { _solidRec = solidRec; }
 
-    bool CheckCollision(CollisionCharacter character)
+    bool CheckCollision(Vector2 position, float radius)
     {
-        return GetActive() && CheckCollisionCircleRec(character.CollisionPos, character.CollisionRadius, _solidRec);
+        return GetActive() && CheckCollisionCircleRec(position, radius, _solidRec);
     }
     bool GetActive() { return _isActive; }
     void SetActive(bool active) { _isActive = active; }

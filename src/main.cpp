@@ -4,6 +4,7 @@
 #include "TileMap.h"
 
 #include "Scene/Scene.h"
+#include "Scene/Solid.h"
 #include "Entities/GameObject.h"
 #include "Entities/Player.h"
 #include "Entities/Weapon.h"
@@ -44,15 +45,17 @@ int main(void)
 
     tileSprite = LoadTexture("resources/tilemap/tileset.png");
 
-    Vector2 cameraSize = {(float)screenWidth, (float)screenHeight};
-
     camera = {0};
+    scene.Camera = &camera;
+    scene.Size = {(float)screenWidth, (float)screenHeight};
 
     scene.AddPlayer(new Player(&tilesData));
     scene.AddBackground(new LightCharger());
     scene.AddBackground(new Weapon());
-    scene.AddEnemy(new Enemy(&tilesData, cameraSize));
+    scene.AddEnemy(new Enemy(&tilesData));
     scene.AddUI(new Ui());
+
+    scene.AddSolid(new Solid({656, 832, 24, 8}));
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
@@ -62,7 +65,6 @@ int main(void)
     while (!WindowShouldClose())
         UpdateDrawFrame();
 #endif
-
     CloseWindow();
 
     return 0;
@@ -70,35 +72,35 @@ int main(void)
 
 void UpdateDrawFrame(void)
 {
-    camera.target = scene.GetPlayer()->Position;
-    camera.offset = {screenWidth / 2.0f, screenHeight / 2.0f};
-    camera.rotation = 0;
-    camera.zoom = 1.0f;
-
-    // enemy->CameraPosition = Vector2Subtract(player->Position, camera.offset);
-
+    float deltaTime = GetFrameTime();
     // draw in sprite
     BeginTextureMode(backBuffer);
+
     ClearBackground(PURPLE);
-    BeginMode2D(camera);
+    BeginMode2D(*scene.Camera);
 
     DrawTileMap(tilesData, {scene.GetPlayer()->Position.x, scene.GetPlayer()->Position.y, (float)screenWidth, (float)screenHeight}, tileSprite);
-
-    float deltaTime = GetFrameTime();
-
     scene.Update(deltaTime);
 
     EndMode2D();
+
+    // HUD
+    scene.UpdateUI(deltaTime);
 
     EndTextureMode();
 
     BeginDrawing();
     ClearBackground(BLACK);
 
-    Vector2 sizesScreen = Vector2Divide({(float)GetScreenWidth(), (float)GetScreenHeight()}, {(float)screenWidth, (float)screenHeight});
-    sizesScreen = Vector2Scale({(float)screenWidth, (float)screenHeight}, sizesScreen.x > sizesScreen.y ? sizesScreen.y : sizesScreen.x);
-    Vector2 origin = {sizesScreen.x / 2.0f - GetScreenWidth() / 2.0f, sizesScreen.y / 2.0f - GetScreenHeight() / 2.0f};
+    Vector2 sizesScreen = Vector2Divide({(float)GetScreenWidth(), (float)GetScreenHeight()}, scene.Size);
+    sizesScreen = Vector2Scale(scene.Size, sizesScreen.x > sizesScreen.y ? sizesScreen.y : sizesScreen.x);
 
-    DrawTexturePro(backBuffer.texture, {0, 0, (float)screenWidth, -(float)screenHeight}, {0, 0, sizesScreen.x, sizesScreen.y}, origin, 0.0f, WHITE);
+    Vector2 origin = Vector2Subtract(
+        Vector2Scale(sizesScreen, 0.5f),
+        Vector2Scale({(float)GetScreenWidth(), (float)GetScreenHeight()}, 0.5f));
+    Rectangle backBufferSource = {0, 0, (float)screenWidth, -(float)screenHeight};
+    Rectangle backBufferDest = {0, 0, sizesScreen.x, sizesScreen.y};
+
+    DrawTexturePro(backBuffer.texture, backBufferSource, backBufferDest, origin, 0.0f, WHITE);
     EndDrawing();
 }

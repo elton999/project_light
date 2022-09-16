@@ -36,6 +36,23 @@ void Player::Input()
         LightOn = !LightOn;
 }
 
+void Player::Move(Vector2 direction, float speed)
+{
+    Vector2 oldPosition = Position;
+    GameObject::Move(direction, speed);
+    CollisionPos = Position;
+    if (CheckCollisionGrid((*TilesData), 15) || CheckCollisionSolids(_scene->GetSolids()))
+        CollisionPos = Position = oldPosition;
+}
+
+void Player::Push(float dt)
+{
+    Sprite = damage;
+    Right = PushDirection.x < 0;
+    Move(PushDirection, SpeedPush * dt);
+    SpeedPush = Clamp(SpeedPush - 600 * dt, 0, INFINITY);
+}
+
 void Player::Update(float dt)
 {
     LightDT += dt * 10;
@@ -48,10 +65,7 @@ void Player::Update(float dt)
 
     if (SpeedPush > 0)
     {
-        Sprite = damage;
-        Right = PushDirection.x < 0;
-        Move(PushDirection, SpeedPush * dt);
-        SpeedPush = Clamp(SpeedPush - 600 * dt, 0, INFINITY);
+        Push(dt);
         return;
     }
 
@@ -60,11 +74,7 @@ void Player::Update(float dt)
     if (Direction.x != 0)
         Right = Direction.x > 0;
 
-    Vector2 oldPosition = Position;
     Move(Vector2Normalize(Direction), Speed * dt);
-    CollisionPos = Position;
-    if (CheckCollisionGrid((*TilesData), 15))
-        CollisionPos = Position = oldPosition;
 
     LightAngle = atan2f(GetScreenWidth() / 2.0f - GetMouseX(), GetScreenHeight() / 2.0f - GetMouseY()) * RAD2DEG;
     LightAngle += 180.0f;

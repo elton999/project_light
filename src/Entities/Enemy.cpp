@@ -23,6 +23,9 @@ void Enemy::Update(float dt)
 {
     SetOnVisible();
 
+    if (!Visible)
+        return;
+
     if (!Efx->IsAnimationFinished())
         Efx->Update(dt);
 
@@ -32,7 +35,7 @@ void Enemy::Update(float dt)
     if (HP <= 0 || HitCoolDown > 0)
         return;
 
-    SetSize(32, 32);
+    SetSizeSprite(32, 32);
 
     Status = TimeToStop == 0 ? FREEZING : Status;
     Status = TimeToStop == MAX_TIME_TO_STOP ? FOLLOWING : Status;
@@ -112,7 +115,7 @@ void Enemy::Hit()
     HitCoolDown = HIT_COOLDOWN_TIME;
     SpriteColor = BLACK;
 
-    SetSize(32 + 6, 32 - 6);
+    SetSizeSprite(32 + 6, 32 - 6);
 
     Efx->StartAnimation();
     Efx->Position = Position;
@@ -140,3 +143,5 @@ void Enemy::SetOnVisible()
     if (IsVisible())
         Visible = true;
 }
+
+bool Enemy::IsVisible() { return CheckOverlay(_scene->Camera->target, _scene->Size); }

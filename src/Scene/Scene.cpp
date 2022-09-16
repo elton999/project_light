@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "raymath.h"
 
 void Scene::updateLayer(std::list<GameObject *> layer, float dt)
 {
@@ -38,8 +39,29 @@ void Scene::Update(float dt)
     _player->Draw();
     updateEnemies(dt);
     updateLayer(_backgrounds, dt);
-    updateLayer(_ui, dt);
     updateHitBoxes();
+    CameraUpdate();
+}
+
+void Scene::UpdateUI(float dt) { updateLayer(_ui, dt); }
+
+void Scene::CameraUpdate()
+{
+    Camera->target = {
+        std::truncf(_player->Position.x),
+        std::truncf(_player->Position.y)};
+    Camera->offset = Vector2Scale(Size, 0.5f);
+    Camera->rotation = 0;
+    Camera->zoom = 1.0f;
+}
+
+Rectangle Scene::GetCameraRec()
+{
+    return {
+        Camera->target.x,
+        Camera->target.y,
+        Size.x,
+        Size.y};
 }
 
 void Scene::AddPlayer(Player *player)

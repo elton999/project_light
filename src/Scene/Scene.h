@@ -28,7 +28,14 @@ private:
     void updateHitBoxes();
 
 public:
+    Camera2D *Camera;
+    Vector2 Size;
+
+    Rectangle GetCameraRec();
+
     void Update(float dt);
+    void UpdateUI(float dt);
+    void CameraUpdate();
 
     void AddPlayer(Player *player);
     void AddEnemy(Enemy *enemy);
@@ -40,6 +47,7 @@ public:
 
     Player *GetPlayer() { return _player; }
     std::list<Enemy *> GetEnemies() { return _enemies; }
+    std::list<Solid *> GetSolids() { return _solids; }
 };
 
 #endif

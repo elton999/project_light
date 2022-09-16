@@ -23,6 +23,9 @@ public:
     virtual void Update(float dt) override;
     virtual void Draw() override;
 
+    virtual void Move(Vector2 direction, float speed) override;
+    void Push(float dt);
+
     void Input();
 
     virtual void Hit() override { HP -= 0.2f; }

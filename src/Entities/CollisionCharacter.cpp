@@ -1,3 +1,4 @@
+#include <list>
 #include <stdio.h>
 #include <string.h>
 #include "raylib.h"
@@ -18,7 +19,6 @@ bool CollisionCharacter::CheckCollisionGrid(tiles tiles, float areaToCheck)
                 return true;
         }
     }
-
     return false;
 }
 
@@ -28,5 +28,17 @@ bool CollisionCharacter::CheckTileIsSolid(int tile)
         if (tile == solidTile)
             return true;
 
+    return false;
+}
+
+bool CollisionCharacter::CheckCollisionSolids(std::list<Solid *> solids)
+{
+    std::list<Solid *>::iterator iterator = solids.begin();
+    while (iterator != solids.end())
+    {
+        if ((*iterator)->CheckCollision(GetCollisionPosition(), CollisionRadius))
+            return true;
+        ++iterator;
+    }
     return false;
 }

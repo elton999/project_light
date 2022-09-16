@@ -18,7 +18,7 @@ public:
 
     void Animation(float dt);
 
-    void SetSize(int x, int y)
+    void SetSizeSprite(int x, int y)
     {
         width = x;
         height = y;
