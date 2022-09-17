@@ -37,10 +37,11 @@ void Scene::Update(float dt)
 {
     _player->Update(dt);
     _player->Draw();
+    CameraUpdate();
     updateEnemies(dt);
     updateLayer(_backgrounds, dt);
     updateHitBoxes();
-    CameraUpdate();
+    DrawRectangleLines(GetCameraRec().x, GetCameraRec().y, GetCameraRec().width, GetCameraRec().height, WHITE);
 }
 
 void Scene::UpdateUI(float dt) { updateLayer(_ui, dt); }
@@ -58,8 +59,8 @@ void Scene::CameraUpdate()
 Rectangle Scene::GetCameraRec()
 {
     return {
-        Camera->target.x,
-        Camera->target.y,
+        Camera->target.x - Size.x / 2.0f,
+        Camera->target.y - Size.y / 2.0f,
         Size.x,
         Size.y};
 }

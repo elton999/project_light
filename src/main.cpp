@@ -35,6 +35,8 @@ RenderTexture backBuffer;
 
 void UpdateDrawFrame(void);
 
+void SetAllEnemies(void);
+
 int main(void)
 {
     InitWindow(screenWidth * windowScale, screenHeight * windowScale, "Project Light Alpha");
@@ -52,7 +54,7 @@ int main(void)
     scene.AddPlayer(new Player(&tilesData));
     scene.AddBackground(new LightCharger());
     scene.AddBackground(new Weapon());
-    scene.AddEnemy(new Enemy(&tilesData));
+    SetAllEnemies();
     scene.AddUI(new Ui());
 
     scene.AddSolid(new Solid({656, 832, 24, 8}));
@@ -103,4 +105,28 @@ void UpdateDrawFrame(void)
 
     DrawTexturePro(backBuffer.texture, backBufferSource, backBufferDest, origin, 0.0f, WHITE);
     EndDrawing();
+}
+
+void SetAllEnemies(void)
+{
+    Vector2 positions[11]{
+        {254, 563},
+        {642, 701},
+        {816, 614},
+        {600, 528},
+        {540, 439},
+        {522, 435},
+        {618, 321},
+        {528, 166},
+        {826, 192},
+        {860, 152},
+        {1105, 187},
+    };
+
+    Texture2D idle = LoadTexture("resources/troll.png");
+    Texture2D walk = LoadTexture("resources/troll_walk.png");
+    Texture2D freezing = LoadTexture("resources/troll_freezing.png");
+
+    for (auto pos : positions)
+        scene.AddEnemy(new Enemy(&tilesData, pos, &idle, &walk, &freezing));
 }

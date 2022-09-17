@@ -9,9 +9,13 @@
 class Enemy : public SpriteAnimation, public CollisionCharacter
 {
 public:
-    Enemy(tiles *tileData)
+    Enemy(tiles *tileData, Vector2 position, Texture2D *idleTex, Texture2D *walkTex, Texture2D *freezingTex)
     {
         TilesData = tileData;
+        Position = position;
+        idle = *idleTex;
+        walk = *walkTex;
+        freezing = *freezingTex;
     }
 
     enum EnemyStatus

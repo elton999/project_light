@@ -6,14 +6,11 @@
 
 void Enemy::Start()
 {
-    Position = {-100, -100};
+    CollisionPos = Position;
     Origin = {16, 16};
     Size = {32, 32};
-    Speed = 100.0f;
+    Speed = 70.0f;
 
-    idle = LoadTexture("resources/troll.png");
-    walk = LoadTexture("resources/troll_walk.png");
-    freezing = LoadTexture("resources/troll_freezing.png");
     Sprite = idle;
 
     Efx->Start();
@@ -23,7 +20,7 @@ void Enemy::Update(float dt)
 {
     SetOnVisible();
 
-    if (!Visible)
+    if (!IsVisible())
         return;
 
     if (!Efx->IsAnimationFinished())
@@ -106,7 +103,7 @@ void Enemy::CheckPlayerCollision()
 
 bool Enemy::CheckOverlay(Vector2 pos, Vector2 size)
 {
-    return CheckCollisionRecs({pos.x, pos.y, size.x, size.y}, {Position.x, Position.y, Size.x, Size.y});
+    return CheckCollisionCircleRec(GetCollisionPosition(), CollisionRadius, {pos.x, pos.y, size.x, size.y});
 }
 
 void Enemy::Hit()
@@ -144,4 +141,11 @@ void Enemy::SetOnVisible()
         Visible = true;
 }
 
-bool Enemy::IsVisible() { return CheckOverlay(_scene->Camera->target, _scene->Size); }
+bool Enemy::IsVisible()
+{
+    float x = _scene->GetCameraRec().x;
+    float y = _scene->GetCameraRec().y;
+    float width = _scene->GetCameraRec().width;
+    float height = _scene->GetCameraRec().height;
+    return CheckOverlay({x, y}, {width, height});
+}
