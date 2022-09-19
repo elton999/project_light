@@ -15,6 +15,7 @@ class GameObject;
 class Scene
 {
 private:
+    std::list<GameObject *> _foregrounds;
     Player *_player;
     std::list<Enemy *> _enemies;
     std::list<GameObject *> _backgrounds;
@@ -37,6 +38,7 @@ public:
     void UpdateUI(float dt);
     void CameraUpdate();
 
+    void AddForeground(GameObject *foreground);
     void AddPlayer(Player *player);
     void AddEnemy(Enemy *enemy);
     void AddBackground(GameObject *background);

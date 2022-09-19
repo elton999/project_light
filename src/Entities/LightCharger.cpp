@@ -3,21 +3,25 @@
 #include "raymath.h"
 #include "../Colors.h"
 
-void LightCharger::Start()
-{
-    ColorSquare = YELLOW;
-    Position = {-100, 0};
-}
+void LightCharger::Start() { ColorSquare = YELLOW; }
 
 void LightCharger::Update(float dt)
 {
     if (CheckPlayerOverlap())
         ChargerPlayerLight(dt);
+
+    TimerDt += dt;
+    CurrentRadius = cosf(TimerDt * VelocityRadiusAnimation);
 }
 
 void LightCharger::Draw()
 {
-    DrawCircle(Position.x, Position.y, Radius, ColorSquare);
+    DrawCircle(Position.x, Position.y, Radius + 5.0f + CurrentRadius, WHITE);
+    DrawCircle(Position.x, Position.y, Radius + CurrentRadius, ColorSquare);
+
+    Rectangle source{0, 0, 16, 16};
+    Rectangle dest{Position.x, Position.y, 16, 16};
+    DrawTexturePro(Sprite, source, dest, {8, 8}, 1.0f, WHITE);
 }
 
 bool LightCharger::CheckPlayerOverlap()

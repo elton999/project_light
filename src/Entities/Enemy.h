@@ -32,6 +32,7 @@ public:
 
     void CheckPlayerCollision();
     bool IsInLight();
+    bool IsAlive() { return HP > 0; }
 
     void SetOnVisible();
     bool CheckOverlay(Vector2 pos, Vector2 size);

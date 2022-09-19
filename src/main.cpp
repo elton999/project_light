@@ -36,6 +36,7 @@ RenderTexture backBuffer;
 void UpdateDrawFrame(void);
 
 void SetAllEnemies(void);
+void SetAllLantern(void);
 
 int main(void)
 {
@@ -52,8 +53,8 @@ int main(void)
     scene.Size = {(float)screenWidth, (float)screenHeight};
 
     scene.AddPlayer(new Player(&tilesData));
-    scene.AddBackground(new LightCharger());
-    scene.AddBackground(new Weapon());
+    scene.AddForeground(new Weapon());
+    SetAllLantern();
     SetAllEnemies();
     scene.AddUI(new Ui());
 
@@ -105,6 +106,14 @@ void UpdateDrawFrame(void)
 
     DrawTexturePro(backBuffer.texture, backBufferSource, backBufferDest, origin, 0.0f, WHITE);
     EndDrawing();
+}
+
+void SetAllLantern(void)
+{
+    Vector2 positions[1]{{88, 527}};
+    Texture2D sprite = LoadTexture("resources/tilemap/propts.png");
+    for (auto pos : positions)
+        scene.AddBackground(new LightCharger(pos, &sprite));
 }
 
 void SetAllEnemies(void)

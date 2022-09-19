@@ -35,13 +35,14 @@ void Scene::updateHitBoxes()
 
 void Scene::Update(float dt)
 {
+    updateLayer(_backgrounds, dt);
     _player->Update(dt);
     _player->Draw();
-    CameraUpdate();
     updateEnemies(dt);
-    updateLayer(_backgrounds, dt);
+    updateLayer(_foregrounds, dt);
+
     updateHitBoxes();
-    DrawRectangleLines(GetCameraRec().x, GetCameraRec().y, GetCameraRec().width, GetCameraRec().height, WHITE);
+    CameraUpdate();
 }
 
 void Scene::UpdateUI(float dt) { updateLayer(_ui, dt); }
@@ -63,6 +64,13 @@ Rectangle Scene::GetCameraRec()
         Camera->target.y - Size.y / 2.0f,
         Size.x,
         Size.y};
+}
+
+void Scene::AddForeground(GameObject *foreground)
+{
+    _foregrounds.push_back(foreground);
+    foreground->SetScene(this);
+    foreground->Start();
 }
 
 void Scene::AddPlayer(Player *player)

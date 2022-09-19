@@ -42,7 +42,7 @@ void Weapon::Update(float dt)
 
             while (iteratorEnemy != enemies.end())
             {
-                if ((*iteratorEnemy)->CheckOverlay(bullet->Position, bullet->Size))
+                if ((*iteratorEnemy)->CheckOverlay(bullet->Position, bullet->Size) && (*iteratorEnemy)->IsAlive())
                 {
                     bullet->IsActive = false;
                     if ((*iteratorEnemy)->Status == Enemy::FREEZING && (*iteratorEnemy)->HP > 0)

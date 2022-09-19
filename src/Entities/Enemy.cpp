@@ -70,6 +70,9 @@ void Enemy::Update(float dt)
 
 void Enemy::Draw()
 {
+    if (!IsVisible())
+        return;
+
     if (DeathExplosion >= 0)
         DrawCircle(Position.x, Position.y, Size.y, BLACK);
 
