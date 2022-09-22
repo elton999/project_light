@@ -56,6 +56,8 @@ void Player::Push(float dt)
 void Player::Update(float dt)
 {
     LightDT += dt * 10;
+    hitEffectTime -= dt;
+
     SpriteAnimation::Update(dt);
 
     Input();
@@ -101,8 +103,18 @@ void Player::Draw()
     SpriteAnimation::Draw();
 }
 
+void Player::Hit()
+{
+    if (hitEffectTime > 0)
+        return;
+    HP -= 0.2f;
+}
+
 void Player::SetPush(Vector2 direction)
 {
+    if (hitEffectTime > 0)
+        return;
     PushDirection = direction;
     SpeedPush = 300.0f;
+    hitEffectTime = HIT_EFFECT_TIME;
 }

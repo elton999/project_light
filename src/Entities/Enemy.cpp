@@ -18,6 +18,7 @@ void Enemy::Start()
 
 void Enemy::Update(float dt)
 {
+    return;
     SetOnVisible();
 
     if (!IsVisible())
@@ -106,7 +107,9 @@ void Enemy::CheckPlayerCollision()
 
 bool Enemy::CheckOverlay(Vector2 pos, Vector2 size)
 {
-    return CheckCollisionCircleRec(GetCollisionPosition(), CollisionRadius, {pos.x, pos.y, size.x, size.y});
+    Rectangle enemyRec = {Position.x, Position.y, Size.x, Size.y};
+    Rectangle collisionRec = {pos.x, pos.y, size.x, size.y};
+    return CheckCollisionRecs(enemyRec, collisionRec);
 }
 
 void Enemy::Hit()
