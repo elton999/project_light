@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include "../Colors.h"
 #include "Enemy.h"
+#include "AnimationEfx.h"
 #include "../Scene/Scene.h"
 
 void Enemy::Start()
@@ -12,24 +13,16 @@ void Enemy::Start()
     Speed = 70.0f;
 
     Sprite = idle;
-
-    Efx->Start();
 }
 
 void Enemy::Update(float dt)
 {
-    return;
     SetOnVisible();
 
     if (!IsVisible())
         return;
 
-    if (!Efx->IsAnimationFinished())
-        Efx->Update(dt);
-
     HitCoolDown -= dt;
-    DeathExplosion -= dt;
-
     if (HP <= 0 || HitCoolDown > 0)
         return;
 
@@ -71,13 +64,7 @@ void Enemy::Update(float dt)
 
 void Enemy::Draw()
 {
-    if (!IsVisible())
-        return;
-
-    if (DeathExplosion >= 0)
-        DrawCircle(Position.x, Position.y, Size.y, BLACK);
-
-    if (HP <= 0)
+    if (!IsVisible() || HP <= 0)
         return;
 
     Vector2 barSize{40, 5};
@@ -92,7 +79,6 @@ void Enemy::Draw()
     DrawRectangleV(Vector2AddValue(barPos, 1), Vector2Subtract(barSize, {barPercent + 2, 2}), RED);
 
     SpriteAnimation::Draw();
-    Efx->Draw();
 }
 
 void Enemy::CheckPlayerCollision()
@@ -120,11 +106,14 @@ void Enemy::Hit()
 
     SetSizeSprite(32 + 6, 32 - 6);
 
-    Efx->StartAnimation();
-    Efx->Position = Position;
+    HitEfx->StartAnimation();
+    HitEfx->Position = Position;
 
     if (HP <= 0)
-        DeathExplosion = DEATH_EXPLOSION_TIME;
+    {
+        ExplosionEfx->Position = Position;
+        ExplosionEfx->StartAnimation();
+    }
 }
 
 bool Enemy::IsInLight()

@@ -39,6 +39,7 @@ void Scene::Update(float dt)
     _player->Update(dt);
     _player->Draw();
     updateEnemies(dt);
+
     updateLayer(_foregrounds, dt);
 
     updateHitBoxes();

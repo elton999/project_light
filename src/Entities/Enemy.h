@@ -18,6 +18,9 @@ public:
         freezing = *freezingTex;
     }
 
+    AnimationEfx *HitEfx;
+    AnimationEfx *ExplosionEfx;
+
     enum EnemyStatus
     {
         FREEZING,
@@ -39,8 +42,6 @@ public:
     bool IsVisible();
 
 private:
-    AnimationEfx *Efx = new AnimationEfx();
-
     bool Visible{false};
 
     const float MAX_TIME_TO_STOP = 20.0f;
@@ -50,9 +51,6 @@ private:
 
     float HitCoolDown{0};
     float const HIT_COOLDOWN_TIME = 0.1f;
-
-    float DeathExplosion{0};
-    float const DEATH_EXPLOSION_TIME = 0.2f;
 
     Texture2D idle{};
     Texture2D walk{};

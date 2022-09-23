@@ -12,6 +12,14 @@ void AnimationEfx::Start()
     height = 16;
 }
 
+void AnimationEfx::Update(float dt)
+{
+    if (IsAnimationFinished())
+        return;
+
+    Animation(dt);
+}
+
 void AnimationEfx::StartAnimation()
 {
     frame = 0;

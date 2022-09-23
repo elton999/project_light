@@ -13,10 +13,10 @@ public:
     float Scale{1}, Rotation{1};
     Color SpriteColor{WHITE};
 
+    void Animation(float dt);
+
     virtual void Update(float dt) override { Animation(dt); }
     virtual void Draw() override;
-
-    void Animation(float dt);
 
     void SetSizeSprite(int x, int y)
     {

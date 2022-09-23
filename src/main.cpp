@@ -9,6 +9,8 @@
 #include "Entities/Player.h"
 #include "Entities/Weapon.h"
 #include "Entities/Enemy.h"
+#include "Entities/AnimationEfx.h"
+#include "Entities/ExplosionEfx.h"
 #include "Entities/LightCharger.h"
 #include "Entities/Ui.h"
 
@@ -35,7 +37,7 @@ RenderTexture backBuffer;
 
 void UpdateDrawFrame(void);
 
-void SetAllEnemies(void);
+void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx);
 void SetAllLantern(void);
 
 int main(void)
@@ -55,7 +57,14 @@ int main(void)
     scene.AddPlayer(new Player(&tilesData));
     scene.AddForeground(new Weapon());
     SetAllLantern();
-    SetAllEnemies();
+
+    AnimationEfx *hitEfx = new AnimationEfx();
+    ExplosionEfx *explosionEfx = new ExplosionEfx();
+    scene.AddForeground(hitEfx);
+    scene.AddForeground(explosionEfx);
+
+    SetAllEnemies(hitEfx, explosionEfx);
+
     scene.AddUI(new Ui());
 
     scene.AddSolid(new Solid({656, 832, 24, 8}));
@@ -116,7 +125,7 @@ void SetAllLantern(void)
         scene.AddBackground(new LightCharger(pos, &sprite));
 }
 
-void SetAllEnemies(void)
+void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
 {
     Vector2 positions[11]{
         {254, 563},
@@ -137,5 +146,11 @@ void SetAllEnemies(void)
     Texture2D freezing = LoadTexture("resources/troll_freezing.png");
 
     for (auto pos : positions)
-        scene.AddEnemy(new Enemy(&tilesData, pos, &idle, &walk, &freezing));
+    {
+        Enemy *enemy = new Enemy(&tilesData, pos, &idle, &walk, &freezing);
+        enemy->HitEfx = hitEfx;
+        enemy->ExplosionEfx = explosionEfx;
+
+        scene.AddEnemy(enemy);
+    }
 }
