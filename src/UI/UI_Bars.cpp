@@ -1,10 +1,10 @@
-#include "GameObject.h"
+#include "../Entities/GameObject.h"
 #include "../Scene/Scene.h"
-#include "Ui.h"
+#include "UI_Bars.h"
 #include "raylib.h"
 #include "../Colors.h"
 
-void Ui::Draw()
+void UI_Bars::Draw()
 {
     Vector2 barSizeHP = {88, 7};
 

@@ -12,7 +12,7 @@
 #include "Entities/AnimationEfx.h"
 #include "Entities/ExplosionEfx.h"
 #include "Entities/LightCharger.h"
-#include "Entities/Ui.h"
+#include "UI/UI_Bars.h"
 #include "UI/UI_PlayerLantern.h"
 
 #include "Colors.h"
@@ -66,10 +66,11 @@ int main(void)
 
     SetAllEnemies(hitEfx, explosionEfx);
 
-    scene.AddUI(new Ui());
+    scene.AddUI(new UI_Bars());
     scene.AddUI(new UI_PlayerLantern());
 
-    scene.AddSolid(new Solid({656, 832, 24, 8}));
+    Solid *bridgeGepSolid = new Solid({656, 832, 24, 8});
+    scene.AddSolid(bridgeGepSolid);
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);

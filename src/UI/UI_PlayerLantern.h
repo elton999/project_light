@@ -15,7 +15,6 @@ public:
     Texture2D Sprite;
 
     void virtual Start() override;
-    void virtual Update(float dt) override {}
     void virtual Draw() override;
 };
 
