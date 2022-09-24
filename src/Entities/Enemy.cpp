@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "AnimationEfx.h"
 #include "../Scene/Scene.h"
+#include "../Observer/ISubject.h"
 
 void Enemy::Start()
 {
@@ -13,6 +14,9 @@ void Enemy::Start()
     Speed = 70.0f;
 
     Sprite = idle;
+
+    OnHit = new ISubject();
+    OnHit->Add(_scene->Freezing);
 }
 
 void Enemy::Update(float dt)
@@ -108,6 +112,8 @@ void Enemy::Hit()
 
     HitEfx->StartAnimation();
     HitEfx->Position = Position;
+
+    OnHit->Notify();
 
     if (HP <= 0)
     {

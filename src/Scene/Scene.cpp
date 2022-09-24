@@ -7,6 +7,15 @@ void Scene::updateLayer(std::list<GameObject *> layer, float dt)
     while (iterator != layer.end())
     {
         (*iterator)->Update(dt);
+        ++iterator;
+    }
+}
+
+void Scene::drawLayer(std::list<GameObject *> layer)
+{
+    std::list<GameObject *>::iterator iterator = layer.begin();
+    while (iterator != layer.end())
+    {
         (*iterator)->Draw();
         ++iterator;
     }
@@ -18,6 +27,16 @@ void Scene::updateEnemies(float dt)
     while (iterator != _enemies.end())
     {
         (*iterator)->Update(dt);
+        (*iterator)->Draw();
+        ++iterator;
+    }
+}
+
+void Scene::drawEnemies()
+{
+    std::list<Enemy *>::iterator iterator = _enemies.begin();
+    while (iterator != _enemies.end())
+    {
         (*iterator)->Draw();
         ++iterator;
     }
@@ -35,9 +54,13 @@ void Scene::updateHitBoxes()
 
 void Scene::Update(float dt)
 {
+    Freezing->Update(dt);
+    if (Freezing->IsFreezing())
+        return;
+
+    updateLayer(_ui, dt);
     updateLayer(_backgrounds, dt);
     _player->Update(dt);
-    _player->Draw();
     updateEnemies(dt);
 
     updateLayer(_foregrounds, dt);
@@ -46,7 +69,16 @@ void Scene::Update(float dt)
     CameraUpdate();
 }
 
-void Scene::UpdateUI(float dt) { updateLayer(_ui, dt); }
+void Scene::Draw()
+{
+    drawLayer(_backgrounds);
+    _player->Draw();
+    drawEnemies();
+
+    drawLayer(_foregrounds);
+}
+
+void Scene::DrawUI() { drawLayer(_ui); }
 
 void Scene::CameraUpdate()
 {

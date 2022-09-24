@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "CollisionCharacter.h"
 #include "AnimationEfx.h"
+#include "../Observer/ISubject.h"
 
 class Enemy : public SpriteAnimation, public CollisionCharacter
 {
@@ -27,6 +28,8 @@ public:
         FOLLOWING
     };
     EnemyStatus Status = FREEZING;
+
+    ISubject *OnHit;
 
     virtual void Start() override;
     virtual void Update(float dt) override;

@@ -4,7 +4,7 @@
 class IObserver
 {
 public:
-    virtual void Notify(){};
+    virtual void Notify() {}
 };
 
 #endif // I_OBSERVER_H

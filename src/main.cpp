@@ -93,11 +93,12 @@ void UpdateDrawFrame(void)
 
     DrawTileMap(tilesData, {scene.GetPlayer()->Position.x, scene.GetPlayer()->Position.y, (float)screenWidth, (float)screenHeight}, tileSprite);
     scene.Update(deltaTime);
+    scene.Draw();
 
     EndMode2D();
 
     // HUD
-    scene.UpdateUI(deltaTime);
+    scene.DrawUI();
 
     EndTextureMode();
 

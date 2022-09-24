@@ -10,6 +10,8 @@ class GameObject;
 #include "HitBox.h"
 #include "Solid.h"
 
+#include "FreezingFrame.h"
+
 #include "raylib.h"
 
 class Scene
@@ -25,17 +27,22 @@ private:
     std::list<Solid *> _solids;
 
     void updateLayer(std::list<GameObject *> layer, float dt);
+    void drawLayer(std::list<GameObject *> layer);
+
     void updateEnemies(float dt);
+    void drawEnemies();
     void updateHitBoxes();
 
 public:
+    FreezingFrame *Freezing = new FreezingFrame();
     Camera2D *Camera;
     Vector2 Size;
 
     Rectangle GetCameraRec();
 
     void Update(float dt);
-    void UpdateUI(float dt);
+    void Draw();
+    void DrawUI();
     void CameraUpdate();
 
     void AddForeground(GameObject *foreground);
