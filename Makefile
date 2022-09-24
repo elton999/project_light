@@ -354,12 +354,13 @@ rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst 
 SRC_DIR = src
 ENTITIES_DIR = $(SRC_DIR)/Entities
 SCENE_DIR = $(SRC_DIR)/Scene
+UI_DIR = $(SRC_DIR)/UI
 OBJ_DIR = obj
 
 # Define all object files from source files
 SRC = $(call rwildcard, *.cpp, *.h)
 #OBJS = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
-OBJS ?= $(SRC_DIR)/*.cpp $(ENTITIES_DIR)/*.cpp $(SCENE_DIR)/*.cpp
+OBJS ?= $(SRC_DIR)/*.cpp $(ENTITIES_DIR)/*.cpp $(SCENE_DIR)/*.cpp $(UI_DIR)/*.cpp
 
 # For Android platform we call a custom Makefile.Android
 ifeq ($(PLATFORM),PLATFORM_ANDROID)

@@ -13,6 +13,7 @@
 #include "Entities/ExplosionEfx.h"
 #include "Entities/LightCharger.h"
 #include "Entities/Ui.h"
+#include "UI/UI_PlayerLantern.h"
 
 #include "Colors.h"
 
@@ -66,6 +67,7 @@ int main(void)
     SetAllEnemies(hitEfx, explosionEfx);
 
     scene.AddUI(new Ui());
+    scene.AddUI(new UI_PlayerLantern());
 
     scene.AddSolid(new Solid({656, 832, 24, 8}));
 
