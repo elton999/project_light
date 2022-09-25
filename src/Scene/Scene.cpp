@@ -67,6 +67,8 @@ void Scene::Update(float dt)
 
     updateHitBoxes();
     CameraUpdate();
+
+    Shake->Update(dt);
 }
 
 void Scene::Draw()

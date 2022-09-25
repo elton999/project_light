@@ -11,6 +11,7 @@ class GameObject;
 #include "Solid.h"
 
 #include "FreezingFrame.h"
+#include "CameraShake.h"
 
 #include "raylib.h"
 
@@ -35,6 +36,8 @@ private:
 
 public:
     FreezingFrame *Freezing = new FreezingFrame();
+    CameraShake *Shake = new CameraShake(this);
+
     Camera2D *Camera;
     Vector2 Size;
 

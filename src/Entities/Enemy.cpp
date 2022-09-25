@@ -17,6 +17,7 @@ void Enemy::Start()
 
     OnHit = new ISubject();
     OnHit->Add(_scene->Freezing);
+    OnHit->Add(_scene->Shake);
 }
 
 void Enemy::Update(float dt)
