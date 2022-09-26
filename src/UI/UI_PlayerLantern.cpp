@@ -8,6 +8,6 @@ void UI_PlayerLantern::Start()
 
 void UI_PlayerLantern::Draw()
 {
-    Rectangle source = _scene->GetPlayer()->IsLightOn() ? _spriteOnSource : _spriteOffSource;
+    Rectangle source = _scene->GetPlayer()->LightOn ? _spriteOnSource : _spriteOffSource;
     DrawTexturePro(Sprite, source, _spriteDist, Origin, 1.0f, WHITE);
 }

@@ -21,4 +21,4 @@ public:
     void virtual Notify() override;
 };
 
-#endif
+#endif // CAMERA_SHAKE_H
