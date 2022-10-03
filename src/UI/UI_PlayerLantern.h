@@ -16,6 +16,7 @@ public:
 
     void virtual Start() override;
     void virtual Draw() override;
+    Rectangle GetSpriteSource();
 };
 
 #endif
