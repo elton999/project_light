@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include "Bullet.h"
 #include "GameObject.h"
+#include "../Scene/Scene.h"
 
 void Bullet::Start()
 {
@@ -18,6 +19,7 @@ void Bullet::Update(float dt)
         return;
 
     Position = Vector2Add(Position, Vector2Scale(Direction, Speed * dt));
+    IsActive = CheckCollisionRecs({Position.x, Position.y, Size.x, Size.y}, _scene->GetCameraRec());
 }
 
 void Bullet::Draw()
