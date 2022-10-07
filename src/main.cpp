@@ -5,6 +5,7 @@
 
 #include "Scene/Scene.h"
 #include "Scene/Solid.h"
+
 #include "Entities/GameObject.h"
 #include "Entities/Player.h"
 #include "Entities/Weapon.h"
@@ -12,6 +13,9 @@
 #include "Entities/AnimationEfx.h"
 #include "Entities/ExplosionEfx.h"
 #include "Entities/LightCharger.h"
+
+#include "Entities/Collectables/KeyCollectable.h"
+
 #include "UI/UI_Bars.h"
 #include "UI/UI_PlayerLantern.h"
 
@@ -39,7 +43,7 @@ RenderTexture backBuffer;
 void UpdateDrawFrame(void);
 
 void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx);
-void SetAllLantern(void);
+void SetAllLantern(Texture2D *sprite);
 
 int main(void)
 {
@@ -50,6 +54,7 @@ int main(void)
     backBuffer = LoadRenderTexture(screenWidth, screenHeight);
 
     tileSprite = LoadTexture("resources/tilemap/tileset.png");
+    Texture2D propsSprites = LoadTexture("resources/tilemap/propts.png");
 
     camera = {0};
     scene.Camera = &camera;
@@ -57,7 +62,10 @@ int main(void)
 
     scene.AddPlayer(new Player(&tilesData));
     scene.AddForeground(new Weapon());
-    SetAllLantern();
+    SetAllLantern(&propsSprites);
+
+    KeyCollectable *key = new KeyCollectable(&propsSprites);
+    scene.AddBackground(key);
 
     AnimationEfx *hitEfx = new AnimationEfx();
     ExplosionEfx *explosionEfx = new ExplosionEfx();
@@ -121,12 +129,11 @@ void UpdateDrawFrame(void)
     EndDrawing();
 }
 
-void SetAllLantern(void)
+void SetAllLantern(Texture2D *sprite)
 {
     Vector2 positions[1]{{88, 527}};
-    Texture2D sprite = LoadTexture("resources/tilemap/propts.png");
     for (auto pos : positions)
-        scene.AddBackground(new LightCharger(pos, &sprite));
+        scene.AddBackground(new LightCharger(pos, sprite));
 }
 
 void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
