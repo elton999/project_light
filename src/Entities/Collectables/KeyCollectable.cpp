@@ -1,4 +1,5 @@
 #include "KeyCollectable.h"
+#include "raymath.h"
 
 void KeyCollectable::Start()
 {
@@ -7,11 +8,15 @@ void KeyCollectable::Start()
     Position = {100, 100};
 }
 
-void KeyCollectable::Update(float dt) {}
+void KeyCollectable::Update(float dt)
+{
+    timerElapsed += dt;
+    floatingFactor = cosf(timerElapsed * floatingSpeed) * floatingDistance;
+}
 
 void KeyCollectable::Draw()
 {
-    Rectangle dest{Position.x, Position.y, Size.x, Size.y};
+    Rectangle dest{Position.x, Position.y + floatingFactor, Size.x, Size.y};
 
     DrawTexturePro(*Sprite, Source, dest, Origin, 1.0f, WHITE);
 }
