@@ -7,9 +7,10 @@
 class KeyCollectable : public Collectable
 {
 public:
-    KeyCollectable(Texture2D *sprite) : Collectable(sprite) {}
+    KeyCollectable(Texture2D *sprite) : Collectable(sprite, {}) {}
 
     void virtual Start() override;
+    void virtual Update(float dt) override;
 };
 
 #endif // KEY_COLLECTABLE_H

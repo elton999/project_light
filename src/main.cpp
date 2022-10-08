@@ -66,6 +66,7 @@ int main(void)
 
     KeyCollectable *key = new KeyCollectable(&propsSprites);
     scene.AddBackground(key);
+    scene.AddHitBox(key);
 
     AnimationEfx *hitEfx = new AnimationEfx();
     ExplosionEfx *explosionEfx = new ExplosionEfx();
