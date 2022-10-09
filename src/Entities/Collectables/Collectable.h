@@ -16,6 +16,8 @@ private:
     float floatingSpeed{3.0f};
     float floatingDistance{7.0f};
 
+    float shadowMiniSize{2};
+
 protected:
     Rectangle Source;
 
