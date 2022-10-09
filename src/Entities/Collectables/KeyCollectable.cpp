@@ -4,7 +4,7 @@ void KeyCollectable::Start()
 {
     Size = {16, 16};
     Source = {0, Size.y, Size.x, Size.y};
-    Position = {100, 300};
+    Position = {626, 877};
 }
 
 void KeyCollectable::Update(float dt)
