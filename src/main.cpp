@@ -15,6 +15,7 @@
 #include "Entities/LightCharger.h"
 
 #include "Entities/Collectables/KeyCollectable.h"
+#include "Entities/Collectables/BridgePartCollectable.h"
 
 #include "UI/UI_Bars.h"
 #include "UI/UI_PlayerLantern.h"
@@ -67,6 +68,10 @@ int main(void)
     KeyCollectable *key = new KeyCollectable(&propsSprites);
     scene.AddBackground(key);
     scene.AddHitBox(key);
+
+    BridgePartCollectable *bridgePart = new BridgePartCollectable(&propsSprites);
+    scene.AddBackground(bridgePart);
+    scene.AddHitBox(bridgePart);
 
     AnimationEfx *hitEfx = new AnimationEfx();
     ExplosionEfx *explosionEfx = new ExplosionEfx();

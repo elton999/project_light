@@ -3,7 +3,7 @@
 void KeyCollectable::Start()
 {
     Size = {16, 16};
-    Source = {0, Size.y, Size.x, Size.y};
+    Source = {0, 16, Size.x, Size.y};
     Position = {626, 877};
 }
 

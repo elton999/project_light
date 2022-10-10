@@ -17,7 +17,7 @@ void Collectable::Draw()
 
     // Shadow animation
     float radioShadow = (floatingFactor + floatingDistance) / 2 + shadowMiniSize;
-    DrawCircle(Position.x + Source.width / 2, Position.y + Source.y, radioShadow, SHADOW);
+    DrawCircle(Position.x + Source.width / 2, Position.y + Source.height, radioShadow, SHADOW);
 
     // Sprite render
     Rectangle dest{Position.x, Position.y + floatingFactor, Size.x, Size.y};
