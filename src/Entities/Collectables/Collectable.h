@@ -22,6 +22,8 @@ protected:
     Rectangle Source;
 
 public:
+    char name;
+
     Collectable(Texture2D *sprite, Rectangle solidRec) : HitBox(solidRec)
     {
         Sprite = sprite;

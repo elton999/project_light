@@ -8,6 +8,8 @@
 class HitBox : public Solid, public ISubject
 {
 public:
+    char nameHitBox;
+
     HitBox(Rectangle solidRec) : Solid(solidRec) {}
     void UpdateCheckCollision(CollisionCharacter character);
 };

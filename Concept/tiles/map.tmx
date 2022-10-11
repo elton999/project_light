@@ -231,7 +231,7 @@
   </object>
  </objectgroup>
  <objectgroup id="4" name="collectables">
-  <object id="16" name="wood" x="401" y="247">
+  <object id="16" name="wood" x="393" y="235">
    <point/>
   </object>
   <object id="17" name="key" x="626" y="877">
