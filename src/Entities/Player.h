@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "SpriteAnimation.h"
 #include "CollisionCharacter.h"
+#include "Backpack.h"
 #include "raymath.h"
 
 class Player : public SpriteAnimation, public CollisionCharacter
@@ -23,6 +24,8 @@ private:
 
 public:
     Player(tiles *tileData) { TilesData = tileData; }
+
+    Backpack *PlayerBackpack = new Backpack();
 
     bool LightOn{true};
     float LightAngle{0};

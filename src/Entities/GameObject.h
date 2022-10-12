@@ -24,6 +24,7 @@ public:
     virtual void Hit() {}
 
     void SetScene(Scene *scene) { _scene = scene; }
+    Scene *GetScene() { return _scene; }
 };
 
 #endif

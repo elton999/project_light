@@ -1,11 +1,10 @@
 #ifndef PLAYER_BACKPACK_H
 #define PLAYER_BACKPACK_H
 
-#include "GameObject.h"
 #include "Collectables/Collectable.h"
 #include "../Scene/HitBox.h"
 
-class PlayerBackpack : public GameObject
+class Backpack
 {
 private:
     Collectable *_collectable;
@@ -26,9 +25,7 @@ public:
     void OpenDoor(HitBox *hitBox)
     {
         if (hitBox->nameHitBox == _collectable->name && HasItem)
-        {
             Remove();
-        }
     }
 };
 
