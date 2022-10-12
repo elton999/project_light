@@ -9,8 +9,6 @@
 class Collectable : public GameObject, public HitBox
 {
 private:
-    Texture2D *Sprite;
-
     float timerElapsed{0};
     float floatingFactor{0};
     float floatingSpeed{3.0f};
@@ -18,10 +16,10 @@ private:
 
     float shadowMiniSize{2};
 
-protected:
+public:
+    Texture2D *Sprite;
     Rectangle Source;
 
-public:
     char name;
 
     Collectable(Texture2D *sprite, Rectangle solidRec) : HitBox(solidRec)

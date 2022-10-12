@@ -4,6 +4,11 @@
 #include "raylib.h"
 #include "../Colors.h"
 
+void UI_Bars::Start()
+{
+    _sprite = LoadTexture("resources/UI/bars_ui.png");
+}
+
 void UI_Bars::Draw()
 {
     Vector2 barSizeHP = {88, 7};
@@ -15,5 +20,5 @@ void UI_Bars::Draw()
     DrawRectangleV({34, 18}, barSizeLight, DARK_BLUE);
     DrawRectangleV({34, 18}, {barSizeLight.x * _scene->GetPlayer()->LightPower, barSizeLight.y}, YELLOW);
 
-    DrawTexture(Sprite, 2, 2, WHITE);
+    DrawTexture(_sprite, 2, 2, WHITE);
 }
