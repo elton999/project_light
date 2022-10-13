@@ -36,11 +36,11 @@ void Enemy::Update(float dt)
     Status = TimeToStop == 0 ? FREEZING : Status;
     Status = TimeToStop == MAX_TIME_TO_STOP ? FOLLOWING : Status;
 
-    Direction = {0, 0};
-    SpriteAnimation::Update(IsInLight() ? dt * 0.3f : dt);
+    bool isInLight = _scene->GetPlayer()->FlashLight->IsPointInLight(Position);
+    SpriteAnimation::Update(isInLight ? dt * 0.3f : dt);
 
     int barProgress = 1;
-    if (IsInLight())
+    if (isInLight)
     {
         barProgress = -1;
         SpriteColor = YELLOW;
@@ -50,6 +50,7 @@ void Enemy::Update(float dt)
 
     TimeToStop = Clamp(TimeToStop + (dt * SpeedToStop * barProgress), 0, MAX_TIME_TO_STOP);
 
+    Direction = {0, 0};
     if (Status == FOLLOWING)
     {
         Direction = Vector2Normalize(Vector2Subtract(_scene->GetPlayer()->Position, Position));
@@ -121,20 +122,6 @@ void Enemy::Hit()
         ExplosionEfx->Position = Position;
         ExplosionEfx->StartAnimation();
     }
-}
-
-bool Enemy::IsInLight()
-{
-    float distance = Vector2Distance(_scene->GetPlayer()->Position, Position);
-
-    if (distance <= _scene->GetPlayer()->LightDistance && _scene->GetPlayer()->IsLightOn())
-    {
-        Vector2 pNormalized = Vector2Normalize(Vector2Subtract(Position, _scene->GetPlayer()->Position));
-        return Vector2DotProduct(
-                   _scene->GetPlayer()->GetLightDirection(),
-                   pNormalized) >= cos(_scene->GetPlayer()->LightAngleLength / 2.0f * DEG2RAD);
-    }
-    return false;
 }
 
 void Enemy::SetOnVisible()

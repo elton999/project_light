@@ -37,7 +37,6 @@ public:
     virtual void Hit() override;
 
     void CheckPlayerCollision();
-    bool IsInLight();
     bool IsAlive() { return HP > 0; }
 
     void SetOnVisible();

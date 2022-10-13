@@ -5,13 +5,12 @@
 #include "SpriteAnimation.h"
 #include "CollisionCharacter.h"
 #include "Backpack.h"
+#include "PlayerFlashLight.h"
 #include "raymath.h"
 
 class Player : public SpriteAnimation, public CollisionCharacter
 {
 private:
-    int LightSegment{5};
-    float LightDT{0};
     Vector2 PushDirection{0, 0};
     float SpeedPush{0};
 
@@ -25,13 +24,8 @@ private:
 public:
     Player(tiles *tileData) { TilesData = tileData; }
 
+    PlayerFlashLight *FlashLight = new PlayerFlashLight();
     Backpack *PlayerBackpack = new Backpack();
-
-    bool LightOn{true};
-    float LightAngle{0};
-    float LightAngleLength{50.0f};
-    float LightDistance{150.0f};
-    float LightPower{1.0f};
 
     float LineTargetLength{50.0f};
 
@@ -42,13 +36,8 @@ public:
 
     virtual void Move(Vector2 direction, float speed) override;
     void Push(float dt);
-
     void Input();
-
-    Vector2 GetLightDirection() { return {sin(LightAngle * DEG2RAD), cos(LightAngle * DEG2RAD)}; }
     void SetPush(Vector2 direction);
-
-    bool IsLightOn() { return LightOn && LightPower > 0; }
 };
 
 #endif

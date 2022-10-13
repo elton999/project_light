@@ -74,13 +74,14 @@ void Weapon::Shoot()
     if (CurrentBullet == MAX_BULLETS)
         CurrentBullet = 0;
 
-    Bullets[CurrentBullet]->SetDirection(_scene->GetPlayer()->GetLightDirection());
+    Player *player = _scene->GetPlayer();
+    Bullets[CurrentBullet]->SetDirection(player->FlashLight->GetLightDirection());
     Bullets[CurrentBullet]->IsActive = true;
-    Bullets[CurrentBullet]->Position = Vector2Add(Position, Vector2Scale(_scene->GetPlayer()->GetLightDirection(), 15));
+    Bullets[CurrentBullet]->Position = Vector2Add(Position, Vector2Scale(player->FlashLight->GetLightDirection(), 15));
 
     CurrentBullet++;
 
-    Rotation = -_scene->GetPlayer()->LightAngle + 90;
+    Rotation = -player->FlashLight->LightAngle + 90;
     PlayAnimation = true;
     frame = 0;
     runningTime = 0;

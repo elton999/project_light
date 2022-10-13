@@ -1,4 +1,5 @@
 #include "LightCharger.h"
+#include "PlayerFlashLight.h"
 #include "../Scene/Scene.h"
 #include "raymath.h"
 #include "../Colors.h"
@@ -36,5 +37,6 @@ bool LightCharger::CheckPlayerOverlap()
 
 void LightCharger::ChargerPlayerLight(float dt)
 {
-    _scene->GetPlayer()->LightPower = Clamp(_scene->GetPlayer()->LightPower + ChargeSpeed * dt, 0, 1.0f);
+    PlayerFlashLight *flashLight = _scene->GetPlayer()->FlashLight;
+    flashLight->LightPower = Clamp(flashLight->LightPower + ChargeSpeed * dt, 0, 1.0f);
 }

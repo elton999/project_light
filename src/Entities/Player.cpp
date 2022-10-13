@@ -2,8 +2,8 @@
 #include "raymath.h"
 #include "../Colors.h"
 #include "GameObject.h"
-#include "../Scene/Scene.h"
 #include "Player.h"
+#include "../Scene/Scene.h"
 
 void Player::Start()
 {
@@ -16,6 +16,8 @@ void Player::Start()
     run = LoadTexture("resources/player_run.png");
     damage = LoadTexture("resources/player_damage.png");
     Sprite = idle;
+
+    FlashLight->SetPlayer(this);
 }
 
 void Player::Input()
@@ -33,7 +35,7 @@ void Player::Input()
         Direction.y = 1;
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
-        LightOn = !LightOn;
+        FlashLight->LightOn = !FlashLight->LightOn;
 }
 
 void Player::Move(Vector2 direction, float speed)
@@ -55,15 +57,13 @@ void Player::Push(float dt)
 
 void Player::Update(float dt)
 {
-    LightDT += dt * 10;
+    FlashLight->UpdateLightLogic(dt);
+
     hitEffectTime -= dt;
 
     SpriteAnimation::Update(dt);
 
     Input();
-
-    if (LightOn)
-        LightPower = Clamp(LightPower - 0.1f * dt, 0, INFINITY);
 
     if (SpeedPush > 0)
     {
@@ -77,26 +77,16 @@ void Player::Update(float dt)
         Right = Direction.x > 0;
 
     Move(Vector2Normalize(Direction), Speed * dt);
-
-    LightAngle = atan2f(GetScreenWidth() / 2.0f - GetMouseX(), GetScreenHeight() / 2.0f - GetMouseY()) * RAD2DEG;
-    LightAngle += 180.0f;
 }
 
 void Player::Draw()
 {
     DrawCircleV(GetCollisionPosition(), CollisionRadius, SHADOW);
 
-    float angleLength = LightAngleLength / 2.0f;
-    if (IsLightOn())
-    {
-        Color lightColor = YELLOW;
-        if (LightPower <= 0.3f)
-            if ((int)LightDT % 4 < 2.f)
-                lightColor = BLANK;
-        DrawCircleSector(Position, LightDistance, LightAngle + angleLength, LightAngle - angleLength, LightSegment, lightColor);
-    }
+    FlashLight->DrawLight(Position);
 
-    Vector2 targetPos = Vector2Add(Position, Vector2Scale(GetLightDirection(), LineTargetLength));
+    Vector2 targetPos = Vector2Scale(FlashLight->GetLightDirection(), LineTargetLength);
+    targetPos = Vector2Add(Position, targetPos);
     DrawLineV(Position, targetPos, GRAY);
     DrawCircleV(targetPos, 3.0f, GRAY);
 

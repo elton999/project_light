@@ -18,7 +18,7 @@ void UI_Bars::Draw()
 
     Vector2 barSizeLight = {69, 8};
     DrawRectangleV({34, 18}, barSizeLight, DARK_BLUE);
-    DrawRectangleV({34, 18}, {barSizeLight.x * _scene->GetPlayer()->LightPower, barSizeLight.y}, YELLOW);
+    DrawRectangleV({34, 18}, {barSizeLight.x * _scene->GetPlayer()->FlashLight->LightPower, barSizeLight.y}, YELLOW);
 
     DrawTexture(_sprite, 2, 2, WHITE);
 }

@@ -8,7 +8,7 @@ void UI_PlayerLantern::Start()
 
 Rectangle UI_PlayerLantern::GetSpriteSource()
 {
-    if (_scene->GetPlayer()->LightOn)
+    if (_scene->GetPlayer()->FlashLight->LightOn)
         return _spriteOnSource;
     return _spriteOffSource;
 }
