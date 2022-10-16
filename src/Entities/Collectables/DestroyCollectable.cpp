@@ -1,6 +1,7 @@
 #include "../../Observer/IObserver.h"
 #include "Collectable.h"
 #include "../../Scene/Scene.h"
+#include "../Player.h"
 
 void DestroyCollectable::Notify()
 {

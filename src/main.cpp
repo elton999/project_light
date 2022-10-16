@@ -17,6 +17,8 @@
 #include "Entities/Collectables/KeyCollectable.h"
 #include "Entities/Collectables/BridgePartCollectable.h"
 
+#include "Scene/HitBoxs/BridgeGep.h"
+
 #include "UI/UI_Bars.h"
 #include "UI/UI_PlayerLantern.h"
 #include "UI/UI_PlayerBackpack.h"
@@ -85,8 +87,12 @@ int main(void)
     scene.AddUI(new UI_PlayerLantern());
     scene.AddUI(new UI_PlayerBackpack());
 
-    Solid *bridgeGepSolid = new Solid({656, 832, 24, 8});
-    scene.AddSolid(bridgeGepSolid);
+    Solid *bridgeWall = new Solid({656, 832, 24, 8});
+    BridgeGep *bridgeGep = new BridgeGep({656, 824, 24, 8}, bridgeWall);
+
+    scene.AddBackground(bridgeGep);
+    scene.AddHitBox(bridgeGep);
+    scene.AddSolid(bridgeWall);
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);

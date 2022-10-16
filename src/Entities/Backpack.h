@@ -22,10 +22,14 @@ public:
 
     Collectable *GetItem() { return _collectable; }
 
-    void OpenDoor(HitBox *hitBox)
+    bool OpenDoor(HitBox *hitBox)
     {
-        if (hitBox->nameHitBox == _collectable->name && HasItem)
+        if (HasItem && hitBox->nameHitBox == _collectable->name)
+        {
             Remove();
+            return true;
+        }
+        return false;
     }
 };
 

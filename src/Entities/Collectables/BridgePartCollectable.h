@@ -7,7 +7,10 @@
 class BridgePartCollectable : public Collectable
 {
 public:
-    BridgePartCollectable(Texture2D *sprite) : Collectable(sprite, {}) {}
+    BridgePartCollectable(Texture2D *sprite) : Collectable(sprite, {})
+    {
+        name = 'BRIDGE_PART';
+    }
 
     void virtual Start() override;
     void virtual Update(float dt) override;

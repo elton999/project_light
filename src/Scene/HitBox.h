@@ -11,7 +11,7 @@ public:
     char nameHitBox;
 
     HitBox(Rectangle solidRec) : Solid(solidRec) {}
-    void UpdateCheckCollision(CollisionCharacter character);
+    virtual void UpdateCheckCollision(CollisionCharacter character);
 };
 
 #endif // HIT_BOX_H

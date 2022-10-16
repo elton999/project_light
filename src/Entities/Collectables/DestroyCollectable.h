@@ -2,6 +2,7 @@
 #define DESTROY_COLLECTABLE_H
 
 class Collectable;
+class Scene;
 #include "../../Observer/IObserver.h"
 
 class DestroyCollectable : public IObserver

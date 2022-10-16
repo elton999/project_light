@@ -3,12 +3,14 @@
 
 #include "raylib.h"
 #include "raymath.h"
+class Scene;
 
 class Solid
 {
 private:
     bool _active{true};
     Rectangle _solidRec;
+    Scene *_scene;
 
 public:
     Solid(Rectangle solidRec) { _solidRec = solidRec; }
