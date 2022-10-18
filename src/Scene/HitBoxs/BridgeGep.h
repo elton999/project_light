@@ -3,7 +3,9 @@
 
 #include "../HitBox.h"
 #include "../../Entities/GameObject.h"
+#include "../../Entities/Collectables/BridgePartSprite.h"
 #include "DisableSolid.h"
+#include "AddGameObjectObserver.h"
 
 class BridgeGep : public HitBox, public GameObject
 {
@@ -12,6 +14,9 @@ public:
     {
         nameHitBox = 'BRIDGE_PART';
 
+        Add(new AddGameObjectObserver(
+            new BridgePartSprite(),
+            GetScene()));
         Add(new DisableSolid(wall));
         Add(new DisableSolid(this));
     }

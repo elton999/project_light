@@ -64,8 +64,8 @@ void Scene::Update(float dt)
     updateEnemies(dt);
 
     updateLayer(_foregrounds, dt);
-
     updateHitBoxes();
+
     CameraUpdate();
 
     Shake->Update(dt);
