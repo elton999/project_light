@@ -14,7 +14,5 @@ void BridgeGep::UpdateCheckCollision(CollisionCharacter character)
     if (!GetScene()->GetPlayer()->PlayerBackpack->OpenDoor(this))
         return;
 
-    TraceLog(LOG_INFO, "open");
-
     Notify();
 }
