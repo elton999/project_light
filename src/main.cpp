@@ -77,7 +77,10 @@ int main(void)
     scene.AddBackground(bridgePartSprite);
 
     Solid *bridgeWall = new Solid({656, 832, 24, 8});
-    BridgeGep *bridgeGep = new BridgeGep({656, 824, 24, 8}, bridgeWall, bridgePartSprite);
+    BridgeGep *bridgeGep = new BridgeGep({656, 824, 24, 8});
+    bridgeGep->Add(new DisableSolid(bridgeWall));
+    bridgeGep->Add(new DisableSolid(bridgeGep));
+    bridgeGep->Add(bridgePartSprite);
 
     scene.AddBackground(bridgeGep);
     scene.AddHitBox(bridgeGep);

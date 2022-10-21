@@ -9,13 +9,9 @@
 class BridgeGep : public HitBox, public GameObject
 {
 public:
-    BridgeGep(Rectangle solidRec, Solid *wall, IObserver *bridgeGepSprite) : HitBox(solidRec)
+    BridgeGep(Rectangle solidRec) : HitBox(solidRec)
     {
         nameHitBox = 'BRIDGE_PART';
-
-        Add(new DisableSolid(wall));
-        Add(new DisableSolid(this));
-        Add(bridgeGepSprite);
     }
 
     virtual void UpdateCheckCollision(CollisionCharacter character) override;
