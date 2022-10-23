@@ -4,6 +4,7 @@
 #include "Weapon.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include "raymath.h"
 
 void Weapon::Start()
 {
@@ -17,6 +18,7 @@ void Weapon::Start()
     }
 
     Sprite = LoadTexture("resources/efx/shoot_efx.png");
+    _weaponSprite = LoadTexture("resources/weapon.png");
     Origin = {0, 8};
     Size = {16, 16};
     width = 16;
@@ -25,7 +27,6 @@ void Weapon::Start()
 
 void Weapon::Update(float dt)
 {
-    Position = _scene->GetPlayer()->Position;
     if (frame == 2)
         PlayAnimation = false;
 
@@ -53,20 +54,8 @@ void Weapon::Update(float dt)
         }
     }
 
-    Position = _scene->GetPlayer()->Position;
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         Shoot();
-}
-
-void Weapon::Draw()
-{
-    for (auto bullet : Bullets)
-        bullet->Draw();
-
-    if (!PlayAnimation)
-        return;
-
-    SpriteAnimation::Draw();
 }
 
 void Weapon::Shoot()
@@ -77,7 +66,7 @@ void Weapon::Shoot()
     Player *player = _scene->GetPlayer();
     Bullets[CurrentBullet]->SetDirection(player->FlashLight->GetLightDirection());
     Bullets[CurrentBullet]->IsActive = true;
-    Bullets[CurrentBullet]->Position = Vector2Add(Position, Vector2Scale(player->FlashLight->GetLightDirection(), 15));
+    Bullets[CurrentBullet]->Position = Vector2Add(Position, Vector2Scale(player->FlashLight->GetLightDirection(), 25));
 
     CurrentBullet++;
 
@@ -85,4 +74,28 @@ void Weapon::Shoot()
     PlayAnimation = true;
     frame = 0;
     runningTime = 0;
+}
+
+void Weapon::Draw()
+{
+    Player *player = _scene->GetPlayer();
+    float rotation = -player->FlashLight->LightAngle + 90;
+
+    Vector2 weaponPosition = {player->Position.x, player->Position.y};
+    weaponPosition = Vector2Add(weaponPosition, Vector2Scale(player->FlashLight->GetLightDirection(), 15));
+    _weaponDest.x = weaponPosition.x;
+    _weaponDest.y = weaponPosition.y;
+
+    DrawTexturePro(_weaponSprite, _weaponSource, _weaponDest, _weaponOrigin, rotation, WHITE);
+
+    Position = Vector2Scale(player->FlashLight->GetLightDirection(), 25);
+    Position = Vector2Add(_scene->GetPlayer()->Position, Position);
+
+    for (auto bullet : Bullets)
+        bullet->Draw();
+
+    if (!PlayAnimation)
+        return;
+
+    SpriteAnimation::Draw();
 }

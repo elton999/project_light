@@ -16,6 +16,10 @@ public:
     void Shoot();
 
 private:
+    Texture2D _weaponSprite;
+    Rectangle _weaponSource{0, 0, 12, 8};
+    Rectangle _weaponDest{0, 0, 12, 8};
+    Vector2 _weaponOrigin{0, 4};
     Bullet *Bullets[10];
     int CurrentBullet{0};
     const int MAX_BULLETS = 10;

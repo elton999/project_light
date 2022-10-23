@@ -87,8 +87,8 @@ void Player::Draw()
 
     Vector2 targetPos = Vector2Scale(FlashLight->GetLightDirection(), LineTargetLength);
     targetPos = Vector2Add(Position, targetPos);
-    DrawLineV(Position, targetPos, GRAY);
-    DrawCircleV(targetPos, 3.0f, GRAY);
+    // DrawLineV(Position, targetPos, GRAY);
+    // DrawCircleV(targetPos, 3.0f, GRAY);
 
     SpriteAnimation::Draw();
 }
