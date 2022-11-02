@@ -14,6 +14,8 @@
 #include "Entities/ExplosionEfx.h"
 #include "Entities/LightCharger.h"
 
+#include "Entities/Wall.h"
+
 #include "Entities/Collectables/KeyCollectable.h"
 #include "Entities/Collectables/BridgePartCollectable.h"
 #include "Entities/Collectables/BridgePartSprite.h"
@@ -76,6 +78,10 @@ int main(void)
     BridgePartSprite *bridgePartSprite = new BridgePartSprite();
     scene.AddBackground(bridgePartSprite);
 
+    // Wall
+    scene.AddBackground(new Wall());
+
+    // Bridge
     Solid *bridgeWall = new Solid({656, 832, 24, 8});
     BridgeGep *bridgeGep = new BridgeGep({656, 824, 24, 8});
     bridgeGep->Add(new DisableSolid(bridgeWall));
