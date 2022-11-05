@@ -240,7 +240,7 @@
  </objectgroup>
  <objectgroup id="5" name="solids">
   <object id="18" class="solid" x="656" y="832" width="24" height="8"/>
-  <object id="22" class="solid" x="888" y="440.182" width="16" height="95.8182"/>
+  <object id="22" class="solid" x="888" y="440" width="16" height="96"/>
   <object id="23" class="solid" x="976" y="368" width="80" height="16"/>
   <object id="25" x="880" y="480" width="8" height="16"/>
  </objectgroup>

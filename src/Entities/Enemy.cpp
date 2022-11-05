@@ -22,8 +22,6 @@ void Enemy::Start()
 
 void Enemy::Update(float dt)
 {
-    return;
-
     SetOnVisible();
 
     if (!IsVisible())

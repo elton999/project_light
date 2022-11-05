@@ -86,6 +86,12 @@ void Weapon::Draw()
     _weaponDest.x = weaponPosition.x;
     _weaponDest.y = weaponPosition.y;
 
+    Vector2 playerPositionDot = Vector2Subtract(weaponPosition, player->Position);
+    playerPositionDot = Vector2Normalize({playerPositionDot.x, 0});
+    Vector2 weaponPositionDot = Vector2Normalize({weaponPosition.x, 0});
+
+    _weaponSource.height = 8 * Vector2DotProduct(playerPositionDot, weaponPositionDot);
+
     DrawTexturePro(_weaponSprite, _weaponSource, _weaponDest, _weaponOrigin, rotation, WHITE);
 
     Position = Vector2Scale(player->FlashLight->GetLightDirection(), 25);
