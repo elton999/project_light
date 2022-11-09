@@ -19,7 +19,7 @@ public:
 
     bool CheckCollision(Vector2 position, float radius)
     {
-        return GetActive() && CheckCollisionCircleRec(position, radius, _solidRec);
+        return _active && CheckCollisionCircleRec(position, radius, _solidRec);
     }
     bool GetActive() { return _active; }
     void SetActive(bool active) { _active = active; }

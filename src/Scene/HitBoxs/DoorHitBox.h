@@ -1,20 +1,20 @@
-#ifndef BRIDGE_GEP_H
-#define BRIDGE_GEP_H
+#ifndef DOOR_HIT_BOX_H
+#define DOOR_HIT_BOX_H
 
 #include "../HitBox.h"
 #include "../../Entities/GameObject.h"
 #include "../../Entities/Collectables/BridgePartSprite.h"
 #include "DisableSolid.h"
 
-class BridgeGep : public HitBox, public GameObject
+class DoorHitBox : public HitBox, public GameObject
 {
 public:
-    BridgeGep(Rectangle solidRec) : HitBox(solidRec)
+    DoorHitBox(Rectangle solidRec, char name) : HitBox(solidRec)
     {
-        nameHitBox = 'BRIDGE_PART';
+        nameHitBox = name;
     }
 
     virtual void UpdateCheckCollision(CollisionCharacter character) override;
 };
 
-#endif // BRIDGE_GEP_H
+#endif // DOOR_HIT_BOX_H

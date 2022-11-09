@@ -20,7 +20,7 @@
 #include "Entities/Collectables/BridgePartCollectable.h"
 #include "Entities/Collectables/BridgePartSprite.h"
 
-#include "Scene/HitBoxs/BridgeGep.h"
+#include "Scene/HitBoxs/DoorHitBox.h"
 
 #include "UI/UI_Bars.h"
 #include "UI/UI_PlayerLantern.h"
@@ -79,13 +79,19 @@ int main(void)
     scene.AddBackground(bridgePartSprite);
 
     // Wall
-    Wall *wall = new Wall({888, 440, 16, 96});
+    Wall *wall = new Wall();
+    Solid *wallSolid = new Solid({888, 440, 16, 96});
+    DoorHitBox *lockDoor = new DoorHitBox({880, 480, 8, 16}, 'KEY');
+    lockDoor->Add(new DisableSolid(wallSolid));
+    lockDoor->Add(new DisableSolid(lockDoor));
+
     scene.AddBackground(wall);
-    scene.AddSolid(wall);
+    scene.AddHitBox(lockDoor);
+    scene.AddSolid(wallSolid);
 
     // Bridge
     Solid *bridgeWall = new Solid({656, 832, 24, 8});
-    BridgeGep *bridgeGep = new BridgeGep({656, 824, 24, 8});
+    DoorHitBox *bridgeGep = new DoorHitBox({656, 824, 24, 8}, 'BRIDGE_PART');
     bridgeGep->Add(new DisableSolid(bridgeWall));
     bridgeGep->Add(new DisableSolid(bridgeGep));
     bridgeGep->Add(bridgePartSprite);

@@ -24,12 +24,14 @@ public:
 
     bool OpenDoor(HitBox *hitBox)
     {
-        if (HasItem && hitBox->nameHitBox == _collectable->name)
-        {
-            Remove();
-            return true;
-        }
-        return false;
+        if (!HasItem)
+            return false;
+
+        if (hitBox->nameHitBox != _collectable->name)
+            return false;
+
+        Remove();
+        return true;
     }
 };
 

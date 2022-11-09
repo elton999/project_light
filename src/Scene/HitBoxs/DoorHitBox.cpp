@@ -1,9 +1,9 @@
 #include "raylib.h"
 
-#include "BridgeGep.h"
+#include "DoorHitBox.h"
 #include "../Scene.h"
 
-void BridgeGep::UpdateCheckCollision(CollisionCharacter character)
+void DoorHitBox::UpdateCheckCollision(CollisionCharacter character)
 {
     if (!GetActive())
         return;

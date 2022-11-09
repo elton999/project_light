@@ -5,7 +5,7 @@
 #include "GameObject.h"
 #include "../Scene/Solid.h"
 
-class Wall : public GameObject, public Solid
+class Wall : public GameObject
 {
 private:
     Texture2D _sprite;
@@ -13,8 +13,6 @@ private:
     int _numOfBlocks = 6;
 
 public:
-    Wall(Rectangle solidRec) : Solid(solidRec) {}
-
     void virtual Start() override;
     void virtual Update(float dt) override;
     void virtual Draw() override;
