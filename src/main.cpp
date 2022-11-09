@@ -79,7 +79,9 @@ int main(void)
     scene.AddBackground(bridgePartSprite);
 
     // Wall
-    scene.AddBackground(new Wall());
+    Wall *wall = new Wall({888, 440, 16, 96});
+    scene.AddBackground(wall);
+    scene.AddSolid(wall);
 
     // Bridge
     Solid *bridgeWall = new Solid({656, 832, 24, 8});
