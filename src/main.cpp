@@ -28,7 +28,7 @@
 
 #include "Colors.h"
 
-//#define PLATFORM_WEB
+#define PLATFORM_WEB
 #if defined(PLATFORM_WEB)
 #include <unistd.h>
 #include <emscripten/emscripten.h>
@@ -55,9 +55,9 @@ void SetAllLantern(Texture2D *sprite);
 int main(void)
 {
     InitWindow(screenWidth * windowScale, screenHeight * windowScale, "Project Light Alpha");
-
+#ifndef PLATFORM_WEB
     SetWindowState(FLAG_WINDOW_RESIZABLE);
-
+#endif
     backBuffer = LoadRenderTexture(screenWidth, screenHeight);
 
     tileSprite = LoadTexture("resources/tilemap/tileset.png");
@@ -151,7 +151,7 @@ void UpdateDrawFrame(void)
     EndTextureMode();
 
     BeginDrawing();
-    ClearBackground(BLACK);
+    ClearBackground(PURPLE);
 
     Vector2 sizesScreen = Vector2Divide({(float)GetScreenWidth(), (float)GetScreenHeight()}, scene.Size);
     sizesScreen = Vector2Scale(scene.Size, sizesScreen.x > sizesScreen.y ? sizesScreen.y : sizesScreen.x);

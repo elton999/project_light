@@ -238,10 +238,10 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
     # --profiling                # include information for code profiling
     # --memory-init-file 0       # to avoid an external memory initialization code file (.mem)
     # --preload-file resources   # specify a resources folder for data compilation
-    CFLAGS += -Os -s USE_GLFW=3 -s TOTAL_MEMORY=16777216 --preload-file resources
-    ifeq ($(BUILD_MODE), DEBUG)
-        CFLAGS += -s ASSERTIONS=1 --profiling
-    endif
+    CFLAGS += -Os -s USE_GLFW=3 -s TOTAL_MEMORY=16777216 -s ERROR_ON_UNDEFINED_SYMBOLS=0 --preload-file resources
+    # ifeq ($(BUILD_MODE), DEBUG)
+    #     CFLAGS += -s ASSERTIONS=1 --profiling
+    # endif
 
     # Define a custom shell .html and output extension
     CFLAGS += --shell-file $(RAYLIB_PATH)/src/shell.html
@@ -361,8 +361,12 @@ OBJ_DIR = obj
 
 # Define all object files from source files
 SRC = $(call rwildcard, *.cpp, *.h)
-#OBJS = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
-OBJS ?= $(SRC_DIR)/*.cpp $(ENTITIES_DIR)/*.cpp $(COLLECTABLES_DIR)/*.cpp $(SCENE_DIR)/*.cpp $(HIT_BOXS_DIR)/*.cpp $(UI_DIR)/*.cpp
+ifeq ($(PLATFORM),PLATFORM_WEB)
+    # OBJS ?= $(SRC_DIR)/main.cpp
+    OBJS ?= $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+else
+    OBJS ?= $(SRC_DIR)/*.cpp $(ENTITIES_DIR)/*.cpp $(COLLECTABLES_DIR)/*.cpp $(SCENE_DIR)/*.cpp $(HIT_BOXS_DIR)/*.cpp $(UI_DIR)/*.cpp
+endif
 
 # For Android platform we call a custom Makefile.Android
 ifeq ($(PLATFORM),PLATFORM_ANDROID)
