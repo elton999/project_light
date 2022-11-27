@@ -39,17 +39,15 @@ void Weapon::Update(float dt)
         {
             bullet->Update(dt);
             std::list<Enemy *> enemies = _scene->GetEnemies();
-            std::list<Enemy *>::iterator iteratorEnemy = enemies.begin();
 
-            while (iteratorEnemy != enemies.end())
+            for (Enemy *enemy : enemies)
             {
-                if ((*iteratorEnemy)->CheckOverlay(bullet->Position, bullet->Size) && (*iteratorEnemy)->IsAlive())
+                if (enemy->CheckOverlay(bullet->Position, bullet->Size) && enemy->IsAlive())
                 {
                     bullet->IsActive = false;
-                    if ((*iteratorEnemy)->Status == Enemy::FREEZING && (*iteratorEnemy)->HP > 0)
-                        (*iteratorEnemy)->Hit();
+                    if (enemy->Status == Enemy::FREEZING && enemy->HP > 0)
+                        enemy->Hit();
                 }
-                ++iteratorEnemy;
             }
         }
     }

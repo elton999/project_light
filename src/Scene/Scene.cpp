@@ -3,53 +3,35 @@
 
 void Scene::updateLayer(std::list<GameObject *> layer, float dt)
 {
-    std::list<GameObject *>::iterator iterator = layer.begin();
-    while (iterator != layer.end())
-    {
-        (*iterator)->Update(dt);
-        ++iterator;
-    }
+    for (GameObject *gameObject : layer)
+        gameObject->Update(dt);
 }
 
 void Scene::drawLayer(std::list<GameObject *> layer)
 {
-    std::list<GameObject *>::iterator iterator = layer.begin();
-    while (iterator != layer.end())
-    {
-        (*iterator)->Draw();
-        ++iterator;
-    }
+    for (GameObject *gameObject : layer)
+        gameObject->Draw();
 }
 
 void Scene::updateEnemies(float dt)
 {
-    std::list<Enemy *>::iterator iterator = _enemies.begin();
-    while (iterator != _enemies.end())
+    for (Enemy *enemy : _enemies)
     {
-        (*iterator)->Update(dt);
-        (*iterator)->Draw();
-        ++iterator;
+        enemy->Update(dt);
+        enemy->Draw();
     }
 }
 
 void Scene::drawEnemies()
 {
-    std::list<Enemy *>::iterator iterator = _enemies.begin();
-    while (iterator != _enemies.end())
-    {
-        (*iterator)->Draw();
-        ++iterator;
-    }
+    for (Enemy *enemy : _enemies)
+        enemy->Draw();
 }
 
 void Scene::updateHitBoxes()
 {
-    std::list<HitBox *>::iterator iterator = _hitBoxes.begin();
-    while (iterator != _hitBoxes.end())
-    {
-        (*iterator)->UpdateCheckCollision(*_player);
-        ++iterator;
-    }
+    for (HitBox *hitBox : _hitBoxes)
+        hitBox->UpdateCheckCollision(*_player);
 }
 
 void Scene::Update(float dt)

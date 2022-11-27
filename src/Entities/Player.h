@@ -22,10 +22,15 @@ private:
     float hitEffectTime = HIT_EFFECT_TIME;
 
 public:
-    Player(tiles *tileData) { TilesData = tileData; }
+    Player(tiles *tileData)
+    {
+        TilesData = tileData;
+        FlashLight = new PlayerFlashLight();
+        PlayerBackpack = new Backpack();
+    }
 
-    PlayerFlashLight *FlashLight = new PlayerFlashLight();
-    Backpack *PlayerBackpack = new Backpack();
+    PlayerFlashLight *FlashLight;
+    Backpack *PlayerBackpack;
 
     float LineTargetLength{50.0f};
 

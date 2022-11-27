@@ -12,27 +12,10 @@ private:
 public:
     bool HasItem{false};
 
-    void Add(Collectable *collectable)
-    {
-        HasItem = true;
-        _collectable = collectable;
-    }
-
-    void Remove() { HasItem = false; }
-
-    Collectable *GetItem() { return _collectable; }
-
-    bool OpenDoor(HitBox *hitBox)
-    {
-        if (!HasItem)
-            return false;
-
-        if (hitBox->nameHitBox != _collectable->name)
-            return false;
-
-        Remove();
-        return true;
-    }
+    void Add(Collectable *collectable);
+    void Remove();
+    Collectable *GetItem();
+    bool OpenDoor(HitBox *hitBox);
 };
 
 #endif // PLAYER_BACKPACK_H

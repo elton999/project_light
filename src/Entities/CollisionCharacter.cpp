@@ -33,12 +33,10 @@ bool CollisionCharacter::CheckTileIsSolid(int tile)
 
 bool CollisionCharacter::CheckCollisionSolids(std::list<Solid *> solids)
 {
-    std::list<Solid *>::iterator iterator = solids.begin();
-    while (iterator != solids.end())
+    for (Solid *solid : solids)
     {
-        if ((*iterator)->CheckCollision(GetCollisionPosition(), CollisionRadius))
+        if (solid->CheckCollision(GetCollisionPosition(), CollisionRadius))
             return true;
-        ++iterator;
     }
     return false;
 }

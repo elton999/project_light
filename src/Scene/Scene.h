@@ -1,8 +1,6 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-class GameObject;
-
 #include <list>
 #include "../Entities/Player.h"
 #include "../Entities/Enemy.h"
@@ -15,11 +13,12 @@ class GameObject;
 
 #include "raylib.h"
 
+class GameObject;
+
 class Scene
 {
 private:
     std::list<GameObject *> _foregrounds;
-    Player *_player;
     std::list<Enemy *> _enemies;
     std::list<GameObject *> _backgrounds;
     std::list<GameObject *> _ui;
@@ -35,6 +34,7 @@ private:
     void updateHitBoxes();
 
 public:
+    Player *_player;
     FreezingFrame *Freezing = new FreezingFrame();
     CameraShake *Shake = new CameraShake(this);
 

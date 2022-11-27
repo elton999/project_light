@@ -1,7 +1,7 @@
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
-    "version": "2.0.0",
+    "version": "0.0.1",
     "tasks": [
         {
             "label": "build debug",
@@ -16,8 +16,7 @@
                 "args": [
                     "RAYLIB_PATH=C:/raylib/raylib",
                     "PROJECT_NAME=${fileBasenameNoExtension}",
-                    "OBJS=src/*.cpp src/Entities/*.cpp",
-                    "OBJS=src/*.cpp src/Scene/*.cpp",
+                    "OBJS=src/*.cpp src/Scene/*.cpp src/Scene/HitBoxs/*.cpp src/Entities/*.cpp src/Entities/Collectables/*.cpp src/UI/*.cpp",
                     "BUILD_MODE=RELEASE"
                 ]
             },

@@ -2,6 +2,7 @@
 
 #include "DoorHitBox.h"
 #include "../Scene.h"
+#include "../../Entities/Player.h"
 
 void DoorHitBox::UpdateCheckCollision(CollisionCharacter character)
 {
@@ -11,7 +12,11 @@ void DoorHitBox::UpdateCheckCollision(CollisionCharacter character)
     if (!CheckCollision(character.GetCollisionPosition(), character.CollisionRadius))
         return;
 
-    if (!GetScene()->GetPlayer()->PlayerBackpack->OpenDoor(this))
+    Scene *scene = GetScene();
+    Player player = *scene->_player;
+    Backpack playerBackpack = *player.PlayerBackpack;
+
+    if (!playerBackpack.OpenDoor(this))
         return;
 
     Notify();

@@ -71,15 +71,9 @@ int main(void)
     scene.AddForeground(new Weapon());
     SetAllLantern(&propsSprites);
 
-    KeyCollectable *key = new KeyCollectable(&propsSprites);
-    scene.AddBackground(key);
-    scene.AddHitBox(key);
-
-    BridgePartSprite *bridgePartSprite = new BridgePartSprite();
-    scene.AddBackground(bridgePartSprite);
-
     // Wall
     Wall *wall = new Wall();
+
     Solid *wallSolid = new Solid({888, 440, 16, 96});
     DoorHitBox *lockDoor = new DoorHitBox({880, 480, 8, 16}, 'KEY');
     lockDoor->Add(new DisableSolid(wallSolid));
@@ -87,18 +81,26 @@ int main(void)
 
     scene.AddBackground(wall);
     scene.AddHitBox(lockDoor);
+    scene.AddBackground(lockDoor);
     scene.AddSolid(wallSolid);
 
+    KeyCollectable *key = new KeyCollectable(&propsSprites);
+    scene.AddBackground(key);
+    scene.AddHitBox(key);
+
     // Bridge
-    Solid *bridgeWall = new Solid({656, 832, 24, 8});
+    BridgePartSprite *bridgePartSprite = new BridgePartSprite();
+    scene.AddBackground(bridgePartSprite);
+
+    Solid *bridgeSolid = new Solid({656, 832, 24, 8});
     DoorHitBox *bridgeGep = new DoorHitBox({656, 824, 24, 8}, 'BRIDGE_PART');
-    bridgeGep->Add(new DisableSolid(bridgeWall));
+    bridgeGep->Add(new DisableSolid(bridgeSolid));
     bridgeGep->Add(new DisableSolid(bridgeGep));
     bridgeGep->Add(bridgePartSprite);
 
     scene.AddBackground(bridgeGep);
     scene.AddHitBox(bridgeGep);
-    scene.AddSolid(bridgeWall);
+    scene.AddSolid(bridgeSolid);
 
     BridgePartCollectable *bridgePart = new BridgePartCollectable(&propsSprites);
     scene.AddBackground(bridgePart);
