@@ -59,14 +59,14 @@ void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite)
     {
         for (int y = posGrid.y - 1; y < posGrid.y + sizeGrid.y + 1; y++)
         {
-            int indexTile = GetTileByPosition(Vector2Scale({x, y}, TILE_SIZE), tileData);
+            int indexTile = GetTileByPosition(Vector2Scale({(float)x, (float)y}, TILE_SIZE), tileData);
             if (indexTile != -1)
             {
                 Vector2 sourcePos = GetGridPositionByIndex(indexTile, sprite.width / TILE_SIZE);
                 sourcePos = Vector2Scale(sourcePos, TILE_SIZE);
                 Rectangle source{sourcePos.y, sourcePos.x, TILE_SIZE, TILE_SIZE};
 
-                Vector2 position = Vector2Scale({x, y}, TILE_SIZE);
+                Vector2 position = Vector2Scale({(float)x, (float)y}, TILE_SIZE);
                 DrawTextureRec(sprite, source, position, WHITE);
             }
         }

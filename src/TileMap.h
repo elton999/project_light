@@ -8,7 +8,7 @@
 #include "raymath.h"
 #include <sstream>
 
-#define TILE_SIZE 8
+#define TILE_SIZE 8.0f
 
 struct tiles
 {

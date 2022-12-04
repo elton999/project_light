@@ -9,6 +9,7 @@
             "command": "make",
             "args": [
                 "PLATFORM=PLATFORM_DESKTOP",
+                // "PLATFORM=PLATFORM_WEB",
                 "BUILD_MODE=DEBUG"
             ],
             "windows": {

@@ -11,7 +11,7 @@ bool CollisionCharacter::CheckCollisionGrid(tiles tiles, float areaToCheck)
     {
         for (int x = pos.x - areaToCheck; x < pos.x + areaToCheck; x++)
         {
-            Vector2 posScaled = Vector2Scale({x, y}, TILE_SIZE);
+            Vector2 posScaled = Vector2Scale({(float)x, (float)y}, TILE_SIZE);
             Rectangle tileRec = {posScaled.x, posScaled.y, TILE_SIZE, TILE_SIZE};
             int tileIndex = GetTileByPosition(posScaled, tiles);
 

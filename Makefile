@@ -119,7 +119,8 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
     # Emscripten required variables
     EMSDK_PATH          ?= C:/emsdk
     EMSCRIPTEN_VERSION  ?= 1.38.31
-    CLANG_VERSION       = $(EMSDK_PATH)\fastcomp-clang\tag-e1.38.31 #e$(EMSCRIPTEN_VERSION)_64bit
+    CLANG_VERSION       = $(EMSDK_PATH)\fastcomp-clang\tag-e1.38.31
+    # CLANG_VERSION       = e$(EMSCRIPTEN_VERSION)_64bit
     PYTHON_VERSION      = 2.7.13.1_64bit\python-2.7.13.amd64
     NODE_VERSION        = 8.9.1_64bit
     export PATH         = $(EMSDK_PATH);$(EMSDK_PATH)\fastcomp-clang\$(CLANG_VERSION);$(EMSDK_PATH)\node\$(NODE_VERSION)\bin;$(EMSDK_PATH)\python\$(PYTHON_VERSION);$(EMSDK_PATH)\emscripten\$(EMSCRIPTEN_VERSION);C:\raylib\MinGW\bin:$$(PATH)
@@ -245,6 +246,8 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
 
     # Define a custom shell .html and output extension
     CFLAGS += --shell-file $(RAYLIB_PATH)/src/shell.html
+    # CFLAGS += --shell-file $(EMSDK_PATH)/upstream/emscripten/src/shell.html
+    
     EXT = .html
 endif
 
@@ -360,10 +363,16 @@ UI_DIR = $(SRC_DIR)/UI
 OBJ_DIR = obj
 
 # Define all object files from source files
-SRC = $(call rwildcard, *.cpp, *.h)
+SRC := $(call rwildcard, src/*.cpp, src/*.h)
 ifeq ($(PLATFORM),PLATFORM_WEB)
-    # OBJS ?= $(SRC_DIR)/main.cpp
-    OBJS ?= $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+    OBJS ?= $(SCENE_DIR)/Scene.cpp $(SCENE_DIR)/HitBox.cpp $(SCENE_DIR)/FreezingFrame.cpp $(SCENE_DIR)/CameraShake.cpp
+    OBJS += $(HIT_BOXS_DIR)/DoorHitBox.cpp
+    OBJS += $(UI_DIR)/UI_Bars.cpp $(UI_DIR)/UI_PlayerBackpack.cpp $(UI_DIR)/UI_PlayerLantern.cpp
+    OBJS += $(COLLECTABLES_DIR)/BridgePartCollectable.cpp $(COLLECTABLES_DIR)/Collectable.cpp $(COLLECTABLES_DIR)/DestroyCollectable.cpp $(COLLECTABLES_DIR)/KeyCollectable.cpp
+    OBJS += $(SRC_DIR)/main.cpp $(SRC_DIR)/TileMap.cpp $(ENTITIES_DIR)/GameObject.cpp $(ENTITIES_DIR)/AnimationEfx.cpp $(ENTITIES_DIR)/Backpack.cpp $(ENTITIES_DIR)/Bullet.cpp $(ENTITIES_DIR)/CollisionCharacter.cpp $(ENTITIES_DIR)/Enemy.cpp $(ENTITIES_DIR)/ExplosionEfx.cpp $(ENTITIES_DIR)/LightCharger.cpp $(ENTITIES_DIR)/Player.cpp $(ENTITIES_DIR)/PlayerFlashLight.cpp $(ENTITIES_DIR)/SpriteAnimation.cpp $(ENTITIES_DIR)/Wall.cpp $(ENTITIES_DIR)/Weapon.cpp
+
+    # OBJS ?= $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+    # OBJS ?= $(SRC)
 else
     OBJS ?= $(SRC_DIR)/*.cpp $(ENTITIES_DIR)/*.cpp $(COLLECTABLES_DIR)/*.cpp $(SCENE_DIR)/*.cpp $(HIT_BOXS_DIR)/*.cpp $(UI_DIR)/*.cpp
 endif

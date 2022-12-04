@@ -17,6 +17,6 @@ void SpriteAnimation::Animation(float dt)
 void SpriteAnimation::Draw()
 {
     Rectangle source{frame * Size.x, 0, (Right ? 1 : -1) * Size.x, Size.y};
-    Rectangle dest{Position.x, Position.y, width, height};
+    Rectangle dest{Position.x, Position.y, (float)width, (float)height};
     DrawTexturePro(Sprite, source, dest, Origin, Rotation, SpriteColor);
 }

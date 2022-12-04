@@ -1,3 +1,9 @@
+#define PLATFORM_WEB
+#if defined(PLATFORM_WEB)
+#include <unistd.h>
+#include <emscripten/emscripten.h>
+#endif
+
 #include "raylib.h"
 #include "rlgl.h"
 #include "raymath.h"
@@ -28,16 +34,10 @@
 
 #include "Colors.h"
 
-#define PLATFORM_WEB
-#if defined(PLATFORM_WEB)
-#include <unistd.h>
-#include <emscripten/emscripten.h>
-#endif
-
 int screenWidth = 426;
 int screenHeight = 240;
 
-int windowScale = 2;
+int windowScale = 1;
 
 Camera2D camera = {};
 tiles tilesData = ReadTileMap();
@@ -58,6 +58,7 @@ int main(void)
 #ifndef PLATFORM_WEB
     SetWindowState(FLAG_WINDOW_RESIZABLE);
 #endif
+
     backBuffer = LoadRenderTexture(screenWidth, screenHeight);
 
     tileSprite = LoadTexture("resources/tilemap/tileset.png");
@@ -133,6 +134,7 @@ int main(void)
 void UpdateDrawFrame(void)
 {
     float deltaTime = GetFrameTime();
+
     // draw in sprite
     BeginTextureMode(backBuffer);
 
