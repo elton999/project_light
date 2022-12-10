@@ -22,7 +22,6 @@ void Enemy::Start()
 
 void Enemy::Update(float dt)
 {
-    return;
     SetOnVisible();
 
     if (!IsVisible())
@@ -52,18 +51,22 @@ void Enemy::Update(float dt)
     TimeToStop = Clamp(TimeToStop + (dt * SpeedToStop * barProgress), 0, MAX_TIME_TO_STOP);
 
     Direction = {0, 0};
+    float playerDistance = 0;
     if (Status == FOLLOWING)
     {
-        Direction = Vector2Normalize(Vector2Subtract(_scene->GetPlayer()->Position, Position));
-        Position = Vector2Add(Position, Vector2Scale(Direction, Speed * dt));
+        Direction = Vector2Subtract(_scene->GetPlayer()->Position, Position);
+        playerDistance = Vector2LengthSqr(Direction);
+        Direction = Vector2Normalize(Direction);
+
+        if (playerDistance > MAX_DISTANCE_TO_TURNING)
+            Position = Vector2Add(Position, Vector2Scale(Direction, Speed * dt));
     }
 
-    if (Direction.x != 0)
+    if (playerDistance > MAX_DISTANCE_TO_TURNING && Direction.x != 0)
         Right = Direction.x > 0;
 
-    if (Vector2Length(Direction) == 0)
-        Sprite = Status == FREEZING ? freezing : idle;
-    else
+    Sprite = Status == FREEZING ? freezing : idle;
+    if (Vector2Length(Direction) > 0 && playerDistance > MAX_DISTANCE_TO_TURNING)
         Sprite = walk;
 
     CheckPlayerCollision();

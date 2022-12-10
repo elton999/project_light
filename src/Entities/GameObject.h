@@ -24,6 +24,7 @@ public:
     virtual void Hit() {}
 
     void SetScene(Scene *scene) { _scene = scene; }
+    bool IsDead() { return HP <= 0; }
     Scene *GetScene() { return _scene; }
 };
 

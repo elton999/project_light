@@ -17,6 +17,7 @@ private:
     Texture2D idle{};
     Texture2D run{};
     Texture2D damage{};
+    Texture2D death{};
 
     float const HIT_EFFECT_TIME = 2.0f;
     float hitEffectTime = HIT_EFFECT_TIME;

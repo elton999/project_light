@@ -15,6 +15,7 @@ void Player::Start()
     idle = LoadTexture("resources/player.png");
     run = LoadTexture("resources/player_run.png");
     damage = LoadTexture("resources/player_damage.png");
+    death = LoadTexture("resources/player_death.png");
     Sprite = idle;
 
     FlashLight->SetPlayer(this);
@@ -23,6 +24,9 @@ void Player::Start()
 void Player::Input()
 {
     Direction = {0, 0};
+
+    if (IsDead())
+        return;
 
     if (IsKeyDown(KEY_A))
         Direction.x = -1;
@@ -96,12 +100,22 @@ void Player::Hit()
     if (hitEffectTime > 0)
         return;
     HP -= 0.2f;
+
+    if (!IsDead())
+        return;
+
+    AnimationDirection = FORWARD;
+    Sprite = death;
 }
 
 void Player::SetPush(Vector2 direction)
 {
+    if (IsDead())
+        return;
+
     if (hitEffectTime > 0)
         return;
+
     PushDirection = direction;
     SpeedPush = 300.0f;
     hitEffectTime = HIT_EFFECT_TIME;
