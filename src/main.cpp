@@ -1,4 +1,4 @@
-#define PLATFORM_WEB
+// #define PLATFORM_WEB
 #if defined(PLATFORM_WEB)
 #include <unistd.h>
 #include <emscripten/emscripten.h>
@@ -153,7 +153,7 @@ void UpdateDrawFrame(void)
     EndTextureMode();
 
     BeginDrawing();
-    ClearBackground(PURPLE);
+    ClearBackground(BLACK);
 
     Vector2 sizesScreen = Vector2Divide({(float)GetScreenWidth(), (float)GetScreenHeight()}, scene.Size);
     sizesScreen = Vector2Scale(scene.Size, sizesScreen.x > sizesScreen.y ? sizesScreen.y : sizesScreen.x);

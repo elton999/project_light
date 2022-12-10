@@ -2,17 +2,17 @@
 
 void Backpack::Add(Collectable *collectable)
 {
-    HasItem = true;
+    _hasItem = true;
     _collectable = collectable;
 }
 
-void Backpack::Remove() { HasItem = false; }
+void Backpack::Remove() { _hasItem = false; }
 
 Collectable *Backpack::GetItem() { return _collectable; }
 
-bool Backpack::OpenDoor(HitBox *hitBox)
+bool Backpack::UseItem(HitBox *hitBox)
 {
-    if (!HasItem)
+    if (!HasItem())
         return false;
 
     if (hitBox->nameHitBox != GetItem()->name)

@@ -11,14 +11,14 @@ void UI_PlayerBackpack::Start()
 
 void UI_PlayerBackpack::Draw()
 {
-    DrawTexture(_sprite, Position.x, Position.y, WHITE);
-
     // Draw item in the backpack
     Player *player = GetScene()->GetPlayer();
-    if (!player->PlayerBackpack->HasItem)
-        return;
-
     Backpack *playerBackpack = player->PlayerBackpack;
+
+    DrawTexture(_sprite, Position.x, Position.y, WHITE);
+
+    if (!playerBackpack->HasItem())
+        return;
 
     DrawTexturePro(
         *playerBackpack->GetItem()->Sprite,

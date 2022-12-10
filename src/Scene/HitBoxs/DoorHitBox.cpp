@@ -13,10 +13,10 @@ void DoorHitBox::UpdateCheckCollision(CollisionCharacter character)
         return;
 
     Scene *scene = GetScene();
-    Player player = *scene->_player;
-    Backpack playerBackpack = *player.PlayerBackpack;
+    Player *player = scene->_player;
+    Backpack *playerBackpack = player->PlayerBackpack;
 
-    if (!playerBackpack.OpenDoor(this))
+    if (!playerBackpack->UseItem(this))
         return;
 
     Notify();

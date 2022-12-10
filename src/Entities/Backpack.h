@@ -8,14 +8,14 @@ class Backpack
 {
 private:
     Collectable *_collectable;
+    bool _hasItem{false};
 
 public:
-    bool HasItem{false};
-
+    bool HasItem() { return _hasItem; }
     void Add(Collectable *collectable);
     void Remove();
     Collectable *GetItem();
-    bool OpenDoor(HitBox *hitBox);
+    bool UseItem(HitBox *hitBox);
 };
 
 #endif // PLAYER_BACKPACK_H
