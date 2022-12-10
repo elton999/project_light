@@ -77,6 +77,10 @@ void Weapon::Shoot()
 void Weapon::Draw()
 {
     Player *player = _scene->GetPlayer();
+
+    if (player->IsDead())
+        return;
+
     float rotation = -player->FlashLight->LightAngle + 90;
 
     Vector2 weaponPosition = {player->Position.x, player->Position.y};

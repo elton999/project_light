@@ -74,6 +74,9 @@ void Enemy::Update(float dt)
 
 void Enemy::Draw()
 {
+    if (GetScene()->GetPlayer()->IsDead())
+        return;
+
     if (!IsVisible() || HP <= 0)
         return;
 
