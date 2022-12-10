@@ -61,6 +61,8 @@ void Player::Push(float dt)
 
 void Player::Update(float dt)
 {
+    _totalTime += dt;
+
     FlashLight->UpdateLightLogic(dt);
 
     hitEffectTime -= dt;
@@ -91,6 +93,13 @@ void Player::Draw()
 
     Vector2 targetPos = Vector2Scale(FlashLight->GetLightDirection(), LineTargetLength);
     targetPos = Vector2Add(Position, targetPos);
+
+    // blip effect
+    if (hitEffectTime > 0)
+        SpriteColor = fmodf(_totalTime, 0.4f) < 0.2f ? WHITE : BLANK;
+
+    if (hitEffectTime <= 0)
+        SpriteColor = WHITE;
 
     SpriteAnimation::Draw();
 }

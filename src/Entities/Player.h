@@ -21,6 +21,7 @@ private:
 
     float const HIT_EFFECT_TIME = 2.0f;
     float hitEffectTime = HIT_EFFECT_TIME;
+    float _totalTime{0};
 
 public:
     Player(tiles *tileData)
