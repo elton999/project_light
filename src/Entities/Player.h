@@ -22,6 +22,9 @@ private:
     float const HIT_EFFECT_TIME = 2.0f;
     float hitEffectTime = HIT_EFFECT_TIME;
     float _totalTime{0};
+    int _heightRectangleDeathEffect = 20;
+
+    void DrawDeathEffect();
 
 public:
     Player(tiles *tileData)

@@ -87,12 +87,13 @@ void Player::Update(float dt)
 
 void Player::Draw()
 {
-    DrawCircleV(GetCollisionPosition(), CollisionRadius, SHADOW);
-
-    FlashLight->DrawLight(Position);
-
-    Vector2 targetPos = Vector2Scale(FlashLight->GetLightDirection(), LineTargetLength);
-    targetPos = Vector2Add(Position, targetPos);
+    if (!IsDead())
+    {
+        DrawCircleV(GetCollisionPosition(), CollisionRadius, SHADOW);
+        FlashLight->DrawLight(Position);
+        Vector2 targetPos = Vector2Scale(FlashLight->GetLightDirection(), LineTargetLength);
+        targetPos = Vector2Add(Position, targetPos);
+    }
 
     // blip effect
     if (hitEffectTime > 0)
@@ -101,7 +102,21 @@ void Player::Draw()
     if (hitEffectTime <= 0)
         SpriteColor = WHITE;
 
+    DrawDeathEffect();
+
     SpriteAnimation::Draw();
+}
+
+void Player::DrawDeathEffect()
+{
+    if (!IsDead())
+        return;
+
+    int width = 430;
+    _heightRectangleDeathEffect--;
+    if (_heightRectangleDeathEffect < 0)
+        _heightRectangleDeathEffect = 0;
+    DrawRectangle((int)Position.x - width / 2, (int)Position.y - _heightRectangleDeathEffect / 2, width, _heightRectangleDeathEffect, WHITE);
 }
 
 void Player::Hit()

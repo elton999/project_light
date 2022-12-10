@@ -37,7 +37,7 @@
 int screenWidth = 426;
 int screenHeight = 240;
 
-int windowScale = 1;
+int windowScale = 4;
 
 Camera2D camera = {};
 tiles tilesData = ReadTileMap();
