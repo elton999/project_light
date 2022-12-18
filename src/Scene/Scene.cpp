@@ -18,7 +18,6 @@ void Scene::updateEnemies(float dt)
     for (Enemy *enemy : _enemies)
     {
         enemy->Update(dt);
-        enemy->Draw();
     }
 }
 

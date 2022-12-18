@@ -20,6 +20,11 @@ void AnimationEfx::Update(float dt)
     Animation(dt);
 }
 
+void AnimationEfx::Draw()
+{
+    SpriteAnimation::Draw();
+}
+
 void AnimationEfx::StartAnimation()
 {
     frame = 0;

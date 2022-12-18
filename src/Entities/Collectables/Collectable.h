@@ -3,6 +3,7 @@
 
 #include "../GameObject.h"
 #include "../../Scene/HitBox.h"
+#include "../CollectEfx.h"
 #include "DestroyCollectable.h"
 #include "raylib.h"
 
@@ -18,6 +19,7 @@ private:
 
 public:
     Texture2D *Sprite;
+    CollectEfx *collectEfx;
     Rectangle Source;
 
     char name;
@@ -25,8 +27,12 @@ public:
     Collectable(Texture2D *sprite, Rectangle solidRec) : HitBox(solidRec)
     {
         Sprite = sprite;
+        collectEfx = new CollectEfx();
+        collectEfx->Start();
         DestroyCollectable *destroyCollectable = new DestroyCollectable(this);
+
         Add(destroyCollectable);
+        Add(collectEfx);
     }
 
     void virtual Update(float dt) override;

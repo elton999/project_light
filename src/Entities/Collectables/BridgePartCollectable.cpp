@@ -5,6 +5,8 @@ void BridgePartCollectable::Start()
     Size = {16, 16};
     Source = {32, 0, Size.x, Size.y};
     Position = {393, 235};
+
+    collectEfx->Position = Position;
 }
 
 void BridgePartCollectable::Update(float dt)
