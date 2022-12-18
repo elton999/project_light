@@ -4,6 +4,8 @@
 
 void Collectable::Update(float dt)
 {
+    collectEfx->Update(dt);
+
     if (!GetActive())
         return;
     timerElapsed += dt;
@@ -12,6 +14,8 @@ void Collectable::Update(float dt)
 
 void Collectable::Draw()
 {
+    collectEfx->Draw();
+
     if (!GetActive())
         return;
 

@@ -8,6 +8,7 @@ class AnimationEfx : public SpriteAnimation
 public:
     void virtual Start() override;
     void virtual Update(float dt) override;
+    void virtual Draw() override;
     void StartAnimation();
     bool IsAnimationFinished();
 };
