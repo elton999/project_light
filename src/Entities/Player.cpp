@@ -125,6 +125,8 @@ void Player::Hit()
         return;
     HP -= 0.2f;
 
+    OnHit->Notify();
+
     if (!IsDead())
         return;
 

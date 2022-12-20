@@ -68,7 +68,8 @@ int main(void)
     scene.Camera = &camera;
     scene.Size = {(float)screenWidth, (float)screenHeight};
 
-    scene.AddPlayer(new Player(&tilesData));
+    Player *player = new Player(&tilesData);
+    scene.AddPlayer(player);
     scene.AddForeground(new Weapon());
     SetAllLantern(&propsSprites);
 
@@ -114,7 +115,10 @@ int main(void)
 
     SetAllEnemies(hitEfx, explosionEfx);
 
-    scene.AddUI(new UI_Bars());
+    UI_Bars *ui_Bars = new UI_Bars();
+    player->OnHit->Add(ui_Bars);
+    scene.AddUI(ui_Bars);
+
     scene.AddUI(new UI_PlayerLantern());
     scene.AddUI(new UI_PlayerBackpack());
 

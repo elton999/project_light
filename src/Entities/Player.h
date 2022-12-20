@@ -7,6 +7,7 @@
 #include "Backpack.h"
 #include "PlayerFlashLight.h"
 #include "raymath.h"
+#include "../Observer/ISubject.h"
 
 class Player : public SpriteAnimation, public CollisionCharacter
 {
@@ -33,6 +34,8 @@ public:
         FlashLight = new PlayerFlashLight();
         PlayerBackpack = new Backpack();
     }
+
+    ISubject *OnHit = new ISubject();
 
     PlayerFlashLight *FlashLight;
     Backpack *PlayerBackpack;

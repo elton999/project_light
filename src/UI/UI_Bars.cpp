@@ -3,22 +3,39 @@
 #include "UI_Bars.h"
 #include "raylib.h"
 #include "../Colors.h"
+#include <cstdlib>
 
 void UI_Bars::Start()
 {
     _sprite = LoadTexture("resources/UI/bars_ui.png");
+    Position = {0, 0};
+}
+
+void UI_Bars::Update(float dt)
+{
+    _shakeTime -= dt;
+    if (_shakeTime > 0)
+    {
+        int x = rand() % 2 - 1;
+        int y = rand() % 2 - 1;
+
+        Position = {x, y};
+        return;
+    }
+    else
+        Position = {0, 0};
 }
 
 void UI_Bars::Draw()
 {
     Vector2 barSizeHP = {88, 7};
 
-    DrawRectangleV({34, 9}, barSizeHP, DARK_BLUE);
-    DrawRectangleV({34, 9}, {barSizeHP.x * _scene->GetPlayer()->HP, barSizeHP.y}, BLUE);
+    DrawRectangleV(Vector2Add({34, 9}, Position), barSizeHP, DARK_BLUE);
+    DrawRectangleV(Vector2Add({34, 9}, Position), {barSizeHP.x * _scene->GetPlayer()->HP, barSizeHP.y}, BLUE);
 
     Vector2 barSizeLight = {69, 8};
-    DrawRectangleV({34, 18}, barSizeLight, DARK_BLUE);
-    DrawRectangleV({34, 18}, {barSizeLight.x * _scene->GetPlayer()->FlashLight->LightPower, barSizeLight.y}, YELLOW);
+    DrawRectangleV(Vector2Add({34, 18}, Position), barSizeLight, DARK_BLUE);
+    DrawRectangleV(Vector2Add({34, 18}, Position), {barSizeLight.x * _scene->GetPlayer()->FlashLight->LightPower, barSizeLight.y}, YELLOW);
 
-    DrawTexture(_sprite, 2, 2, WHITE);
+    DrawTexture(_sprite, Position.x + 2, Position.y + 2, WHITE);
 }
