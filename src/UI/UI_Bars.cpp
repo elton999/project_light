@@ -22,8 +22,8 @@ void UI_Bars::Update(float dt)
         Position = {x, y};
         return;
     }
-    else
-        Position = {0, 0};
+
+    Position = {0, 0};
 }
 
 void UI_Bars::Draw()
@@ -31,7 +31,9 @@ void UI_Bars::Draw()
     Vector2 barSizeHP = {88, 7};
 
     DrawRectangleV(Vector2Add({34, 9}, Position), barSizeHP, DARK_BLUE);
-    DrawRectangleV(Vector2Add({34, 9}, Position), {barSizeHP.x * _scene->GetPlayer()->HP, barSizeHP.y}, BLUE);
+    float barLifeSize = barSizeHP.x * _scene->GetPlayer()->HP;
+    barLifeSize = barLifeSize > 0 && barLifeSize < 1.0f ? 1.0f : barLifeSize;
+    DrawRectangleV(Vector2Add({34, 9}, Position), {barLifeSize, barSizeHP.y}, BLUE);
 
     Vector2 barSizeLight = {69, 8};
     DrawRectangleV(Vector2Add({34, 18}, Position), barSizeLight, DARK_BLUE);
