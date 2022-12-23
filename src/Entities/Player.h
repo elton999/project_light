@@ -8,8 +8,9 @@
 #include "PlayerFlashLight.h"
 #include "raymath.h"
 #include "../Observer/ISubject.h"
+#include "../Scene/IResetScene.H"
 
-class Player : public SpriteAnimation, public CollisionCharacter
+class Player : public SpriteAnimation, public CollisionCharacter, public IResetScene
 {
 private:
     Vector2 PushDirection{0, 0};
@@ -46,6 +47,8 @@ public:
     virtual void Update(float dt) override;
     virtual void Draw() override;
     virtual void Hit() override;
+
+    virtual void ResetSettings() override;
 
     virtual void Move(Vector2 direction, float speed) override;
     void Push(float dt);

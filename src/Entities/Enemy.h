@@ -6,19 +6,22 @@
 #include "CollisionCharacter.h"
 #include "AnimationEfx.h"
 #include "../Observer/ISubject.h"
+#include "../Scene/IResetScene.H"
 
-class Enemy : public SpriteAnimation, public CollisionCharacter
+class Enemy : public SpriteAnimation, public CollisionCharacter, public IResetScene
 {
 public:
     Enemy(tiles *tileData, Vector2 position, Texture2D *idleTex, Texture2D *walkTex, Texture2D *freezingTex)
     {
         TilesData = tileData;
+        InitialPosition = position;
         Position = position;
         idle = *idleTex;
         walk = *walkTex;
         freezing = *freezingTex;
     }
 
+    Vector2 InitialPosition;
     AnimationEfx *HitEfx;
     AnimationEfx *ExplosionEfx;
 
@@ -35,6 +38,8 @@ public:
     virtual void Update(float dt) override;
     virtual void Draw() override;
     virtual void Hit() override;
+
+    virtual void ResetSettings() override;
 
     void CheckPlayerCollision();
     bool IsAlive() { return HP > 0; }

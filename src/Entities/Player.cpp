@@ -7,18 +7,24 @@
 
 void Player::Start()
 {
-    Size = {32, 32};
-    Origin = {16, 16};
-    Position = {180, 180};
-    Speed = 80;
-
     idle = LoadTexture("resources/player.png");
     run = LoadTexture("resources/player_run.png");
     damage = LoadTexture("resources/player_damage.png");
     death = LoadTexture("resources/player_death.png");
-    Sprite = idle;
+
+    ResetSettings();
 
     FlashLight->SetPlayer(this);
+}
+
+void Player::ResetSettings()
+{
+    Size = {32, 32};
+    Origin = {16, 16};
+    Position = {180, 180};
+    Speed = 80;
+    Sprite = idle;
+    HP = 1.0f;
 }
 
 void Player::Input()

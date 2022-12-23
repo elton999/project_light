@@ -8,16 +8,23 @@
 
 void Enemy::Start()
 {
-    CollisionPos = Position;
+    ResetSettings();
+
+    OnHit = new ISubject();
+    OnHit->Add(_scene->Freezing);
+    OnHit->Add(_scene->Shake);
+}
+
+void Enemy::ResetSettings()
+{
+    CollisionPos = InitialPosition;
+    Position = InitialPosition;
+    HP = 1.0f;
     Origin = {16, 16};
     Size = {32, 32};
     Speed = 70.0f;
 
     Sprite = idle;
-
-    OnHit = new ISubject();
-    OnHit->Add(_scene->Freezing);
-    OnHit->Add(_scene->Shake);
 }
 
 void Enemy::Update(float dt)
