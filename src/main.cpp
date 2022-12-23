@@ -43,6 +43,8 @@ Camera2D camera = {};
 tiles tilesData = ReadTileMap();
 Scene scene = {};
 
+Player *player;
+
 Texture2D tileSprite;
 
 RenderTexture backBuffer;
@@ -68,7 +70,8 @@ int main(void)
     scene.Camera = &camera;
     scene.Size = {(float)screenWidth, (float)screenHeight};
 
-    Player *player = new Player(&tilesData);
+    player = new Player(&tilesData);
+    player->OnRestartGame->Add(player);
     scene.AddPlayer(player);
     scene.AddForeground(new Weapon());
     SetAllLantern(&propsSprites);
@@ -204,6 +207,7 @@ void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
         Enemy *enemy = new Enemy(&tilesData, pos, &idle, &walk, &freezing);
         enemy->HitEfx = hitEfx;
         enemy->ExplosionEfx = explosionEfx;
+        player->OnRestartGame->Add(enemy);
 
         scene.AddEnemy(enemy);
     }

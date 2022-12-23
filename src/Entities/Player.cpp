@@ -25,6 +25,8 @@ void Player::ResetSettings()
     Speed = 80;
     Sprite = idle;
     HP = 1.0f;
+
+    AnimationDirection = LOOP;
 }
 
 void Player::Input()
@@ -32,7 +34,11 @@ void Player::Input()
     Direction = {0, 0};
 
     if (IsDead())
+    {
+        if (IsKeyPressed(KEY_SPACE))
+            OnRestartGame->Notify();
         return;
+    }
 
     if (IsKeyDown(KEY_A))
         Direction.x = -1;

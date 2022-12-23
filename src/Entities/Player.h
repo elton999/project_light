@@ -37,6 +37,7 @@ public:
     }
 
     ISubject *OnHit = new ISubject();
+    ISubject *OnRestartGame = new ISubject();
 
     PlayerFlashLight *FlashLight;
     Backpack *PlayerBackpack;
