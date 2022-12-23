@@ -27,6 +27,7 @@ void Player::ResetSettings()
     HP = 1.0f;
 
     AnimationDirection = LOOP;
+    IsPlayingDeathAnimation = false;
 }
 
 void Player::Input()
@@ -143,6 +144,10 @@ void Player::Hit()
         return;
     }
 
+    if (!IsPlayingDeathAnimation)
+        _heightRectangleDeathEffect = HEIGHT_RECTANGLE_DEATH_EFFECT;
+
+    IsPlayingDeathAnimation = true;
     AnimationDirection = FORWARD;
     Sprite = death;
 }
