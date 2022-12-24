@@ -8,10 +8,17 @@ void Wall::Start()
 
 void Wall::Update(float dt)
 {
+    if (_isVisible)
+        return;
+
+    _alpha = Clamp(_alpha - 5, 0, 255);
+    _color.a = _alpha;
 }
 
 void Wall::Draw()
 {
+    DrawEffect();
+
     if (!_isVisible)
         return;
 
@@ -27,4 +34,12 @@ void Wall::Draw()
 
         DrawTexturePro(_sprite, source, dest, {0, 0}, 1.0f, WHITE);
     }
+}
+
+void Wall::DrawEffect()
+{
+    if (_isVisible)
+        return;
+
+    DrawRectanglePro({Position.x, Position.y, 16, 96}, {0, 0}, 1.0f, _color);
 }

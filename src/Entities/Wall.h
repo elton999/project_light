@@ -13,6 +13,8 @@ private:
     int _offsetBlock = 16;
     int _numOfBlocks = 6;
     bool _isVisible = true;
+    Color _color = CLITERAL(Color){255, 255, 255, 255};
+    float _alpha = 255;
 
 public:
     void virtual Start() override;
@@ -20,6 +22,7 @@ public:
     void virtual Draw() override;
 
     void virtual Notify() override { _isVisible = false; }
+    void DrawEffect();
 };
 
 #endif // WALL_H
