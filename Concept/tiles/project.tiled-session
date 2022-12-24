@@ -24,15 +24,15 @@
         },
         "map.tmx": {
             "expandedObjectLayers": [
-                2,
+                4,
                 3,
-                4
+                2
             ],
-            "scale": 11,
+            "scale": 4,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 911.0454545454546,
-                "y": 440.6363636363636
+                "x": 922.875,
+                "y": 240.5
             }
         },
         "teste level.tmx": {

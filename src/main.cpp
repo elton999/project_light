@@ -15,6 +15,7 @@
 #include "Entities/GameObject.h"
 #include "Entities/Player.h"
 #include "Entities/Weapon.h"
+#include "Entities/Sarah.h"
 #include "Entities/Enemy.h"
 #include "Entities/AnimationEfx.h"
 #include "Entities/ExplosionEfx.h"
@@ -75,6 +76,10 @@ int main(void)
     scene.AddPlayer(player);
     scene.AddForeground(new Weapon());
     SetAllLantern(&propsSprites);
+
+    // Sarah
+    Sarah *sarah = new Sarah();
+    scene.AddBackground(sarah);
 
     // Wall
     Wall *wall = new Wall();
