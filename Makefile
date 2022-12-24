@@ -24,7 +24,7 @@
 .PHONY: all clean
 
 # Define required raylib variables
-PROJECT_NAME       ?= Project Light
+PROJECT_NAME       ?= ProjectLight
 RAYLIB_VERSION     ?= 0.0.2
 RAYLIB_PATH        ?= C:/raylib/raylib
 
