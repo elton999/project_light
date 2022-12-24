@@ -12,6 +12,9 @@ void Wall::Update(float dt)
 
 void Wall::Draw()
 {
+    if (!_isVisible)
+        return;
+
     for (int i = 0; i < _numOfBlocks; i++)
     {
         Vector2 position = {Position.x, Position.y + i * _offsetBlock};

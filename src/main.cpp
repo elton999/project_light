@@ -83,6 +83,7 @@ int main(void)
     DoorHitBox *lockDoor = new DoorHitBox({880, 480, 8, 16}, 'KEY');
     lockDoor->Add(new DisableSolid(wallSolid));
     lockDoor->Add(new DisableSolid(lockDoor));
+    lockDoor->Add(wall);
 
     scene.AddBackground(wall);
     scene.AddHitBox(lockDoor);
