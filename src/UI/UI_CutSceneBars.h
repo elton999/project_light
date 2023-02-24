@@ -1,10 +1,10 @@
-#ifndef UI_TUTORIAL_BARS
-#define UI_TUTORIAL_BARS
+#ifndef UI_CUT_SCENE_BARS
+#define UI_CUT_SCENE_BARS
 
 #include "raylib.h"
 #include "../Entities/GameObject.h"
 
-class UI_TutorialBars : public GameObject
+class UI_CutSceneBars : public GameObject
 {
 private:
     Vector2 _size{20.0f, 426.0f};
