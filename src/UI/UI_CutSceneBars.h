@@ -7,12 +7,20 @@
 class UI_CutSceneBars : public GameObject
 {
 private:
-    Vector2 _size{20.0f, 426.0f};
-    Vector2 _positionBar1{0, -20f};
-    Vector2 _positionBar2{0, 446};
+    Vector2 _size{426.0f, 50.0f};
+    Vector2 _positionBar1{0, -50.0f};
+    Vector2 _positionBar2{0, 240.0f};
+
+    bool _show{false};
+    float _speed{30.0f};
 
 public:
-    void virtual Draw();
-}
+    void virtual Start() override { Show(); }
+    void virtual Update(float dt) override;
+    void virtual Draw() override;
+
+    void Show() { _show = true; }
+    void Hide() { _show = false; }
+};
 
 #endif

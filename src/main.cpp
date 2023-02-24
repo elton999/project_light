@@ -32,6 +32,7 @@
 #include "UI/UI_Bars.h"
 #include "UI/UI_PlayerLantern.h"
 #include "UI/UI_PlayerBackpack.h"
+#include "UI/UI_CutSceneBars.h"
 
 #include "Colors.h"
 
@@ -130,6 +131,7 @@ int main(void)
 
     scene.AddUI(new UI_PlayerLantern());
     scene.AddUI(new UI_PlayerBackpack());
+    scene.AddUI(new UI_CutSceneBars());
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
