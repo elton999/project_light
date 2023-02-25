@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "../Entities/GameObject.h"
+#include "../Observer/ISubject.h"
 
 class UI_CutSceneBars : public GameObject
 {
@@ -15,12 +16,14 @@ private:
     float _speed{30.0f};
 
 public:
-    void virtual Start() override { Show(); }
+    ISubject *OnShowCutSceneBars = new ISubject();
+    ISubject *OnHideCutSceneBars = new ISubject();
+
     void virtual Update(float dt) override;
     void virtual Draw() override;
 
-    void Show() { _show = true; }
-    void Hide() { _show = false; }
+    void Show();
+    void Hide();
 };
 
 #endif

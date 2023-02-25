@@ -1,6 +1,18 @@
 #include "UI_CutSceneBars.h"
 #include "raymath.h"
 
+void UI_CutSceneBars::Show()
+{
+    _show = true;
+    OnShowCutSceneBars->Notify();
+}
+
+void UI_CutSceneBars::Hide()
+{
+    _show = false;
+    OnHideCutSceneBars->Notify();
+}
+
 void UI_CutSceneBars::Update(float dt)
 {
     float speed = _speed;

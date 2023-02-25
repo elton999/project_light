@@ -34,6 +34,8 @@
 #include "UI/UI_PlayerBackpack.h"
 #include "UI/UI_CutSceneBars.h"
 
+#include "UI/ShowCutSceneBars.h"
+
 #include "Colors.h"
 
 int screenWidth = 426;
@@ -131,7 +133,10 @@ int main(void)
 
     scene.AddUI(new UI_PlayerLantern());
     scene.AddUI(new UI_PlayerBackpack());
-    scene.AddUI(new UI_CutSceneBars());
+
+    UI_CutSceneBars *ui_cutSceneBars = new UI_CutSceneBars();
+    ShowCutSceneBars *showCutSceneBars = new ShowCutSceneBars(ui_cutSceneBars);
+    scene.AddUI(ui_cutSceneBars);
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
