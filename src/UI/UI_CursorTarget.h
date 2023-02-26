@@ -1,6 +1,7 @@
 #ifndef UI_CURSOR_TARGET
 #define UI_CURSOR_TARGET
 
+#include "../Window.h"
 #include "../Entities/GameObject.h"
 
 class UI_CursorTarget : public GameObject

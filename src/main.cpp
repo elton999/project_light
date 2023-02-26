@@ -38,9 +38,7 @@
 #include "UI/ShowCutSceneBars.h"
 
 #include "Colors.h"
-
-int screenWidth = 426;
-int screenHeight = 240;
+#include "Window.h"
 
 int windowScale = 4;
 
@@ -61,19 +59,19 @@ void SetAllLantern(Texture2D *sprite);
 
 int main(void)
 {
-    InitWindow(screenWidth * windowScale, screenHeight * windowScale, "Project Light Alpha");
+    InitWindow(SCREEN_WIDTH * windowScale, SCREEN_HEIGHT * windowScale, "Project Light Alpha");
 #ifndef PLATFORM_WEB
     SetWindowState(FLAG_WINDOW_RESIZABLE);
 #endif
 
-    backBuffer = LoadRenderTexture(screenWidth, screenHeight);
+    backBuffer = LoadRenderTexture(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     tileSprite = LoadTexture("resources/tilemap/tileset.png");
     Texture2D propsSprites = LoadTexture("resources/tilemap/propts.png");
 
     camera = {0};
     scene.Camera = &camera;
-    scene.Size = {(float)screenWidth, (float)screenHeight};
+    scene.Size = {(float)SCREEN_WIDTH, (float)SCREEN_HEIGHT};
 
     player = new Player(&tilesData);
     player->OnRestartGame->Add(player);
@@ -164,7 +162,7 @@ void UpdateDrawFrame(void)
     ClearBackground(PURPLE);
     BeginMode2D(*scene.Camera);
 
-    DrawTileMap(tilesData, {scene.GetPlayer()->Position.x, scene.GetPlayer()->Position.y, (float)screenWidth, (float)screenHeight}, tileSprite);
+    DrawTileMap(tilesData, {scene.GetPlayer()->Position.x, scene.GetPlayer()->Position.y, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT}, tileSprite);
     scene.Update(deltaTime);
     scene.Draw();
 
@@ -178,13 +176,10 @@ void UpdateDrawFrame(void)
     BeginDrawing();
     ClearBackground(BLACK);
 
-    Vector2 sizesScreen = Vector2Divide({(float)GetScreenWidth(), (float)GetScreenHeight()}, scene.Size);
-    sizesScreen = Vector2Scale(scene.Size, sizesScreen.x > sizesScreen.y ? sizesScreen.y : sizesScreen.x);
+    Vector2 sizesScreen = GetWindowSize();
 
-    Vector2 origin = Vector2Subtract(
-        Vector2Scale(sizesScreen, 0.5f),
-        Vector2Scale({(float)GetScreenWidth(), (float)GetScreenHeight()}, 0.5f));
-    Rectangle backBufferSource = {0, 0, (float)screenWidth, -(float)screenHeight};
+    Vector2 origin = GetOrigin();
+    Rectangle backBufferSource = {0, 0, (float)SCREEN_WIDTH, -(float)SCREEN_HEIGHT};
     Rectangle backBufferDest = {0, 0, sizesScreen.x, sizesScreen.y};
 
     DrawTexturePro(backBuffer.texture, backBufferSource, backBufferDest, origin, 0.0f, WHITE);
