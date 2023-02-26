@@ -33,6 +33,7 @@
 #include "UI/UI_PlayerLantern.h"
 #include "UI/UI_PlayerBackpack.h"
 #include "UI/UI_CutSceneBars.h"
+#include "UI/UI_CursorTarget.h"
 
 #include "UI/ShowCutSceneBars.h"
 
@@ -137,6 +138,8 @@ int main(void)
     UI_CutSceneBars *ui_cutSceneBars = new UI_CutSceneBars();
     ShowCutSceneBars *showCutSceneBars = new ShowCutSceneBars(ui_cutSceneBars);
     scene.AddUI(ui_cutSceneBars);
+
+    scene.AddUI(new UI_CursorTarget(&propsSprites));
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
