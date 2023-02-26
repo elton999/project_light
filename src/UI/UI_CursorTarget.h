@@ -8,8 +8,8 @@ class UI_CursorTarget : public GameObject
 
 private:
     Texture2D *_sprite{};
-    Rectangle _source{0, 0, 9, 9};
-    Rectangle _dest{36, 20, 9, 9};
+    Rectangle _source{36, 20, 9, 9};
+    Rectangle _dest{0, 0, 9, 9};
 
 public:
     UI_CursorTarget(Texture2D *sprite) { _sprite = sprite; }
