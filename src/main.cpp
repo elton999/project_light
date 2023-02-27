@@ -34,7 +34,6 @@
 #include "UI/UI_PlayerBackpack.h"
 #include "UI/UI_CutSceneBars.h"
 #include "UI/UI_CursorTarget.h"
-
 #include "UI/ShowCutSceneBars.h"
 
 #include "Colors.h"
@@ -63,6 +62,8 @@ int main(void)
 #ifndef PLATFORM_WEB
     SetWindowState(FLAG_WINDOW_RESIZABLE);
 #endif
+
+    HideCursor();
 
     backBuffer = LoadRenderTexture(SCREEN_WIDTH, SCREEN_HEIGHT);
 
