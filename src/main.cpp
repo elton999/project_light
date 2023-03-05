@@ -240,5 +240,6 @@ void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
 
         if (count == 0)
             firstEnemy = enemy;
+        count++;
     }
 }
