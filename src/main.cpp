@@ -163,7 +163,7 @@ void UpdateDrawFrame(void)
     ClearBackground(PURPLE);
     BeginMode2D(*scene.Camera);
 
-    DrawTileMap(tilesData, {scene.GetPlayer()->Position.x, scene.GetPlayer()->Position.y, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT}, tileSprite);
+    DrawTileMap(tilesData, {scene.Camera->target.x, scene.Camera->target.y, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT}, tileSprite);
     scene.Update(deltaTime);
     scene.Draw();
 
