@@ -47,7 +47,7 @@ void Scene::Update(float dt)
     updateLayer(_foregrounds, dt);
     updateHitBoxes();
 
-    CameraUpdate();
+    CameraUpdate(dt);
 
     Shake->Update(dt);
 }
@@ -63,17 +63,14 @@ void Scene::Draw()
 
 void Scene::DrawUI() { drawLayer(_ui); }
 
-void Scene::CameraUpdate()
+void Scene::CameraUpdate(float dt)
 {
-    Vector2 cameraTarget =
-        {
-            std::truncf(_player->Position.x),
-            std::truncf(_player->Position.y)};
+    Vector2 cameraTarget = {_player->Position.x, _player->Position.y};
 
     Camera->target =
         {
-            Lerp(Camera->target.x, cameraTarget.x, _cameraSpeed),
-            Lerp(Camera->target.y, cameraTarget.y, _cameraSpeed)};
+            std::truncf(Lerp(Camera->target.x, cameraTarget.x, _cameraSpeed * dt)),
+            std::truncf(Lerp(Camera->target.y, cameraTarget.y, _cameraSpeed * dt))};
 
     Camera->offset = Vector2Scale(Size, 0.5f);
     Camera->rotation = 0;

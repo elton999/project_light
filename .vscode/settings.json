@@ -80,7 +80,23 @@
 		"stack": "cpp",
 		"chrono": "cpp",
 		"stop_token": "cpp",
-		"thread": "cpp"
+		"thread": "cpp",
+		"__config": "cpp",
+		"__debug": "cpp",
+		"__errc": "cpp",
+		"__functional_base": "cpp",
+		"__locale": "cpp",
+		"__nullptr": "cpp",
+		"__split_buffer": "cpp",
+		"__string": "cpp",
+		"__threading_support": "cpp",
+		"condition_variable": "cpp",
+		"iomanip": "cpp",
+		"ios": "cpp",
+		"locale": "cpp",
+		"mutex": "cpp",
+		"ratio": "cpp",
+		"semaphore": "cpp"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }
