@@ -13,7 +13,7 @@ private:
     Vector2 _positionBar2{0, 240.0f};
 
     bool _show{false};
-    float _speed{30.0f};
+    float _speed{50.0f};
 
 public:
     ISubject *OnShowCutSceneBars = new ISubject();

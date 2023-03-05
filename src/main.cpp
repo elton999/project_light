@@ -28,6 +28,7 @@
 #include "Entities/Collectables/BridgePartSprite.h"
 
 #include "Scene/HitBoxs/DoorHitBox.h"
+#include "Scene/SwitchCameraTarget.h"
 
 #include "UI/UI_Bars.h"
 #include "UI/UI_PlayerLantern.h"
@@ -47,6 +48,7 @@ tiles tilesData = ReadTileMap();
 Scene scene = {};
 
 Player *player;
+Enemy *firstEnemy;
 
 Texture2D tileSprite;
 
@@ -148,6 +150,7 @@ int main(void)
     tutorialStep1Trigger->Add(new ShowCutSceneBars(ui_cutSceneBars));
     tutorialStep1Trigger->Add(scene.PauseGame);
     tutorialStep1Trigger->Add(new DisableSolid(tutorialStep1Trigger));
+    tutorialStep1Trigger->Add(new SwitchCameraTarget(firstEnemy, &scene));
 
     scene.AddHitBox(tutorialStep1Trigger);
 
@@ -225,6 +228,7 @@ void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
     Texture2D walk = LoadTexture("resources/troll_walk.png");
     Texture2D freezing = LoadTexture("resources/troll_freezing.png");
 
+    int count = 0;
     for (auto pos : positions)
     {
         Enemy *enemy = new Enemy(&tilesData, pos, &idle, &walk, &freezing);
@@ -233,5 +237,8 @@ void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
         player->OnRestartGame->Add(enemy);
 
         scene.AddEnemy(enemy);
+
+        if (count == 0)
+            firstEnemy = enemy;
     }
 }
