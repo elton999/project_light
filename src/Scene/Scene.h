@@ -11,6 +11,7 @@
 #include "FreezingFrame.h"
 #include "TogglePauseGame.h"
 #include "CameraShake.h"
+#include "ICameraTarget.h"
 
 #include "raylib.h"
 
@@ -42,6 +43,8 @@ public:
 
     Camera2D *Camera;
     Vector2 Size;
+
+    ICameraTarget *Target;
 
     Rectangle GetCameraRec();
 

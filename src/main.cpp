@@ -77,6 +77,7 @@ int main(void)
 
     player = new Player(&tilesData);
     player->OnRestartGame->Add(player);
+    scene.Target = player;
     scene.AddPlayer(player);
     scene.AddForeground(new Weapon());
     SetAllLantern(&propsSprites);
