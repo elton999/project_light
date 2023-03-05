@@ -65,9 +65,16 @@ void Scene::DrawUI() { drawLayer(_ui); }
 
 void Scene::CameraUpdate()
 {
-    Camera->target = {
-        std::truncf(_player->Position.x),
-        std::truncf(_player->Position.y)};
+    Vector2 cameraTarget =
+        {
+            std::truncf(_player->Position.x),
+            std::truncf(_player->Position.y)};
+
+    Camera->target =
+        {
+            Lerp(Camera->target.x, cameraTarget.x, _cameraSpeed),
+            Lerp(Camera->target.y, cameraTarget.y, _cameraSpeed)};
+
     Camera->offset = Vector2Scale(Size, 0.5f);
     Camera->rotation = 0;
     Camera->zoom = 1.0f;

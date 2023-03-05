@@ -18,6 +18,8 @@ class GameObject;
 class Scene
 {
 private:
+    float _cameraSpeed = 0.1f;
+
     std::list<GameObject *> _foregrounds;
     std::list<Enemy *> _enemies;
     std::list<GameObject *> _backgrounds;
