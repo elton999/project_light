@@ -35,6 +35,7 @@
 #include "UI/UI_CutSceneBars.h"
 #include "UI/UI_CursorTarget.h"
 #include "UI/ShowCutSceneBars.h"
+#include "UI/HideCutSceneBars.h"
 
 #include "Colors.h"
 #include "Window.h"
@@ -127,6 +128,7 @@ int main(void)
 
     SetAllEnemies(hitEfx, explosionEfx);
 
+    // Bars
     UI_Bars *ui_Bars = new UI_Bars();
     player->OnHit->Add(ui_Bars);
     scene.AddUI(ui_Bars);
@@ -139,6 +141,14 @@ int main(void)
     scene.AddUI(ui_cutSceneBars);
 
     scene.AddUI(new UI_CursorTarget(&propsSprites));
+
+    // Tutorial
+    HitBox *tutorialStep1Trigger = new HitBox({64, 360, 95, 30});
+    tutorialStep1Trigger->Add(new ShowCutSceneBars(ui_cutSceneBars));
+    tutorialStep1Trigger->Add(scene.PauseGame);
+    tutorialStep1Trigger->Add(new DisableSolid(tutorialStep1Trigger));
+
+    scene.AddHitBox(tutorialStep1Trigger);
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);

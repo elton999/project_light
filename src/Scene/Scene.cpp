@@ -16,9 +16,7 @@ void Scene::drawLayer(std::list<GameObject *> layer)
 void Scene::updateEnemies(float dt)
 {
     for (Enemy *enemy : _enemies)
-    {
         enemy->Update(dt);
-    }
 }
 
 void Scene::drawEnemies()
@@ -36,17 +34,17 @@ void Scene::updateHitBoxes()
 void Scene::Update(float dt)
 {
     Freezing->Update(dt);
-    if (Freezing->IsFreezing())
-        return;
+    if (!Freezing->IsFreezing() && !PauseGame->IsPaused())
+    {
+        updateLayer(_backgrounds, dt);
+        _player->Update(dt);
+        updateEnemies(dt);
+
+        updateLayer(_foregrounds, dt);
+        updateHitBoxes();
+    }
 
     updateLayer(_ui, dt);
-    updateLayer(_backgrounds, dt);
-    _player->Update(dt);
-    updateEnemies(dt);
-
-    updateLayer(_foregrounds, dt);
-    updateHitBoxes();
-
     CameraUpdate();
 
     Shake->Update(dt);
