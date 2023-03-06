@@ -29,6 +29,7 @@
 
 #include "Scene/HitBoxs/DoorHitBox.h"
 #include "Scene/SwitchCameraTarget.h"
+#include "Observer/SubjectTimer.h"
 
 #include "UI/UI_Bars.h"
 #include "UI/UI_PlayerLantern.h"
@@ -151,6 +152,14 @@ int main(void)
     tutorialStep1Trigger->Add(scene.PauseGame);
     tutorialStep1Trigger->Add(new DisableSolid(tutorialStep1Trigger));
     tutorialStep1Trigger->Add(new SwitchCameraTarget(firstEnemy, &scene));
+
+    SubjectTimer *subjectTimer = new SubjectTimer(10.0f);
+    scene.AddUI(subjectTimer);
+    subjectTimer->OnRiseEvent->Add(new HideCutSceneBars(ui_cutSceneBars));
+    subjectTimer->OnRiseEvent->Add(new SwitchCameraTarget(player, &scene));
+    subjectTimer->OnRiseEvent->Add(scene.PauseGame);
+
+    tutorialStep1Trigger->Add(subjectTimer);
 
     scene.AddHitBox(tutorialStep1Trigger);
 
