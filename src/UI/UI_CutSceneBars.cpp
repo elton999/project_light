@@ -3,20 +3,20 @@
 
 void UI_CutSceneBars::Show()
 {
-    _show = true;
+    _cabShow = true;
     OnShowCutSceneBars->Notify();
 }
 
 void UI_CutSceneBars::Hide()
 {
-    _show = false;
+    _cabShow = false;
     OnHideCutSceneBars->Notify();
 }
 
 void UI_CutSceneBars::Update(float dt)
 {
     float speed = _speed;
-    if (_show)
+    if (_cabShow)
         speed = -_speed;
 
     _positionBar1 = {_positionBar1.x, Clamp(_positionBar1.y - speed * dt, -_size.y, 0)};
