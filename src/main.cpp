@@ -197,6 +197,8 @@ void UpdateDrawFrame(void)
     // HUD
     scene.DrawUI();
 
+    DrawFPS(SCREEN_WIDTH - 80, 10);
+
     EndTextureMode();
 
     BeginDrawing();

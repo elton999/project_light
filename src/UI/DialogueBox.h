@@ -10,7 +10,7 @@ class DialogueBox : public GameObject
 {
 private:
     Font _font;
-    float _fontSize{11.0f};
+    float _fontSize{8.0f};
     string _text;
     bool _canShow = true;
 

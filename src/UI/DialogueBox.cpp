@@ -5,7 +5,9 @@
 void DialogueBox::Start()
 {
     Position = {0, SCREEN_HEIGHT / 2.0f};
-    Size = {250, 60};
+    Position = Vector2Add(Position, {0, 70});
+    Size = {250, 30};
+
     _font = LoadFont("resources/Kenney Mini.ttf");
     _text = "this is the tutorial of the game";
 }
@@ -22,6 +24,10 @@ void DialogueBox::Draw()
         return;
 
     char *text = const_cast<char *>(_text.c_str());
+    Vector2 textPosition = {(int)Position.x, (int)Position.y};
+    Vector2 textOrigin = {(int)Origin.x - 5, (int)Origin.y - 5};
+
     DrawRectangle((int)Position.x - (int)Origin.x, (int)Position.y - (int)Origin.y, (int)Size.x, (int)Size.y, BLACK);
-    DrawTextPro(_font, text, {std::roundf(Position.x), std::roundf(Position.y)}, {std::roundf(Origin.x), std::roundf(Origin.y)}, 1.0f, (int)_fontSize, 0.0f, WHITE);
+    // DrawTextPro(_font, text, textPosition, textOrigin, 1.0f, (int)_fontSize, 0.0f, WHITE);
+    DrawText(text, textPosition.x - textOrigin.x, textPosition.y - textOrigin.y, (int)_fontSize, WHITE);
 }
