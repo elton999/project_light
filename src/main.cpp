@@ -35,6 +35,7 @@
 #include "UI/UI_CutSceneBars.h"
 #include "UI/UI_CursorTarget.h"
 #include "UI/ShowCutSceneBars.h"
+#include "UI/DialogueBox.h"
 
 #include "Colors.h"
 #include "Window.h"
@@ -139,6 +140,7 @@ int main(void)
     scene.AddUI(ui_cutSceneBars);
 
     scene.AddUI(new UI_CursorTarget(&propsSprites));
+    scene.AddUI(new DialogueBox());
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
