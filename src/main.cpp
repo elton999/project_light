@@ -38,6 +38,7 @@
 #include "UI/UI_CursorTarget.h"
 #include "UI/ShowCutSceneBars.h"
 #include "UI/HideCutSceneBars.h"
+#include "UI/DialogueBox.h"
 
 #include "Colors.h"
 #include "Window.h"
@@ -145,6 +146,7 @@ int main(void)
     scene.AddUI(ui_cutSceneBars);
 
     scene.AddUI(new UI_CursorTarget(&propsSprites));
+    scene.AddUI(new DialogueBox());
 
     // Tutorial
     HitBox *tutorialStep1Trigger = new HitBox({64, 360, 95, 30});
