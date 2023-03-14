@@ -18,6 +18,21 @@ void DialogueBox::Update(float dt)
     Position = {SCREEN_WIDTH / 2.0f, Position.y};
 }
 
+void DialogueBox::Show()
+{
+    _canShow = true;
+}
+
+void DialogueBox::Hide()
+{
+    _canShow = false;
+}
+
+void DialogueBox::SetText(string text)
+{
+    _text = text;
+}
+
 void DialogueBox::Draw()
 {
     if (!_canShow)

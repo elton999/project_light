@@ -39,6 +39,8 @@
 #include "UI/ShowCutSceneBars.h"
 #include "UI/HideCutSceneBars.h"
 #include "UI/DialogueBox.h"
+#include "UI/ShowDialogueBox.h"
+#include "UI/HideDialogueBox.h"
 
 #include "Colors.h"
 #include "Window.h"
@@ -145,8 +147,9 @@ int main(void)
     ShowCutSceneBars *showCutSceneBars = new ShowCutSceneBars(ui_cutSceneBars);
     scene.AddUI(ui_cutSceneBars);
 
+    DialogueBox *dialogueBox = new DialogueBox();
+    scene.AddUI(dialogueBox);
     scene.AddUI(new UI_CursorTarget(&propsSprites));
-    scene.AddUI(new DialogueBox());
 
     // Tutorial
     HitBox *tutorialStep1Trigger = new HitBox({64, 360, 95, 30});
@@ -154,11 +157,13 @@ int main(void)
     tutorialStep1Trigger->Add(scene.PauseGame);
     tutorialStep1Trigger->Add(new DisableSolid(tutorialStep1Trigger));
     tutorialStep1Trigger->Add(new SwitchCameraTarget(firstEnemy, &scene));
+    tutorialStep1Trigger->Add(new ShowDialogueBox(dialogueBox, "tutorial 1"));
 
-    SubjectTimer *subjectTimer = new SubjectTimer(10.0f);
+    SubjectTimer *subjectTimer = new SubjectTimer(2.0f);
     scene.AddUI(subjectTimer);
     subjectTimer->OnRiseEvent->Add(new HideCutSceneBars(ui_cutSceneBars));
     subjectTimer->OnRiseEvent->Add(new SwitchCameraTarget(player, &scene));
+    subjectTimer->OnRiseEvent->Add(new HideDialogueBox(dialogueBox));
     subjectTimer->OnRiseEvent->Add(scene.PauseGame);
 
     tutorialStep1Trigger->Add(subjectTimer);
