@@ -33,6 +33,7 @@ void UI_Bars::Draw()
     DrawRectangleV(Vector2Add({34, 9}, Position), barSizeHP, DARK_BLUE);
     float barLifeSize = barSizeHP.x * _scene->GetPlayer()->HP;
     barLifeSize = barLifeSize > 0 && barLifeSize < 1.0f ? 1.0f : barLifeSize;
+    DrawRectangleV(Vector2Add({34, 9}, Position), barSizeHP, WHITE);
     DrawRectangleV(Vector2Add({34, 9}, Position), {barLifeSize, barSizeHP.y}, BLUE);
 
     Vector2 barSizeLight = {69, 8};
