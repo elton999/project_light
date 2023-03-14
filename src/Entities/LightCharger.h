@@ -3,8 +3,9 @@
 
 #include "GameObject.h"
 #include "Player.h"
+#include "../Scene/ICameraTarget.h"
 
-class LightCharger : public GameObject
+class LightCharger : public GameObject, public ICameraTarget
 {
 public:
     LightCharger(Vector2 position, Texture2D *sprite)
@@ -15,6 +16,9 @@ public:
     virtual void Start() override;
     virtual void Update(float dt) override;
     virtual void Draw() override;
+
+    virtual Vector2 GetTargetPosition() override { return Position; }
+
     bool CheckPlayerOverlap();
     void ChargerPlayerLight(float dt);
 

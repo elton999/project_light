@@ -53,6 +53,7 @@ Scene scene = {};
 
 Player *player;
 Enemy *firstEnemy;
+LightCharger *firstLantern;
 
 Texture2D tileSprite;
 
@@ -152,23 +153,29 @@ int main(void)
     scene.AddUI(new UI_CursorTarget(&propsSprites));
 
     // Tutorial
-    HitBox *tutorialStep1Trigger = new HitBox({64, 360, 95, 30});
-    tutorialStep1Trigger->Add(new ShowCutSceneBars(ui_cutSceneBars));
-    tutorialStep1Trigger->Add(scene.PauseGame);
-    tutorialStep1Trigger->Add(new DisableSolid(tutorialStep1Trigger));
-    tutorialStep1Trigger->Add(new SwitchCameraTarget(firstEnemy, &scene));
-    tutorialStep1Trigger->Add(new ShowDialogueBox(dialogueBox, "tutorial 1"));
+    HitBox *ShowEnemyTutorial = new HitBox({64, 360, 95, 30});
+    ShowEnemyTutorial->Add(new ShowCutSceneBars(ui_cutSceneBars));
+    ShowEnemyTutorial->Add(scene.PauseGame);
+    ShowEnemyTutorial->Add(new DisableSolid(ShowEnemyTutorial));
+    ShowEnemyTutorial->Add(new SwitchCameraTarget(firstEnemy, &scene));
+    ShowEnemyTutorial->Add(new ShowDialogueBox(dialogueBox, "tutorial 1"));
 
-    SubjectTimer *subjectTimer = new SubjectTimer(2.0f);
-    scene.AddUI(subjectTimer);
-    subjectTimer->OnRiseEvent->Add(new HideCutSceneBars(ui_cutSceneBars));
-    subjectTimer->OnRiseEvent->Add(new SwitchCameraTarget(player, &scene));
-    subjectTimer->OnRiseEvent->Add(new HideDialogueBox(dialogueBox));
-    subjectTimer->OnRiseEvent->Add(scene.PauseGame);
+    SubjectTimer *showLanternTutorial = new SubjectTimer(2.0f);
+    scene.AddUI(showLanternTutorial);
+    showLanternTutorial->OnRiseEvent->Add(new ShowDialogueBox(dialogueBox, "tutorial 2"));
+    showLanternTutorial->OnRiseEvent->Add(new SwitchCameraTarget(firstLantern, &scene));
 
-    tutorialStep1Trigger->Add(subjectTimer);
+    SubjectTimer *backToPlayerTutorial = new SubjectTimer(2.0f);
+    scene.AddUI(backToPlayerTutorial);
+    showLanternTutorial->OnRiseEvent->Add(backToPlayerTutorial);
+    backToPlayerTutorial->OnRiseEvent->Add(new HideDialogueBox(dialogueBox));
+    backToPlayerTutorial->OnRiseEvent->Add(new HideCutSceneBars(ui_cutSceneBars));
+    backToPlayerTutorial->OnRiseEvent->Add(new SwitchCameraTarget(player, &scene));
+    backToPlayerTutorial->OnRiseEvent->Add(scene.PauseGame);
 
-    scene.AddHitBox(tutorialStep1Trigger);
+    ShowEnemyTutorial->Add(showLanternTutorial);
+
+    scene.AddHitBox(ShowEnemyTutorial);
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
@@ -222,8 +229,18 @@ void UpdateDrawFrame(void)
 void SetAllLantern(Texture2D *sprite)
 {
     Vector2 positions[1]{{88, 527}};
+    int count = 0;
     for (auto pos : positions)
-        scene.AddBackground(new LightCharger(pos, sprite));
+    {
+        if (count == 0)
+        {
+            firstLantern = new LightCharger(pos, sprite);
+            scene.AddBackground(firstLantern);
+        }
+        else
+            scene.AddBackground(new LightCharger(pos, sprite));
+        count++;
+    }
 }
 
 void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
