@@ -12,7 +12,7 @@ private:
     Vector2 _positionBar1{0, -50.0f};
     Vector2 _positionBar2{0, 240.0f};
 
-    bool _cabShow{false};
+    bool _canShow{false};
     float _speed{30.0f};
 
 public:

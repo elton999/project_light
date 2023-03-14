@@ -28,6 +28,8 @@ void Player::ResetSettings()
 
     AnimationDirection = LOOP;
     IsPlayingDeathAnimation = false;
+
+    GetScene()->Target = this;
 }
 
 void Player::Input()

@@ -9,7 +9,9 @@
 #include "Solid.h"
 
 #include "FreezingFrame.h"
+#include "TogglePauseGame.h"
 #include "CameraShake.h"
+#include "ICameraTarget.h"
 
 #include "raylib.h"
 
@@ -38,10 +40,13 @@ private:
 public:
     Player *_player;
     FreezingFrame *Freezing = new FreezingFrame();
+    TogglePauseGame *PauseGame = new TogglePauseGame();
     CameraShake *Shake = new CameraShake(this);
 
     Camera2D *Camera;
     Vector2 Size;
+
+    ICameraTarget *Target;
 
     Rectangle GetCameraRec();
 

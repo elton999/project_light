@@ -9,8 +9,9 @@
 #include "raymath.h"
 #include "../Observer/ISubject.h"
 #include "../Scene/IResetScene.H"
+#include "../Scene/ICameraTarget.h"
 
-class Player : public SpriteAnimation, public CollisionCharacter, public IResetScene
+class Player : public SpriteAnimation, public CollisionCharacter, public IResetScene, public ICameraTarget
 {
 private:
     Vector2 PushDirection{0, 0};
@@ -50,6 +51,8 @@ public:
     virtual void Update(float dt) override;
     virtual void Draw() override;
     virtual void Hit() override;
+
+    virtual Vector2 GetTargetPosition() override { return Position; }
 
     virtual void ResetSettings() override;
 

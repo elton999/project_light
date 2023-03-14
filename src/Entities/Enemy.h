@@ -7,8 +7,9 @@
 #include "AnimationEfx.h"
 #include "../Observer/ISubject.h"
 #include "../Scene/IResetScene.H"
+#include "../Scene/ICameraTarget.h"
 
-class Enemy : public SpriteAnimation, public CollisionCharacter, public IResetScene
+class Enemy : public SpriteAnimation, public CollisionCharacter, public IResetScene, public ICameraTarget
 {
 public:
     Enemy(tiles *tileData, Vector2 position, Texture2D *idleTex, Texture2D *walkTex, Texture2D *freezingTex)
@@ -38,6 +39,8 @@ public:
     virtual void Update(float dt) override;
     virtual void Draw() override;
     virtual void Hit() override;
+
+    virtual Vector2 GetTargetPosition() override { return Position; }
 
     virtual void ResetSettings() override;
 

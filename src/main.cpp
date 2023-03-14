@@ -28,6 +28,8 @@
 #include "Entities/Collectables/BridgePartSprite.h"
 
 #include "Scene/HitBoxs/DoorHitBox.h"
+#include "Scene/SwitchCameraTarget.h"
+#include "Observer/SubjectTimer.h"
 
 #include "UI/UI_Bars.h"
 #include "UI/UI_PlayerLantern.h"
@@ -35,7 +37,10 @@
 #include "UI/UI_CutSceneBars.h"
 #include "UI/UI_CursorTarget.h"
 #include "UI/ShowCutSceneBars.h"
+#include "UI/HideCutSceneBars.h"
 #include "UI/DialogueBox.h"
+#include "UI/ShowDialogueBox.h"
+#include "UI/HideDialogueBox.h"
 
 #include "Colors.h"
 #include "Window.h"
@@ -47,6 +52,8 @@ tiles tilesData = ReadTileMap();
 Scene scene = {};
 
 Player *player;
+Enemy *firstEnemy;
+LightCharger *firstLantern;
 
 Texture2D tileSprite;
 
@@ -77,6 +84,7 @@ int main(void)
 
     player = new Player(&tilesData);
     player->OnRestartGame->Add(player);
+    scene.Target = player;
     scene.AddPlayer(player);
     scene.AddForeground(new Weapon());
     SetAllLantern(&propsSprites);
@@ -128,6 +136,7 @@ int main(void)
 
     SetAllEnemies(hitEfx, explosionEfx);
 
+    // Bars
     UI_Bars *ui_Bars = new UI_Bars();
     player->OnHit->Add(ui_Bars);
     scene.AddUI(ui_Bars);
@@ -139,8 +148,34 @@ int main(void)
     ShowCutSceneBars *showCutSceneBars = new ShowCutSceneBars(ui_cutSceneBars);
     scene.AddUI(ui_cutSceneBars);
 
+    DialogueBox *dialogueBox = new DialogueBox();
+    scene.AddUI(dialogueBox);
     scene.AddUI(new UI_CursorTarget(&propsSprites));
-    scene.AddUI(new DialogueBox());
+
+    // Tutorial
+    HitBox *ShowEnemyTutorial = new HitBox({64, 360, 95, 30});
+    ShowEnemyTutorial->Add(new ShowCutSceneBars(ui_cutSceneBars));
+    ShowEnemyTutorial->Add(scene.PauseGame);
+    ShowEnemyTutorial->Add(new DisableSolid(ShowEnemyTutorial));
+    ShowEnemyTutorial->Add(new SwitchCameraTarget(firstEnemy, &scene));
+    ShowEnemyTutorial->Add(new ShowDialogueBox(dialogueBox, "tutorial 1"));
+
+    SubjectTimer *showLanternTutorial = new SubjectTimer(2.0f);
+    scene.AddUI(showLanternTutorial);
+    showLanternTutorial->OnRiseEvent->Add(new ShowDialogueBox(dialogueBox, "tutorial 2"));
+    showLanternTutorial->OnRiseEvent->Add(new SwitchCameraTarget(firstLantern, &scene));
+
+    SubjectTimer *backToPlayerTutorial = new SubjectTimer(2.0f);
+    scene.AddUI(backToPlayerTutorial);
+    showLanternTutorial->OnRiseEvent->Add(backToPlayerTutorial);
+    backToPlayerTutorial->OnRiseEvent->Add(new HideDialogueBox(dialogueBox));
+    backToPlayerTutorial->OnRiseEvent->Add(new HideCutSceneBars(ui_cutSceneBars));
+    backToPlayerTutorial->OnRiseEvent->Add(new SwitchCameraTarget(player, &scene));
+    backToPlayerTutorial->OnRiseEvent->Add(scene.PauseGame);
+
+    ShowEnemyTutorial->Add(showLanternTutorial);
+
+    scene.AddHitBox(ShowEnemyTutorial);
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
@@ -174,6 +209,8 @@ void UpdateDrawFrame(void)
     // HUD
     scene.DrawUI();
 
+    DrawFPS(SCREEN_WIDTH - 80, 10);
+
     EndTextureMode();
 
     BeginDrawing();
@@ -192,8 +229,18 @@ void UpdateDrawFrame(void)
 void SetAllLantern(Texture2D *sprite)
 {
     Vector2 positions[1]{{88, 527}};
+    int count = 0;
     for (auto pos : positions)
-        scene.AddBackground(new LightCharger(pos, sprite));
+    {
+        if (count == 0)
+        {
+            firstLantern = new LightCharger(pos, sprite);
+            scene.AddBackground(firstLantern);
+        }
+        else
+            scene.AddBackground(new LightCharger(pos, sprite));
+        count++;
+    }
 }
 
 void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
@@ -216,6 +263,7 @@ void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
     Texture2D walk = LoadTexture("resources/troll_walk.png");
     Texture2D freezing = LoadTexture("resources/troll_freezing.png");
 
+    int count = 0;
     for (auto pos : positions)
     {
         Enemy *enemy = new Enemy(&tilesData, pos, &idle, &walk, &freezing);
@@ -224,5 +272,9 @@ void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
         player->OnRestartGame->Add(enemy);
 
         scene.AddEnemy(enemy);
+
+        if (count == 0)
+            firstEnemy = enemy;
+        count++;
     }
 }

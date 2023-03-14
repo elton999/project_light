@@ -10,14 +10,17 @@ class DialogueBox : public GameObject
 {
 private:
     Font _font;
-    float _fontSize{11.0f};
+    float _fontSize{8.0f};
     string _text;
-    bool _canShow = true;
+    bool _canShow = false;
 
 public:
     void virtual Start() override;
     void virtual Update(float dt) override;
     void virtual Draw() override;
+    void Show();
+    void Hide();
+    void SetText(string text);
 };
 
 #endif // DIALOGUE_BOX_H
