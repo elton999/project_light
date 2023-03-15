@@ -2,6 +2,7 @@
 #include "../Scene/Scene.h"
 #include "UI_Bars.h"
 #include "raylib.h"
+#include "raymath.h"
 #include "../Colors.h"
 #include <cstdlib>
 
@@ -13,6 +14,11 @@ void UI_Bars::Start()
 
 void UI_Bars::Update(float dt)
 {
+    _lastHPValue = _scene->GetPlayer()->HP;
+
+    float barSizeHPx = Clamp(_barSizeHPWhite.x - SPEED_BAR_EFFECT * dt, 0, INFINITY);
+    _barSizeHPWhite = {barSizeHPx, _barSizeHPWhite.y};
+
     _shakeTime -= dt;
     if (_shakeTime > 0)
     {
@@ -28,16 +34,14 @@ void UI_Bars::Update(float dt)
 
 void UI_Bars::Draw()
 {
-    Vector2 barSizeHP = {88, 7};
-
-    DrawRectangleV(Vector2Add({34, 9}, Position), barSizeHP, DARK_BLUE);
-    float barLifeSize = barSizeHP.x * _scene->GetPlayer()->HP;
+    DrawRectangleV(Vector2Add(_barHPPosition, Position), _barSizeHP, DARK_BLUE);
+    float barLifeSize = _barSizeHP.x * _scene->GetPlayer()->HP;
     barLifeSize = barLifeSize > 0 && barLifeSize < 1.0f ? 1.0f : barLifeSize;
-    DrawRectangleV(Vector2Add({34, 9}, Position), {barLifeSize, barSizeHP.y}, BLUE);
+    DrawRectangleV(Vector2Add(_barHPPosition, Position), _barSizeHPWhite, WHITE);
+    DrawRectangleV(Vector2Add(_barHPPosition, Position), {barLifeSize, _barSizeHP.y}, BLUE);
 
-    Vector2 barSizeLight = {69, 8};
-    DrawRectangleV(Vector2Add({34, 18}, Position), barSizeLight, DARK_BLUE);
-    DrawRectangleV(Vector2Add({34, 18}, Position), {barSizeLight.x * _scene->GetPlayer()->FlashLight->LightPower, barSizeLight.y}, YELLOW);
+    DrawRectangleV(Vector2Add(_barLightPosition, Position), _barSizeLight, DARK_BLUE);
+    DrawRectangleV(Vector2Add(_barLightPosition, Position), {_barSizeLight.x * _scene->GetPlayer()->FlashLight->LightPower, _barSizeLight.y}, YELLOW);
 
     DrawTexture(_sprite, Position.x + 2, Position.y + 2, WHITE);
 }
