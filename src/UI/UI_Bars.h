@@ -9,7 +9,7 @@ class UI_Bars : public GameObject, public IObserver
 {
 private:
     const float MAX_TIME_SHAKE = 1.5f;
-    float SPEED_BAR_EFFECT = 30.0f;
+    float SPEED_BAR_EFFECT = 50.0f;
 
     Texture2D _sprite{};
     float _shakeTime = 0;
