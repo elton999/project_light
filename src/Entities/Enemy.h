@@ -56,6 +56,8 @@ private:
 
     const float MAX_TIME_TO_STOP = 20.0f;
     const float MAX_DISTANCE_TO_TURNING = 2.0f;
+    const float HIT_SPRITE_DISTORTION_FACTOR = 6.0f;
+
     bool IsStopping = true;
     float TimeToStop{0};
     float SpeedToStop{10.0f};

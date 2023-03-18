@@ -38,7 +38,7 @@ void Enemy::Update(float dt)
     if (HP <= 0 || HitCoolDown > 0)
         return;
 
-    SetSizeSprite(32, 32);
+    SetSizeSprite(Size.x, Size.y);
 
     Status = TimeToStop == 0 ? FREEZING : Status;
     Status = TimeToStop == MAX_TIME_TO_STOP ? FOLLOWING : Status;
@@ -120,11 +120,13 @@ bool Enemy::CheckOverlay(Vector2 pos, Vector2 size)
 
 void Enemy::Hit()
 {
-    HP -= 1.0f / 3.0f;
+    HP -= 0.15f;
     HitCoolDown = HIT_COOLDOWN_TIME;
     SpriteColor = BLACK;
 
-    SetSizeSprite(32 + 6, 32 - 6);
+    SetSizeSprite(
+        Size.x + HIT_SPRITE_DISTORTION_FACTOR,
+        Size.y - HIT_SPRITE_DISTORTION_FACTOR);
 
     HitEfx->StartAnimation();
     HitEfx->Position = Position;
