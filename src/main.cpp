@@ -158,11 +158,11 @@ int main(void)
     ShowEnemyTutorial->Add(scene.PauseGame);
     ShowEnemyTutorial->Add(new DisableSolid(ShowEnemyTutorial));
     ShowEnemyTutorial->Add(new SwitchCameraTarget(firstEnemy, &scene));
-    ShowEnemyTutorial->Add(new ShowDialogueBox(dialogueBox, "tutorial 1"));
+    ShowEnemyTutorial->Add(new ShowDialogueBox(dialogueBox, "use the flashlight to freeze the trolls."));
 
     SubjectTimer *showLanternTutorial = new SubjectTimer(2.0f);
     scene.AddUI(showLanternTutorial);
-    showLanternTutorial->OnRiseEvent->Add(new ShowDialogueBox(dialogueBox, "tutorial 2"));
+    showLanternTutorial->OnRiseEvent->Add(new ShowDialogueBox(dialogueBox, "Go to the lantern to charge the flashlight."));
     showLanternTutorial->OnRiseEvent->Add(new SwitchCameraTarget(firstLantern, &scene));
 
     SubjectTimer *backToPlayerTutorial = new SubjectTimer(2.0f);
