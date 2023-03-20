@@ -138,11 +138,15 @@ void Player::Hit()
 {
     if (hitEffectTime > 0)
         return;
-    HP -= 0.2f;
 
     if (!IsDead())
     {
+        HP -= 0.2f;
+
         OnHit->Notify();
+        if (IsDead())
+            OnDeath->Notify();
+
         return;
     }
 
