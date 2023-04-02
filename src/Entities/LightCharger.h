@@ -4,10 +4,14 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "../Scene/ICameraTarget.h"
+#include "../Observer/ISubject.h"
 
 class LightCharger : public GameObject, public ICameraTarget
 {
 public:
+    ISubject *OnStartCharging = new ISubject();
+    ISubject *OnStopCharging = new ISubject();
+
     LightCharger(Vector2 position, Texture2D *sprite)
     {
         Position = position;

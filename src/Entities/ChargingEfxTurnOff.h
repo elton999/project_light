@@ -10,7 +10,7 @@ private:
     ChargingEfx *_chargingEfx;
 
 public:
-    ChargingEfxTurnOn(ChargingEfx *chargingEfx) { _chargingEfx = chargingEfx; }
+    ChargingEfxTurnOff(ChargingEfx *chargingEfx) { _chargingEfx = chargingEfx; }
     virtual void Notify() override { _chargingEfx->SetActive(false); }
 };
 
