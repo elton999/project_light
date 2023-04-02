@@ -9,7 +9,12 @@ void LightCharger::Start() { ColorSquare = YELLOW; }
 void LightCharger::Update(float dt)
 {
     if (CheckPlayerOverlap())
+    {
+        OnStartCharging->Notify();
         ChargerPlayerLight(dt);
+    }
+    else
+        OnStopCharging->Notify();
 
     TimerDt += dt;
     CurrentRadius = cosf(TimerDt * VelocityRadiusAnimation);

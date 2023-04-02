@@ -3,12 +3,12 @@
 void CollectEfx::Start()
 {
     Sprite = LoadTexture("resources/efx/collect_efx.png");
-    maxFrames = 20;
+    maxFrames = 8;
     frame = 0;
-    Size = {30, 31};
+    Size = {24, 18};
     Origin = {0, 0};
-    width = 30;
-    height = 31;
+    width = 24;
+    height = 18;
 }
 
 void CollectEfx::Update(float dt)

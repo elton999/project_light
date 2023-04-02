@@ -19,7 +19,10 @@
 #include "Entities/Enemy.h"
 #include "Entities/AnimationEfx.h"
 #include "Entities/ExplosionEfx.h"
+#include "Entities/ChargingEfx.h"
 #include "Entities/LightCharger.h"
+#include "Entities/ChargingEfxTurnOn.h"
+#include "Entities/ChargingEfxTurnOff.h"
 
 #include "Entities/Wall.h"
 
@@ -54,6 +57,7 @@ Scene scene = {};
 Player *player;
 Enemy *firstEnemy;
 LightCharger *firstLantern;
+ChargingEfx *chargeEfx;
 
 Texture2D tileSprite;
 
@@ -87,7 +91,6 @@ int main(void)
     scene.Target = player;
     scene.AddPlayer(player);
     scene.AddForeground(new Weapon());
-    SetAllLantern(&propsSprites);
 
     // Sarah
     Sarah *sarah = new Sarah();
@@ -129,12 +132,16 @@ int main(void)
     scene.AddBackground(bridgePart);
     scene.AddHitBox(bridgePart);
 
+    // Effects
     AnimationEfx *hitEfx = new AnimationEfx();
     ExplosionEfx *explosionEfx = new ExplosionEfx();
+    chargeEfx = new ChargingEfx();
     scene.AddForeground(hitEfx);
     scene.AddForeground(explosionEfx);
+    scene.AddForeground(chargeEfx);
 
     SetAllEnemies(hitEfx, explosionEfx);
+    SetAllLantern(&propsSprites);
 
     // Bars
     UI_Bars *ui_Bars = new UI_Bars();
@@ -236,13 +243,14 @@ void SetAllLantern(Texture2D *sprite)
     int count = 0;
     for (auto pos : positions)
     {
+        LightCharger *lightCharger = new LightCharger(pos, sprite);
+        lightCharger->OnStartCharging->Add(new ChargingEfxTurnOn(chargeEfx));
+        lightCharger->OnStopCharging->Add(new ChargingEfxTurnOff(chargeEfx));
+
         if (count == 0)
-        {
-            firstLantern = new LightCharger(pos, sprite);
-            scene.AddBackground(firstLantern);
-        }
-        else
-            scene.AddBackground(new LightCharger(pos, sprite));
+            firstLantern = lightCharger;
+
+        scene.AddBackground(lightCharger);
         count++;
     }
 }
