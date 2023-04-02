@@ -19,6 +19,7 @@
 #include "Entities/Enemy.h"
 #include "Entities/AnimationEfx.h"
 #include "Entities/ExplosionEfx.h"
+#include "Entities/ChargingEfx.h"
 #include "Entities/LightCharger.h"
 
 #include "Entities/Wall.h"
@@ -129,10 +130,13 @@ int main(void)
     scene.AddBackground(bridgePart);
     scene.AddHitBox(bridgePart);
 
+    // Effects
     AnimationEfx *hitEfx = new AnimationEfx();
     ExplosionEfx *explosionEfx = new ExplosionEfx();
+    ChargingEfx *chargeEfx = new ChargingEfx();
     scene.AddForeground(hitEfx);
     scene.AddForeground(explosionEfx);
+    scene.AddForeground(chargeEfx);
 
     SetAllEnemies(hitEfx, explosionEfx);
 
