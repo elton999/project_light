@@ -182,6 +182,10 @@ int main(void)
 
     ShowEnemyTutorial->Add(showLanternTutorial);
 
+    // Death dialog box
+    player->OnDeath->Add(new ShowDialogueBox(dialogueBox, "Press [SPACE] to continue"));
+    player->OnRestartGame->Add(new HideDialogueBox(dialogueBox));
+
     scene.AddHitBox(ShowEnemyTutorial);
 
 #if defined(PLATFORM_WEB)
