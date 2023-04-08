@@ -8,12 +8,14 @@ void LightCharger::Start() { ColorSquare = YELLOW; }
 
 void LightCharger::Update(float dt)
 {
-    if (CheckPlayerOverlap())
+    bool isPlayerOverlap = CheckPlayerOverlap();
+    if (isPlayerOverlap)
     {
         OnStartCharging->Notify();
         ChargerPlayerLight(dt);
     }
-    else
+
+    if (isPlayerOverlap)
         OnStopCharging->Notify();
 
     TimerDt += dt;
@@ -22,7 +24,7 @@ void LightCharger::Update(float dt)
 
 void LightCharger::Draw()
 {
-    DrawCircle(Position.x, Position.y, Radius + 5.0f + CurrentRadius, WHITE);
+    DrawCircle(Position.x, Position.y, OutSideRadius + CurrentRadius, WHITE);
     DrawCircle(Position.x, Position.y, Radius + CurrentRadius, ColorSquare);
 
     Rectangle source{0, 0, 16, 16};

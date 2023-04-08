@@ -29,6 +29,7 @@ public:
 private:
     Texture2D Sprite{};
     float Radius{25.0f};
+    float OutSideRadius{30.0f};
     float CurrentRadius;
 
     float TimerDt{0};
