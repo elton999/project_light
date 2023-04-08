@@ -26,8 +26,10 @@ void LightCharger::Draw()
     DrawCircle(Position.x, Position.y, Radius + CurrentRadius, ColorSquare);
 
     Rectangle source{0, 0, 16, 16};
-    Rectangle dest{Position.x, Position.y, 16, 16};
-    DrawTexturePro(Sprite, source, dest, {8, 8}, 1.0f, WHITE);
+    Rectangle dest{Position.x, Position.y, source.width, source.height};
+    Vector2 origin = Vector2Divide({source.width, source.height}, {2, 2});
+
+    DrawTexturePro(Sprite, source, dest, origin, 1.0f, WHITE);
 }
 
 bool LightCharger::CheckPlayerOverlap()
