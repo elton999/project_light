@@ -15,7 +15,7 @@ void LightCharger::Update(float dt)
         ChargerPlayerLight(dt);
     }
 
-    if (isPlayerOverlap)
+    if (!isPlayerOverlap)
         OnStopCharging->Notify();
 
     TimerDt += dt;
