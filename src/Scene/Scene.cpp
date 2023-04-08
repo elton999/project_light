@@ -53,8 +53,36 @@ void Scene::Update(float dt)
 void Scene::Draw()
 {
     drawLayer(_backgrounds);
-    _player->Draw();
-    drawEnemies();
+    // _player->Draw();
+    // drawEnemies();
+
+    std::list<GameObject *> characters;
+    std::list<GameObject *> charactersRendered;
+
+    for (Enemy *enemy : _enemies)
+        characters.push_back(enemy);
+    characters.push_back(_player);
+
+    int characterCount = characters.size();
+    for (int i = 0; i < characterCount; i++)
+    {
+        GameObject *currentCharacter;
+        bool isFirstCharacter = true;
+        for (GameObject *character : characters)
+        {
+            if (isFirstCharacter)
+                currentCharacter = character;
+            if (!isFirstCharacter && character->Position.y < currentCharacter->Position.y)
+                currentCharacter = character;
+
+            isFirstCharacter = false;
+        }
+        characters.remove(currentCharacter);
+        charactersRendered.push_back(currentCharacter);
+    }
+
+    for (GameObject *character : charactersRendered)
+        character->Draw();
 
     drawLayer(_foregrounds);
 }

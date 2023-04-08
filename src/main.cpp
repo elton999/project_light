@@ -19,8 +19,8 @@
 #include "Entities/Enemy.h"
 #include "Entities/AnimationEfx.h"
 #include "Entities/ExplosionEfx.h"
-#include "Entities/ChargingEfx.h"
 #include "Entities/LightCharger.h"
+#include "Entities/ChargingEfx.h"
 #include "Entities/ChargingEfxTurnOn.h"
 #include "Entities/ChargingEfxTurnOff.h"
 
