@@ -52,7 +52,7 @@ int GetTileByPosition(Vector2 position, tiles tileData)
 
 void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite)
 {
-    Vector2 posGrid = GetGridPositionByScreenPosition({boundRender.x - boundRender.width / 2.f, boundRender.y - boundRender.height / 2.f});
+    Vector2 posGrid = GetGridPositionByScreenPosition({boundRender.x - boundRender.width / 2.f, boundRender.y});
     Vector2 sizeGrid = GetGridPositionByScreenPosition({boundRender.width, boundRender.height});
 
     for (int x = posGrid.x - 1; x < posGrid.x + sizeGrid.x + 1; x++)

@@ -53,15 +53,15 @@ void Scene::Update(float dt)
 
 void Scene::Draw()
 {
-    DrawTileMap(*_tileData, {Camera->target.x, Camera->target.y, Size.x, Size.y}, *_tileSet);
-
     drawLayer(_backgrounds);
 
+    // order the characters to be drawn
     std::list<GameObject *> characters;
     std::list<GameObject *> charactersRendered;
 
     for (Enemy *enemy : _enemies)
-        characters.push_back(enemy);
+        if (enemy->IsVisible() && enemy->IsAlive())
+            characters.push_back(enemy);
     characters.push_back(_player);
 
     int characterCount = characters.size();
@@ -82,8 +82,25 @@ void Scene::Draw()
         charactersRendered.push_back(currentCharacter);
     }
 
+    int maxLines = (int)(Size.y / 8);
+    int currentLine = 0;
+    float lastPositionY = Camera->target.y - (Size.y / 2);
     for (GameObject *character : charactersRendered)
+    {
+        int LinesBeforeCharacter = (character->Position.y - lastPositionY) / 8;
+        if (currentLine < maxLines)
+            for (int i = 0; i < LinesBeforeCharacter; i++)
+            {
+                DrawTileMap(*_tileData, {Camera->target.x, character->Position.y - 8 * i, Size.x, 8}, *_tileSet);
+                currentLine++;
+            }
+        lastPositionY = character->Position.y;
         character->Draw();
+    }
+
+    if (currentLine < maxLines)
+        for (int i = 0; i < (Size.y / 8); i++)
+            DrawTileMap(*_tileData, {Camera->target.x, lastPositionY + 8 * i, Size.x, 8}, *_tileSet);
 
     drawLayer(_foregrounds);
 }
