@@ -73,7 +73,7 @@ void Scene::Draw()
         {
             if (isFirstCharacter)
                 currentCharacter = character;
-            if (!isFirstCharacter && character->Position.y < currentCharacter->Position.y)
+            if (!isFirstCharacter && character->GetBasePositionY() < currentCharacter->GetBasePositionY())
                 currentCharacter = character;
 
             isFirstCharacter = false;
@@ -87,14 +87,14 @@ void Scene::Draw()
     float lastPositionY = Camera->target.y - (Size.y / 2);
     for (GameObject *character : charactersRendered)
     {
-        int LinesBeforeCharacter = (character->Position.y - lastPositionY) / 8;
+        int LinesBeforeCharacter = (character->GetBasePositionY() - lastPositionY) / 8;
         if (currentLine < maxLines)
             for (int i = 0; i < LinesBeforeCharacter; i++)
             {
-                DrawTileMap(*_tileData, {Camera->target.x, character->Position.y - 8 * i, Size.x, 8}, *_tileSet);
+                DrawTileMap(*_tileData, {Camera->target.x, character->GetBasePositionY() - 8 * i, Size.x, 8}, *_tileSet);
                 currentLine++;
             }
-        lastPositionY = character->Position.y;
+        lastPositionY = character->GetBasePositionY();
         character->Draw();
     }
 

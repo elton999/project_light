@@ -22,6 +22,7 @@ public:
 
     virtual void Move(Vector2 direction, float speed);
     virtual void Hit() {}
+    virtual float GetBasePositionY() { return Position.y; }
 
     void SetScene(Scene *scene) { _scene = scene; }
     bool IsDead() { return HP <= 0; }
