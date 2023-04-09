@@ -85,6 +85,8 @@ int main(void)
     camera = {0};
     scene.Camera = &camera;
     scene.Size = {(float)SCREEN_WIDTH, (float)SCREEN_HEIGHT};
+    scene.SetTileSet(&tileSprite);
+    scene.SetTileData(&tilesData);
 
     player = new Player(&tilesData);
     player->OnRestartGame->Add(player);
@@ -211,7 +213,6 @@ void UpdateDrawFrame(void)
     ClearBackground(PURPLE);
     BeginMode2D(*scene.Camera);
 
-    DrawTileMap(tilesData, {scene.Camera->target.x, scene.Camera->target.y, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT}, tileSprite);
     scene.Update(deltaTime);
     scene.Draw();
 

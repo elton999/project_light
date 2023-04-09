@@ -30,6 +30,9 @@ private:
     std::list<HitBox *> _hitBoxes;
     std::list<Solid *> _solids;
 
+    Texture2D *_tileSet;
+    struct tiles *_tileData;
+
     void updateLayer(std::list<GameObject *> layer, float dt);
     void drawLayer(std::list<GameObject *> layer);
 
@@ -49,6 +52,9 @@ public:
     ICameraTarget *Target;
 
     Rectangle GetCameraRec();
+
+    void SetTileSet(Texture2D *tileSet) { _tileSet = tileSet; }
+    void SetTileData(tiles *tilesData) { _tileData = tilesData; }
 
     void Update(float dt);
     void Draw();

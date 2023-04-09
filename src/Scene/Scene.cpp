@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "raymath.h"
+#include "../TileMap.h"
 
 void Scene::updateLayer(std::list<GameObject *> layer, float dt)
 {
@@ -52,9 +53,9 @@ void Scene::Update(float dt)
 
 void Scene::Draw()
 {
+    DrawTileMap(*_tileData, {Camera->target.x, Camera->target.y, Size.x, Size.y}, *_tileSet);
+
     drawLayer(_backgrounds);
-    // _player->Draw();
-    // drawEnemies();
 
     std::list<GameObject *> characters;
     std::list<GameObject *> charactersRendered;
