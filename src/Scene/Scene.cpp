@@ -83,16 +83,16 @@ void Scene::Draw()
         charactersRendered.push_back(currentCharacter);
     }
 
-    int maxLines = (int)(Size.y / 8);
+    int maxLines = (int)(Size.y / TILE_SIZE);
     int currentLine = 0;
     float lastPositionY = Camera->target.y - (Size.y / 2);
     for (GameObject *character : charactersRendered)
     {
-        int LinesBeforeCharacter = (character->GetBasePositionY() - lastPositionY) / 8;
+        int LinesBeforeCharacter = (character->GetBasePositionY() - lastPositionY) / TILE_SIZE;
         if (currentLine < maxLines)
             for (int i = 0; i < LinesBeforeCharacter; i++)
             {
-                DrawTileMap(*_tileData, {Camera->target.x, character->GetBasePositionY() - 8 * i, Size.x, 8}, *_tileSet, wallTiles, 18);
+                DrawTileMap(*_tileData, {Camera->target.x, character->GetBasePositionY() - TILE_SIZE * i, Size.x, TILE_SIZE}, *_tileSet, wallTiles, 18);
                 currentLine++;
             }
         lastPositionY = character->GetBasePositionY();
@@ -100,8 +100,8 @@ void Scene::Draw()
     }
 
     if (currentLine < maxLines)
-        for (int i = 0; i < (Size.y / 8); i++)
-            DrawTileMap(*_tileData, {Camera->target.x, lastPositionY + 8 * i, Size.x, 8}, *_tileSet, wallTiles, 18);
+        for (int i = 0; i < (Size.y / TILE_SIZE); i++)
+            DrawTileMap(*_tileData, {Camera->target.x, lastPositionY + TILE_SIZE * i, Size.x, TILE_SIZE}, *_tileSet, wallTiles, 18);
 
     drawLayer(_foregrounds);
 }
