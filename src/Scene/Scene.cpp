@@ -91,7 +91,7 @@ void Scene::Draw()
         if (currentLine < maxLines)
             for (int i = 0; i < LinesBeforeCharacter; i++)
             {
-                DrawTileMap(*_tileData, {Camera->target.x, character->GetBasePositionY() - 8 * i, Size.x, 8}, *_tileSet);
+                DrawTileMap(*_tileData, {Camera->target.x, character->GetBasePositionY() - 8 * i, Size.x, 8}, *_tileSet, wallTiles, 19);
                 currentLine++;
             }
         lastPositionY = character->GetBasePositionY();
@@ -100,7 +100,7 @@ void Scene::Draw()
 
     if (currentLine < maxLines)
         for (int i = 0; i < (Size.y / 8); i++)
-            DrawTileMap(*_tileData, {Camera->target.x, lastPositionY + 8 * i, Size.x, 8}, *_tileSet);
+            DrawTileMap(*_tileData, {Camera->target.x, lastPositionY + 8 * i, Size.x, 8}, *_tileSet, wallTiles, 19);
 
     drawLayer(_foregrounds);
 }

@@ -50,7 +50,15 @@ int GetTileByPosition(Vector2 position, tiles tileData)
     return -1;
 }
 
-void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite)
+bool IndexInTheList(int index, const int validTiles[], int len)
+{
+    for (int tile = 0; tile < len; tile++)
+        if (index == validTiles[tile])
+            return true;
+    return false;
+}
+
+void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite, const int validTiles[], int len)
 {
     Vector2 posGrid = GetGridPositionByScreenPosition({boundRender.x - boundRender.width / 2.f, boundRender.y});
     Vector2 sizeGrid = GetGridPositionByScreenPosition({boundRender.width, boundRender.height});
@@ -60,7 +68,7 @@ void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite)
         for (int y = posGrid.y - 1; y < posGrid.y + sizeGrid.y + 1; y++)
         {
             int indexTile = GetTileByPosition(Vector2Scale({(float)x, (float)y}, TILE_SIZE), tileData);
-            if (indexTile != -1)
+            if (indexTile != -1 && IndexInTheList(indexTile, validTiles, len))
             {
                 Vector2 sourcePos = GetGridPositionByIndex(indexTile, sprite.width / TILE_SIZE);
                 sourcePos = Vector2Scale(sourcePos, TILE_SIZE);
