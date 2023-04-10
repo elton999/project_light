@@ -53,6 +53,7 @@ void Scene::Update(float dt)
 
 void Scene::Draw()
 {
+    DrawTileMap(*_tileData, {Camera->target.x, Camera->target.y - Size.y / 2.f, Size.x, Size.y}, *_tileSet, backgroundTiles, 36);
     drawLayer(_backgrounds);
 
     // order the characters to be drawn
@@ -91,7 +92,7 @@ void Scene::Draw()
         if (currentLine < maxLines)
             for (int i = 0; i < LinesBeforeCharacter; i++)
             {
-                DrawTileMap(*_tileData, {Camera->target.x, character->GetBasePositionY() - 8 * i, Size.x, 8}, *_tileSet, wallTiles, 19);
+                DrawTileMap(*_tileData, {Camera->target.x, character->GetBasePositionY() - 8 * i, Size.x, 8}, *_tileSet, wallTiles, 18);
                 currentLine++;
             }
         lastPositionY = character->GetBasePositionY();
@@ -100,7 +101,7 @@ void Scene::Draw()
 
     if (currentLine < maxLines)
         for (int i = 0; i < (Size.y / 8); i++)
-            DrawTileMap(*_tileData, {Camera->target.x, lastPositionY + 8 * i, Size.x, 8}, *_tileSet, wallTiles, 19);
+            DrawTileMap(*_tileData, {Camera->target.x, lastPositionY + 8 * i, Size.x, 8}, *_tileSet, wallTiles, 18);
 
     drawLayer(_foregrounds);
 }

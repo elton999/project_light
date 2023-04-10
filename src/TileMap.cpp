@@ -68,7 +68,7 @@ void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite, const 
         for (int y = posGrid.y - 1; y < posGrid.y + sizeGrid.y + 1; y++)
         {
             int indexTile = GetTileByPosition(Vector2Scale({(float)x, (float)y}, TILE_SIZE), tileData);
-            if (indexTile != -1 && IndexInTheList(indexTile, validTiles, len))
+            if (indexTile != -1 && IndexInTheList(indexTile + 1, validTiles, len))
             {
                 Vector2 sourcePos = GetGridPositionByIndex(indexTile, sprite.width / TILE_SIZE);
                 sourcePos = Vector2Scale(sourcePos, TILE_SIZE);
