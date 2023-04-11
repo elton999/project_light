@@ -47,4 +47,6 @@ void DrawTile(int indexTile, Texture2D sprite, int posX, int posY);
 
 void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite, const int *validTiles, int len);
 
+void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite);
+
 #endif

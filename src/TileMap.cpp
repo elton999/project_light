@@ -81,3 +81,17 @@ void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite, const 
                 DrawTile(indexTile, sprite, x, y);
         }
 }
+
+void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite)
+{
+    Vector2 posGrid = GetGridPositionByScreenPosition({boundRender.x - boundRender.width / 2.f, boundRender.y - boundRender.height / 2.f});
+    Vector2 sizeGrid = GetGridPositionByScreenPosition({boundRender.width, boundRender.height});
+
+    for (int x = posGrid.x - 1; x < posGrid.x + sizeGrid.x + 1; x++)
+        for (int y = posGrid.y - 1; y < posGrid.y + sizeGrid.y + 1; y++)
+        {
+            int indexTile = GetTileByPosition(Vector2Scale({(float)x, (float)y}, TILE_SIZE), tileData);
+            if (indexTile != -1)
+                DrawTile(indexTile, sprite, x, y);
+        }
+}

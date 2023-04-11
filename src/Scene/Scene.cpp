@@ -82,26 +82,11 @@ void Scene::Draw()
         characters.remove(currentCharacter);
         charactersRendered.push_back(currentCharacter);
     }
+    // draw background
+    DrawTileMap(*_tileData, {Camera->target.x, Camera->target.y, Size.x, Size.y}, *_tileSet);
 
-    int maxLines = (int)(Size.y / TILE_SIZE);
-    int currentLine = 0;
-    float lastPositionY = Camera->target.y - (Size.y / 2);
     for (GameObject *character : charactersRendered)
-    {
-        int LinesBeforeCharacter = (character->GetBasePositionY() - lastPositionY) / TILE_SIZE;
-        if (currentLine < maxLines)
-            for (int i = 0; i < LinesBeforeCharacter; i++)
-            {
-                DrawTileMap(*_tileData, {Camera->target.x, character->GetBasePositionY() - TILE_SIZE * i, Size.x, TILE_SIZE}, *_tileSet, wallTiles, 18);
-                currentLine++;
-            }
-        lastPositionY = character->GetBasePositionY();
         character->Draw();
-    }
-
-    if (currentLine < maxLines)
-        for (int i = 0; i < (Size.y / TILE_SIZE); i++)
-            DrawTileMap(*_tileData, {Camera->target.x, lastPositionY + TILE_SIZE * i, Size.x, TILE_SIZE}, *_tileSet, wallTiles, 18);
 
     drawLayer(_foregrounds);
 }
