@@ -43,6 +43,8 @@ int GetTileByPosition(Vector2 position, tiles tileData);
 
 bool IndexInTheList(int index, const int *validTiles, int len);
 
+void DrawTile(int indexTile, Texture2D sprite, int posX, int posY);
+
 void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite, const int *validTiles, int len);
 
 #endif

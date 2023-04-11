@@ -58,25 +58,26 @@ bool IndexInTheList(int index, const int validTiles[], int len)
     return false;
 }
 
+void DrawTile(int indexTile, Texture2D sprite, int posX, int posY)
+{
+    Vector2 sourcePos = GetGridPositionByIndex(indexTile, sprite.width / TILE_SIZE);
+    sourcePos = Vector2Scale(sourcePos, TILE_SIZE);
+    Rectangle source{sourcePos.y, sourcePos.x, TILE_SIZE, TILE_SIZE};
+
+    Vector2 position = Vector2Scale({(float)posX, (float)posY}, TILE_SIZE);
+    DrawTextureRec(sprite, source, position, WHITE);
+}
+
 void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite, const int validTiles[], int len)
 {
     Vector2 posGrid = GetGridPositionByScreenPosition({boundRender.x - boundRender.width / 2.f, boundRender.y});
     Vector2 sizeGrid = GetGridPositionByScreenPosition({boundRender.width, boundRender.height});
 
     for (int x = posGrid.x - 1; x < posGrid.x + sizeGrid.x + 1; x++)
-    {
         for (int y = posGrid.y - 1; y < posGrid.y + sizeGrid.y + 1; y++)
         {
             int indexTile = GetTileByPosition(Vector2Scale({(float)x, (float)y}, TILE_SIZE), tileData);
             if (indexTile != -1 && IndexInTheList(indexTile + 1, validTiles, len))
-            {
-                Vector2 sourcePos = GetGridPositionByIndex(indexTile, sprite.width / TILE_SIZE);
-                sourcePos = Vector2Scale(sourcePos, TILE_SIZE);
-                Rectangle source{sourcePos.y, sourcePos.x, TILE_SIZE, TILE_SIZE};
-
-                Vector2 position = Vector2Scale({(float)x, (float)y}, TILE_SIZE);
-                DrawTextureRec(sprite, source, position, WHITE);
-            }
+                DrawTile(indexTile, sprite, x, y);
         }
-    }
 }
