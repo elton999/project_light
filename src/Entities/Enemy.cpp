@@ -29,6 +29,7 @@ void Enemy::ResetSettings()
 
 void Enemy::Update(float dt)
 {
+    return;
     SetOnVisible();
 
     if (!IsVisible())

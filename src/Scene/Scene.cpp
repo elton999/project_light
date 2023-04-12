@@ -53,7 +53,9 @@ void Scene::Update(float dt)
 
 void Scene::Draw()
 {
-    DrawTileMap(*_tileData, {Camera->target.x, Camera->target.y - Size.y / 2.f, Size.x, Size.y}, *_tileSet, backgroundTiles, 36);
+    // draw background
+    DrawTileMap(*_tileData, {Camera->target.x - Size.x / 2.0f, Camera->target.y - Size.y / 2.0f, Size.x, Size.y}, *_tileSet);
+
     drawLayer(_backgrounds);
 
     // order the characters to be drawn
@@ -82,11 +84,12 @@ void Scene::Draw()
         characters.remove(currentCharacter);
         charactersRendered.push_back(currentCharacter);
     }
-    // draw background
-    DrawTileMap(*_tileData, {Camera->target.x, Camera->target.y, Size.x, Size.y}, *_tileSet);
 
     for (GameObject *character : charactersRendered)
+    {
         character->Draw();
+        DrawTileMap(*_tileData, {character->Position.x - 32 / 2, character->Position.y, 32, (character->GetBasePositionY() - character->Position.y)}, *_tileSet, wallTiles, 18);
+    }
 
     drawLayer(_foregrounds);
 }
