@@ -54,6 +54,7 @@ public:
     virtual void Hit() override;
 
     virtual Vector2 GetTargetPosition() override { return Position; }
+    virtual float GetBasePositionY() { return GetCollisionPosition().y + CollisionRadius * 2; }
 
     virtual void ResetSettings() override;
 

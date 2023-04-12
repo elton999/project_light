@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "raymath.h"
+#include "../TileMap.h"
 
 void Scene::updateLayer(std::list<GameObject *> layer, float dt)
 {
@@ -52,15 +53,18 @@ void Scene::Update(float dt)
 
 void Scene::Draw()
 {
-    drawLayer(_backgrounds);
-    // _player->Draw();
-    // drawEnemies();
+    // draw background
+    DrawTileMap(*_tileData, {Camera->target.x - Size.x / 2.0f, Camera->target.y - Size.y / 2.0f, Size.x, Size.y}, *_tileSet);
 
+    drawLayer(_backgrounds);
+
+    // order the characters to be drawn
     std::list<GameObject *> characters;
     std::list<GameObject *> charactersRendered;
 
     for (Enemy *enemy : _enemies)
-        characters.push_back(enemy);
+        if (enemy->IsVisible() && enemy->IsAlive())
+            characters.push_back(enemy);
     characters.push_back(_player);
 
     int characterCount = characters.size();
@@ -72,7 +76,7 @@ void Scene::Draw()
         {
             if (isFirstCharacter)
                 currentCharacter = character;
-            if (!isFirstCharacter && character->Position.y < currentCharacter->Position.y)
+            if (!isFirstCharacter && character->GetBasePositionY() < currentCharacter->GetBasePositionY())
                 currentCharacter = character;
 
             isFirstCharacter = false;
@@ -82,7 +86,10 @@ void Scene::Draw()
     }
 
     for (GameObject *character : charactersRendered)
+    {
         character->Draw();
+        DrawTileMap(*_tileData, {character->Position.x - 32 / 2, character->Position.y, 32, (character->GetBasePositionY() - character->Position.y)}, *_tileSet, wallTiles, 18);
+    }
 
     drawLayer(_foregrounds);
 }
