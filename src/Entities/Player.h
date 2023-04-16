@@ -25,6 +25,7 @@ private:
     float const HIT_EFFECT_TIME = 2.0f;
     float hitEffectTime = HIT_EFFECT_TIME;
     float _totalTime{0};
+    int const PUSH_FORCE = 600;
     int const HEIGHT_RECTANGLE_DEATH_EFFECT = 20;
     int _heightRectangleDeathEffect = 20;
     bool IsPlayingDeathAnimation = false;

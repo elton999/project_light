@@ -71,7 +71,7 @@ void Player::Push(float dt)
     Sprite = damage;
     Right = PushDirection.x < 0;
     Move(PushDirection, SpeedPush * dt);
-    SpeedPush = Clamp(SpeedPush - 600 * dt, 0, INFINITY);
+    SpeedPush = Clamp(SpeedPush - PUSH_FORCE * dt, 0, INFINITY);
 }
 
 void Player::Update(float dt)
