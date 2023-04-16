@@ -52,6 +52,7 @@ int windowScale = 4;
 
 Camera2D camera = {};
 tiles tilesData = ReadTileMap();
+tiles collisionData = ReadCollisionTiles();
 Scene scene = {};
 
 Player *player;
@@ -88,7 +89,7 @@ int main(void)
     scene.SetTileSet(&tileSprite);
     scene.SetTileData(&tilesData);
 
-    player = new Player(&tilesData);
+    player = new Player(&collisionData);
     player->OnRestartGame->Add(player);
     scene.Target = player;
     scene.AddPlayer(player);

@@ -22,6 +22,22 @@ tiles ReadTileMap()
     return dataTiles;
 }
 
+tiles ReadCollisionTiles()
+{
+    rapidcsv::Document doc("resources/maps/level1_collision.csv", rapidcsv::LabelParams(-1, -1));
+
+    tiles dataTiles;
+
+    dataTiles.height = doc.GetRowCount();
+    dataTiles.width = doc.GetColumnCount();
+
+    for (int x = 0; x < dataTiles.width; x++)
+        for (int y = 0; y < dataTiles.height; y++)
+            dataTiles.data.insert(dataTiles.data.end(), doc.GetCell<int>(x, y));
+
+    return dataTiles;
+}
+
 Vector2 GetGridPositionByIndex(int num, int width)
 {
     return Vector2{

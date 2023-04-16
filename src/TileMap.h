@@ -35,6 +35,8 @@ const int backgroundTiles[36]{
 
 tiles ReadTileMap();
 
+tiles ReadCollisionTiles();
+
 Vector2 GetGridPositionByIndex(int num, int width);
 
 Vector2 GetGridPositionByScreenPosition(Vector2 position);

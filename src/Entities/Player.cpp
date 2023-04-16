@@ -62,8 +62,8 @@ void Player::Move(Vector2 direction, float speed)
     Vector2 oldPosition = Position;
     GameObject::Move(direction, speed);
     CollisionPos = Position;
-    // if (CheckCollisionGrid((*TilesData), 15) || CheckCollisionSolids(_scene->GetSolids()))
-    //     CollisionPos = Position = oldPosition;
+    if (CheckCollisionGrid((*TilesData), 15) || CheckCollisionSolids(_scene->GetSolids()))
+        CollisionPos = Position = oldPosition;
 }
 
 void Player::Push(float dt)
@@ -71,7 +71,7 @@ void Player::Push(float dt)
     Sprite = damage;
     Right = PushDirection.x < 0;
     Move(PushDirection, SpeedPush * dt);
-    SpeedPush = Clamp(SpeedPush - 600 * dt, 0, INFINITY);
+    SpeedPush = Clamp(SpeedPush - PUSH_FORCE * dt, 0, INFINITY);
 }
 
 void Player::Update(float dt)
