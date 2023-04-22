@@ -6,18 +6,19 @@ void UI_InputTutorial::Start()
     DialogueBox::Start();
 
     Vector2 spriteOffset{-15, Origin.y + 15};
+    Vector2 spritePosition{(SCREEN_WIDTH - Size.x) / 2.0f - spriteOffset.x, Position.y - spriteOffset.y};
 
     keyboardAnimation->Sprite = LoadTexture("resources/ui/keyboard_tutorial.png");
     keyboardAnimation->SetMaxFrames(4);
     keyboardAnimation->SetSizeSprite(31, 26);
     keyboardAnimation->Size = {31, 26};
-    keyboardAnimation->Position = {(SCREEN_WIDTH - Size.x) / 2.0f - spriteOffset.x, Position.y - spriteOffset.y};
+    keyboardAnimation->Position = spritePosition;
 
     mouseAnimation->Sprite = LoadTexture("resources/ui/mouse_tutorial.png");
     mouseAnimation->SetMaxFrames(4);
     mouseAnimation->SetSizeSprite(19, 24);
     mouseAnimation->Size = {19, 24};
-    mouseAnimation->Position = {(SCREEN_WIDTH - Size.x) / 2.0f - spriteOffset.x, Position.y - spriteOffset.y};
+    mouseAnimation->Position = spritePosition;
 
     Size.y = 40;
 }
@@ -34,6 +35,9 @@ void UI_InputTutorial::Update(float dt)
 
     keyboardAnimation->Update(dt);
     mouseAnimation->Update(dt);
+
+    if (_timeShowingMouseAnimation <= 0)
+        Hide();
 }
 
 void UI_InputTutorial::Draw()
