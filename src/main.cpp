@@ -44,6 +44,7 @@
 #include "UI/DialogueBox.h"
 #include "UI/ShowDialogueBox.h"
 #include "UI/HideDialogueBox.h"
+#include "UI/UI_InputTutorial.h"
 
 #include "Colors.h"
 #include "Window.h"
@@ -163,6 +164,10 @@ int main(void)
     scene.AddUI(new UI_CursorTarget(&propsSprites));
 
     // Tutorial
+    UI_InputTutorial *inputTutorial = new UI_InputTutorial();
+    scene.AddUI(inputTutorial);
+    inputTutorial->Show();
+
     HitBox *ShowEnemyTutorial = new HitBox({64, 360, 95, 30});
     ShowEnemyTutorial->Add(new ShowCutSceneBars(ui_cutSceneBars));
     ShowEnemyTutorial->Add(scene.PauseGame);
@@ -249,8 +254,7 @@ void SetAllLantern(Texture2D *sprite)
         lightCharger->OnStartCharging->Add(new ChargingEfxTurnOn(chargeEfx));
         lightCharger->OnStopCharging->Add(new ChargingEfxTurnOff(chargeEfx));
 
-        if (count == 0)
-            firstLantern = lightCharger;
+        firstLantern = count == 0 ? lightCharger : firstLantern;
 
         scene.AddBackground(lightCharger);
         count++;
@@ -287,8 +291,7 @@ void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
 
         scene.AddEnemy(enemy);
 
-        if (count == 0)
-            firstEnemy = enemy;
+        firstEnemy = count == 0 ? enemy : firstEnemy;
         count++;
     }
 }

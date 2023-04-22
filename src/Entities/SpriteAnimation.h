@@ -32,6 +32,8 @@ public:
         height = y;
     }
 
+    void SetMaxFrames(int frames) { maxFrames = frames; }
+
 protected:
     Vector2 Direction{0, 0};
 

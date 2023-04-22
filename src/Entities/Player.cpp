@@ -111,11 +111,9 @@ void Player::Draw()
     }
 
     // blip effect
+    SpriteColor = WHITE;
     if (hitEffectTime > 0)
         SpriteColor = fmodf(_totalTime, 0.4f) < 0.2f ? WHITE : BLANK;
-
-    if (hitEffectTime <= 0)
-        SpriteColor = WHITE;
 
     DrawDeathEffect();
 
@@ -129,8 +127,10 @@ void Player::DrawDeathEffect()
 
     int width = 430;
     _heightRectangleDeathEffect--;
+
     if (_heightRectangleDeathEffect < 0)
         _heightRectangleDeathEffect = 0;
+
     DrawRectangle((int)Position.x - width / 2, (int)Position.y - _heightRectangleDeathEffect / 2, width, _heightRectangleDeathEffect, WHITE);
 }
 

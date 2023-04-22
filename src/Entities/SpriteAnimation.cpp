@@ -10,10 +10,12 @@ void SpriteAnimation::Animation(float dt)
 
     frame++;
     runningTime = 0.f;
-    if (frame > maxFrames && AnimationDirection == LOOP)
+    bool isLastFrame = frame > maxFrames;
+
+    if (isLastFrame && AnimationDirection == LOOP)
         frame = 0;
 
-    if (frame > maxFrames && AnimationDirection == FORWARD)
+    if (isLastFrame && AnimationDirection == FORWARD)
         frame--;
 }
 

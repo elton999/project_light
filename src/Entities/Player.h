@@ -23,7 +23,7 @@ private:
     Texture2D death{};
 
     float const HIT_EFFECT_TIME = 2.0f;
-    float hitEffectTime = HIT_EFFECT_TIME;
+    float hitEffectTime{0};
     float _totalTime{0};
     int const PUSH_FORCE = 600;
     int const HEIGHT_RECTANGLE_DEATH_EFFECT = 20;
