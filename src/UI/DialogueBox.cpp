@@ -43,6 +43,5 @@ void DialogueBox::Draw()
     Vector2 textOrigin = {(int)Origin.x - 5, (int)Origin.y - 5};
 
     DrawRectangle((int)Position.x - (int)Origin.x, (int)Position.y - (int)Origin.y, (int)Size.x, (int)Size.y, BLACK);
-    // DrawTextPro(_font, text, textPosition, textOrigin, 1.0f, (int)_fontSize, 0.0f, WHITE);
     DrawText(text, textPosition.x - textOrigin.x, textPosition.y - textOrigin.y, (int)_fontSize, WHITE);
 }

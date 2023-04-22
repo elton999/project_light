@@ -21,6 +21,7 @@ public:
     void Show();
     void Hide();
     void SetText(string text);
+    bool IsShowing() { return _canShow; }
 };
 
 #endif // DIALOGUE_BOX_H
