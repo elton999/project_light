@@ -90,6 +90,7 @@ void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite, const 
     Vector2 sizeGrid = GetGridPositionByScreenPosition({boundRender.width, boundRender.height});
 
     for (int x = posGrid.x - 1; x < posGrid.x + sizeGrid.x + 1; x++)
+    {
         for (int y = posGrid.y - 1; y < posGrid.y + sizeGrid.y + 1; y++)
         {
             Vector2 indexPosition = Vector2Scale({x, y}, TILE_SIZE);
@@ -100,14 +101,19 @@ void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite, const 
             int indexTileBottom = GetTileByPosition(indexPositionBottom, tileData);
             int indexTileLast = GetTileByPosition(indexPositionLast, tileData);
 
-            if (IndexInTheList(indexTileLast + 1, validTiles, len) && IndexInTheList(indexTileBottom + 1, validTiles, len))
-                if (indexTile != -1 && IndexInTheList(indexTile + 1, validTiles, len))
-                {
+            bool isLastTileAWall = IndexInTheList(indexTileLast + 1, validTiles, len);
+            bool isBottomTileAWall = IndexInTheList(indexTileBottom + 1, validTiles, len);
+
+            bool isValidTile = indexTile != -1;
+
+            if (isValidTile && isLastTileAWall && isBottomTileAWall)
+            {
+                bool isCurrentTileAWall = IndexInTheList(indexTile + 1, validTiles, len);
+                if (isCurrentTileAWall)
                     DrawTile(indexTile, sprite, x, y);
-                    // debug drawing
-                    // DrawRectangleLines(indexPositionLast.x, indexPositionLast.y, TILE_SIZE, TILE_SIZE, WHITE);
-                }
+            }
         }
+    }
 }
 
 void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite)
@@ -116,10 +122,13 @@ void DrawTileMap(tiles tileData, Rectangle boundRender, Texture2D sprite)
     Vector2 sizeGrid = GetGridPositionByScreenPosition({boundRender.width, boundRender.height});
 
     for (int x = posGrid.x - 1; x < posGrid.x + sizeGrid.x + 1; x++)
+    {
         for (int y = posGrid.y - 1; y < posGrid.y + sizeGrid.y + 1; y++)
         {
             int indexTile = GetTileByPosition(Vector2Scale({(float)x, (float)y}, TILE_SIZE), tileData);
-            if (indexTile != -1)
+            bool isAValidTile = indexTile != -1;
+            if (isAValidTile)
                 DrawTile(indexTile, sprite, x, y);
         }
+    }
 }
