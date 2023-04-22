@@ -28,5 +28,4 @@ void Bullet::Draw()
         return;
 
     DrawTextureEx(Sprite, Vector2Subtract(Position, Origin), 0, 1, WHITE);
-    // GameObject::Draw();
 }

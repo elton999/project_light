@@ -249,8 +249,7 @@ void SetAllLantern(Texture2D *sprite)
         lightCharger->OnStartCharging->Add(new ChargingEfxTurnOn(chargeEfx));
         lightCharger->OnStopCharging->Add(new ChargingEfxTurnOff(chargeEfx));
 
-        if (count == 0)
-            firstLantern = lightCharger;
+        firstLantern = count == 0 ? lightCharger : firstLantern;
 
         scene.AddBackground(lightCharger);
         count++;
@@ -287,8 +286,7 @@ void SetAllEnemies(AnimationEfx *hitEfx, AnimationEfx *explosionEfx)
 
         scene.AddEnemy(enemy);
 
-        if (count == 0)
-            firstEnemy = enemy;
+        firstEnemy = count == 0 ? enemy : firstEnemy;
         count++;
     }
 }
