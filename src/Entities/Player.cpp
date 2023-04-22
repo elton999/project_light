@@ -111,11 +111,9 @@ void Player::Draw()
     }
 
     // blip effect
+    SpriteColor = WHITE;
     if (hitEffectTime > 0)
         SpriteColor = fmodf(_totalTime, 0.4f) < 0.2f ? WHITE : BLANK;
-
-    if (hitEffectTime <= 0)
-        SpriteColor = WHITE;
 
     DrawDeathEffect();
 
