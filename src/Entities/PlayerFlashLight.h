@@ -15,7 +15,7 @@ private:
     Player *_player;
 
 public:
-    bool LightOn{true};
+    bool LightOn{false};
     float LightAngle{0};
     float LightAngleLength{50.0f};
     float LightDistance{150.0f};
