@@ -8,107 +8,42 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/elton999/project_light/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/elton999/project_light/pulls)
 
 </div>
 
 ---
 
-<p align="center"> Few lines describing your project.
+<p align="center"> 
+Solve puzzles and fight trolls
     <br> 
 </p>
 
-## 📝 Table of Contents
+<img src="https://raw.githubusercontent.com/elton999/project_light/main/Concept/img/ProjectLight_qpwgEoFxjx.png" width="100%" />
+<img src="https://raw.githubusercontent.com/elton999/project_light/main/Concept/img/ProjectLight_xG4pwdjXta.png" width="100%" />
+<img src="https://raw.githubusercontent.com/elton999/project_light/main/Concept/img/ProjectLight_ClXcIZZGtP.gif" width="100%" />
+<img src="https://raw.githubusercontent.com/elton999/project_light/main/Concept/img/ProjectLight_hMzMwPobB2.png" width="100%" />
 
-- [About](#about)
-- [Getting Started](#getting_started)
-- [Deployment](#deployment)
-- [Usage](#usage)
-- [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
+## ⛏️ Built Using
 
-## 🧐 About <a name = "about"></a>
+- [Raylib](https://www.raylib.com) - Engine
+- [Aseprite](https://www.aseprite.org) - Sprites and Animations
+- [SpriteMancer](https://spritemancer.com) - Pixel art effects
+- [Tiled](https://www.mapeditor.org) - Maps
+- [rapidcsv](https://github.com/d99kris/rapidcsv) - CSV lib
 
-Write about 1-2 paragraphs describing the purpose of your project.
+## 🚀 Deployment 
 
-## 🏁 Getting Started <a name = "getting_started"></a>
+Windows build
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them.
-
+```bash
+  ./build.bat
 ```
-Give examples
-```
+## ✍️ Authors
 
-### Installing
+- Art and code: [@elton99](https://www.github.com/elton99)
 
-A step by step series of examples that tell you how to get a development env running.
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
-
-## 🔧 Running the tests <a name = "tests"></a>
-
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## 🎈 Usage <a name="usage"></a>
-
-Add notes about how to use the system.
-
-## 🚀 Deployment <a name = "deployment"></a>
-
-Add additional notes about how to deploy this on a live system.
-
-## ⛏️ Built Using <a name = "built_using"></a>
-
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
-
-## ✍️ Authors <a name = "authors"></a>
-
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
-
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+## License
+[![License](https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
