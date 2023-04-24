@@ -45,6 +45,7 @@
 #include "UI/ShowDialogueBox.h"
 #include "UI/HideDialogueBox.h"
 #include "UI/UI_InputTutorial.h"
+#include "UI/FinalScreen.h"
 
 #include "Colors.h"
 #include "Window.h"
@@ -195,6 +196,9 @@ int main(void)
     player->OnRestartGame->Add(new HideDialogueBox(dialogueBox));
 
     scene.AddHitBox(ShowEnemyTutorial);
+
+    FinalScreen *finalScreen = new FinalScreen();
+    scene.AddUI(finalScreen);
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
