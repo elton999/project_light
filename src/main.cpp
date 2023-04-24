@@ -45,6 +45,7 @@
 #include "UI/ShowDialogueBox.h"
 #include "UI/HideDialogueBox.h"
 #include "UI/UI_InputTutorial.h"
+#include "UI/FinalScreen.h"
 
 #include "Colors.h"
 #include "Window.h"
@@ -99,6 +100,7 @@ int main(void)
     // Sarah
     Sarah *sarah = new Sarah();
     scene.AddBackground(sarah);
+    scene.AddHitBox(sarah);
 
     // Wall
     Wall *wall = new Wall();
@@ -195,6 +197,10 @@ int main(void)
     player->OnRestartGame->Add(new HideDialogueBox(dialogueBox));
 
     scene.AddHitBox(ShowEnemyTutorial);
+
+    FinalScreen *finalScreen = new FinalScreen();
+    sarah->Add(finalScreen);
+    scene.AddUI(finalScreen);
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
