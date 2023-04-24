@@ -100,6 +100,7 @@ int main(void)
     // Sarah
     Sarah *sarah = new Sarah();
     scene.AddBackground(sarah);
+    scene.AddHitBox(sarah);
 
     // Wall
     Wall *wall = new Wall();
@@ -198,6 +199,7 @@ int main(void)
     scene.AddHitBox(ShowEnemyTutorial);
 
     FinalScreen *finalScreen = new FinalScreen();
+    sarah->Add(finalScreen);
     scene.AddUI(finalScreen);
 
 #if defined(PLATFORM_WEB)
