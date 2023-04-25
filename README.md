@@ -16,7 +16,7 @@
 ---
 
 <p align="center"> 
-Solve puzzles and fight trolls
+Project Light is an exciting action game where you play as a brave father who needs to save his daughter from bloodthirsty trolls. Armed with a weapon and a flashlight, you must strategically use light to stop the trolls. Along with defeating the trolls, you must find items that will help you open blocked paths. Are you ready to take on the challenge and save your daughter in Project Light?
     <br> 
 </p>
 
