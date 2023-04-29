@@ -42,7 +42,7 @@ Windows build
 ```
 ## ✍️ Authors
 
-- Art and code: [@elton99](https://www.github.com/elton99)
+- Art and code: [@elton999](https://www.github.com/elton999)
 
 
 ## License
