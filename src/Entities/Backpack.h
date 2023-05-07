@@ -3,6 +3,7 @@
 
 #include "Collectables/Collectable.h"
 #include "../Scene/HitBox.h"
+#include "../Observer/ISubject.h"
 
 class Backpack
 {
@@ -11,6 +12,7 @@ private:
     bool _hasItem{false};
 
 public:
+    ISubject *OnCollectItem = new ISubject();
     bool HasItem() { return _hasItem; }
     void Add(Collectable *collectable);
     void Remove();

@@ -4,6 +4,7 @@ void Backpack::Add(Collectable *collectable)
 {
     _hasItem = true;
     _collectable = collectable;
+    OnCollectItem->Notify();
 }
 
 void Backpack::Remove() { _hasItem = false; }
