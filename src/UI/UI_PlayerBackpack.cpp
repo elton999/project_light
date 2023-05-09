@@ -19,8 +19,7 @@ void UI_PlayerBackpack::Update(float dt)
     if (_isPlayingEffect)
         _alpha = Clamp(_alpha - dt * _collectItemSpeedEfx, 0, _alpha);
 
-    if (_alpha == 0)
-        _isPlayingEffect = false;
+    _isPlayingEffect = _alpha > 0;
 }
 
 void UI_PlayerBackpack::Draw()
