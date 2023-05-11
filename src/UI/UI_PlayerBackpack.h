@@ -9,7 +9,7 @@ class UI_PlayerBackpack : public GameObject, public IObserver
 {
 private:
     Texture2D _sprite{};
-    float _alpha{255};
+    float _alpha{0};
     bool _isPlayingEffect{false};
     const float _collectItemSizeMultiplier{50.0f};
     const float _collectItemSpeedEfx{200.0f};
