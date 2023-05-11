@@ -91,11 +91,16 @@ int main(void)
     scene.SetTileSet(&tileSprite);
     scene.SetTileData(&tilesData);
 
+    PlayerFlashLight *flashLight = new PlayerFlashLight();
     player = new Player(&collisionData);
+    flashLight->SetPlayer(player);
+    player->SetFlashLight(flashLight);
+
     player->OnRestartGame->Add(player);
     scene.Target = player;
     scene.AddPlayer(player);
     scene.AddForeground(new Weapon());
+    scene.AddBackground(flashLight);
 
     // Sarah
     Sarah *sarah = new Sarah();

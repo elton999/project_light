@@ -15,7 +15,7 @@ bool PlayerFlashLight::IsPointInLight(Vector2 position)
     return false;
 }
 
-void PlayerFlashLight::UpdateLightLogic(float dt)
+void PlayerFlashLight::Update(float dt)
 {
     LightDT += dt * 10;
 
@@ -26,9 +26,9 @@ void PlayerFlashLight::UpdateLightLogic(float dt)
     LightAngle += 180.0f;
 }
 
-void PlayerFlashLight::DrawLight(Vector2 position)
+void PlayerFlashLight::Draw()
 {
-    if (!IsLightOn())
+    if (!IsLightOn() || _player->IsDead())
         return;
 
     float angleLength = LightAngleLength / 2.0f;
@@ -37,5 +37,5 @@ void PlayerFlashLight::DrawLight(Vector2 position)
         if ((int)LightDT % 4 < 2.f)
             lightColor = BLANK;
 
-    DrawCircleSector(position, LightDistance, LightAngle + angleLength, LightAngle - angleLength, LightSegment, lightColor);
+    DrawCircleSector(_player->Position, LightDistance, LightAngle + angleLength, LightAngle - angleLength, LightSegment, lightColor);
 }

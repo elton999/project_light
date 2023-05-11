@@ -36,7 +36,6 @@ public:
     Player(tiles *tileData)
     {
         TilesData = tileData;
-        FlashLight = new PlayerFlashLight();
         PlayerBackpack = new Backpack();
     }
 
@@ -63,6 +62,7 @@ public:
     void Push(float dt);
     void Input();
     void SetPush(Vector2 direction);
+    void SetFlashLight(PlayerFlashLight *flashLight) { FlashLight = flashLight; }
 };
 
 #endif

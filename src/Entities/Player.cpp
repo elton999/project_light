@@ -78,8 +78,6 @@ void Player::Update(float dt)
 {
     _totalTime += dt;
 
-    FlashLight->UpdateLightLogic(dt);
-
     hitEffectTime -= dt;
 
     SpriteAnimation::Update(dt);
@@ -105,7 +103,6 @@ void Player::Draw()
     if (!IsDead())
     {
         DrawCircleV(GetCollisionPosition(), CollisionRadius, SHADOW);
-        FlashLight->DrawLight(Position);
         Vector2 targetPos = Vector2Scale(FlashLight->GetLightDirection(), LineTargetLength);
         targetPos = Vector2Add(Position, targetPos);
     }

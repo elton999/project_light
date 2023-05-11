@@ -4,10 +4,11 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "../Colors.h"
+#include "GameObject.h"
 
 class Player;
 
-class PlayerFlashLight
+class PlayerFlashLight : public GameObject
 {
 private:
     int LightSegment{5};
@@ -28,8 +29,8 @@ public:
 
     void SetPlayer(Player *player) { _player = player; }
 
-    void UpdateLightLogic(float dt);
-    void DrawLight(Vector2 position);
+    void virtual Update(float dt) override;
+    void virtual Draw() override;
 };
 
 #endif // PLAYER_FLASH_LIGHT_H
