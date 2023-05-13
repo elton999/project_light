@@ -1,5 +1,6 @@
 #include "UI_InputTutorial.h"
 #include "../Window.h"
+#include "../Scene/Scene.h"
 
 void UI_InputTutorial::Start()
 {
@@ -37,7 +38,10 @@ void UI_InputTutorial::Update(float dt)
     mouseAnimation->Update(dt);
 
     if (_timeShowingMouseAnimation <= 0)
+    {
+        GetScene()->GetPlayer()->InputIsEnabled = true;
         Hide();
+    }
 }
 
 void UI_InputTutorial::Draw()

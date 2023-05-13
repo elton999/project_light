@@ -43,6 +43,9 @@ void Player::Input()
         return;
     }
 
+    if (!InputIsEnabled)
+        return;
+
     if (IsKeyDown(KEY_A))
         Direction.x = -1;
     if (IsKeyDown(KEY_D))
