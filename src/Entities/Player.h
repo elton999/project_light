@@ -46,6 +46,8 @@ public:
     PlayerFlashLight *FlashLight;
     Backpack *PlayerBackpack;
 
+    bool InputIsEnabled{false};
+
     float LineTargetLength{50.0f};
 
     virtual void Start() override;
